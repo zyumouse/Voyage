@@ -9,11 +9,12 @@ body{
 }
 
 nav{
-    background-image: linear-gradient(to bottom, black, #221133);
+    background-color: #000;
     padding: 20px 50px;
 }
 
 .navTop{
+    background-image: linear-gradient(to bottom, black, #221155);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -26,10 +27,53 @@ nav{
     background-color: #222;
     padding: 10px 20px;
     border-radius: 5px;
+    margin-right: 375px;
+}
+
+.navItemimg{
+    max-width: 20%;
+    height: auto;
 }
 
 .navItem{
-    max-width: 1%;
-    height: auto;
+    padding: 0 5px;
+}
 
+.navBottom{
+    display: flex;
+    justify-content: center;
+    background-color: #215;
+    padding: 10px 5px;
+    border-radius: 0 0 2px 2px;
+    border-color: #333;
+}
+
+.about{
+    color: #fff;
+    text-decoration: underline;
+    transition-duration: 0.4s;
+    padding: 0 50px;
+}
+.about:hover{
+    color: #94f;
+}
+
+.searchInput{
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    margin-right: 10px;
+}
+
+.introduction{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 100px 0;
+    background-color: #307;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
