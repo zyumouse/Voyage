@@ -9,7 +9,7 @@ body{
 }
 
 nav{
-    background-image: linear-gradient(to bottom, black, #221133);
+    background-image: linear-gradient(to bottom, black, #221155);
     padding: 20px 50px;
 }
 
@@ -28,8 +28,9 @@ nav{
     border-radius: 5px;
 }
 
-.navItem{
-    max-width: 1%;
+.navItemimg{
+    max-width: 10%;
     height: auto;
-
 }
+
+
