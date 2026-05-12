@@ -9,12 +9,12 @@ body{
 }
 
 nav{
-    background-color: #000;
-    padding: 20px 50px;
+    background-color: #fff;
+    padding: 0;
 }
 
 .navTop{
-    background-image: linear-gradient(to bottom, black, #221155);
+    background-color: #3039ff;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -41,21 +41,32 @@ nav{
 
 .navBottom{
     display: flex;
-    justify-content: center;
-    background-color: #215;
-    padding: 10px 5px;
-    border-radius: 0 0 2px 2px;
+    justify-content: right;
+    background-color: #00096f;
+    padding: 10px 20px;
     border-color: #333;
 }
 
 .about{
     color: #fff;
     text-decoration: underline;
+    font-size: 90%; 
     transition-duration: 0.4s;
-    padding: 0 50px;
+    padding:0 50px;
+    border-radius: 30px;
+    background-color: #c330ff;
+    max-height: 100%;
+    width: auto;
 }
 .about:hover{
-    color: #94f;
+    color: #c330ff;
+    background-color: #fff;
+}
+
+.aboutSpecialCase{
+    color: #fff;
+    background-color: #c330ff;
+    border-radius: 2px;
 }
 
 .searchInput{
