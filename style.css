@@ -41,10 +41,10 @@ nav{
 
 .navBottom{
     display: flex;
-    justify-content: right;
     background-color: #00096f;
-    padding: 10px 20px;
+    padding: 10px 90px;
     border-color: #333;
+    justify-content: center;
 }
 
 .about{
@@ -81,12 +81,39 @@ nav{
     align-items: center;
     justify-content: center;
     height: 100vh;
-    padding: 100px 0;
-    background-color: #307;
+    background-color: #fff;
     background-size: cover;
     background-position: center;
     color: #fff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
+.contents{
+    background-color: #181233;
+    width: 75vw;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
 
+.introTitle{
+    font-size: 3.5em;
+    margin-bottom: 20px;
+}
+
+.introActions{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.introActionscontainer{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.introActionsitem{
+    flex: 1;
+    padding: 0 0 50px 50px;
+}
