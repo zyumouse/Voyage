@@ -289,3 +289,14 @@ a{
 a:hover{
     color: #fff;
 }
+
+.footerCopyright{
+    font-size: 14px;
+    color: #ccc;
+}
+
+.footerRighttext{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
