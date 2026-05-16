@@ -300,3 +300,73 @@ a:hover{
     align-items: center;
     justify-content: center;
 }
+
+.adminbutton{
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: underline;
+    transition-duration: 0.4s;
+}
+
+.adminbutton:hover{
+    color: #c330ff;
+}
+
+.bookingContainer{
+    padding: 40px;
+}
+
+.bookingLog{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.bookingLogItem{
+    background-color: #eeeeee;
+    padding: 20px;
+    border-radius: 20px;
+    border-top: 20px solid #3039ff;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a2 {
+  font-size: 16px;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a2:hover {background-color: #ddd;}
+
+.show {display: block;}
