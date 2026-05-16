@@ -56,14 +56,39 @@
                     <input type="text" name="name" placeholder="Socrates" class="payInput">
                     <br>
                     <label>IC number</label>
-                    <input type="text" name="IC number" placeholder="+6012 345 6781" class="payInput" maxlength="13">
+                    <input type="text" name="IC_number" placeholder="+6012 345 6781" class="payInput" maxlength="13">
                     <br>
                     <label>Address</label>
                     <input type="text" name="address" placeholder="Diddy Av. 45 20 1785" class="payInput">
                     <br>
                         <div class="dropdown">
                             <button onclick="myFunction()"class="dropbtn" type = "button">Dropdown</button>
-                                <div id = "myDropdown" class="dropdown-content">
+                                <div id = "myDropdown" class="dropdown-content" name="travelorigin">
+                                    <a2> A01: PSR-A</a2>
+                                    <a2> S02: Permatang Damar Laut</a2>
+                                    <a2> S03: Lapangan Terbang Antarabangsa Pulau Pinang</a2>
+                                    <a2> S04: Sungai Tiram</a2>
+                                    <a2> S05: FIZ South</a2>
+                                    <a2> S06: FIZ North</a2>
+                                    <a2> S07: Jalan Tengah</a2>
+                                    <a2> S08: SPICE</a2>
+                                    <a2> S09: Bukit Jambul</a2>
+                                    <a2> S10: Sungai Nibong</a2>
+                                    <a2> S11: Sungai Dua</a2>
+                                    <a2> S12: Batu Uban</a2>
+                                    <a2> S13: Jalan Universiti</a2>
+                                    <a2> S14: Gelugor</a2>
+                                    <a2> S15: Penang Waterfront</a2>
+                                    <a2> S16: Jelutong East</a2>
+                                    <a2> S17: Sungai Pinang</a2>
+                                    <a2> S18: Bandar Sri Pinang</a2>
+                                    <a2> S19: Macallum</a2>
+                                    <a2> S20: Komtar</a2>
+                                </div>
+                            </button>
+                            <h1>-></h1>
+                            <button onclick="myFunction()"class="dropbtn" type = "button">Dropdown</button>
+                                <div id = "myDropdown" class="dropdown-content" name="destination">
                                     <a2> A01: PSR-A</a2>
                                     <a2> S02: Permatang Damar Laut</a2>
                                     <a2> S03: Lapangan Terbang Antarabangsa Pulau Pinang</a2>
@@ -87,6 +112,9 @@
                                 </div>
                             </button>
                         </div>
+                        <label>Card Number</label>
+                        <input type="text" name="card_number" class="payInput" placeholder="Card Number" maxlength="16">
+                        <br>
                         <button type="submit" class="payButton">Checkout!</button>
                     <span class="close">X</span>
                 </form>
