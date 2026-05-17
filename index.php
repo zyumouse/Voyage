@@ -1,3 +1,8 @@
+<?php
+session_start();
+$username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : null;
+$isLoggedIn = isset($_SESSION['user_id']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,22 +17,24 @@
     <nav id = "nav">
         <div class = "navTop">
             <div class = "navItem">
-                <img  class = "navItemimg" src = "./pics/Icon/voyage1.png" alt = ":3">
+                <a href="index.php">
+                    <img class = "navItemimg" src = "./pics/Icon/voyage1.png" alt = "Voyage logo">
+                </a>
             </div>
             <div class = "navItem">
                 <div class = "search">
-                    <input type = "text" placeholder = "Hi I'm useless :3" class="searchInput">
+                    <input type = "text" placeholder = "Search..." class="searchInput">
                     <img src = "./pics/search.png" width = "20" height = "20" alt = "N-nyaaaa~" class="searchIcon">
                 </div>
             </div>
             <div class = "navItem">
-                 <span class="adminbutton" onclick="location.href='admin.php';" style="cursor:pointer;">Admin</span>
+                 <span class="profilebutton" onclick="location.href='<?php echo $isLoggedIn ? 'profile.php' : 'login.html'; ?>';" style="cursor:pointer;"><?php echo $isLoggedIn ? $username : 'Login'; ?></span>
             </div>
         </div>
         <div class = "navBottom">
             <div class = "navItem">
-                <button class="about" onclick="location.href='maps.html';" style="cursor:pointer;">Maps</button>
-                <button class="about" onclick="location.href='booking.html';" style="cursor:pointer;">Booking</button>
+                <button class="about" onclick="location.href='maps.php';" style="cursor:pointer;">Maps</button>
+                <button class="about" onclick="location.href='booking.php';" style="cursor:pointer;">Booking</button>
             </div>
             <div class = "navItem">
                 <button class="aboutSpecialCase" onclick="location.href='signupredir.html';" style="cursor:pointer;">Sign Up!</button>
@@ -42,7 +49,7 @@
                 <div class = "introActionscontainer">
                     <div class="introActionsitem">
                         <h3>Check our coverage!</h3>
-                        <button class = "aboutv2" onclick="location.href='maps.html';" style="cursor:pointer;">Maps</button>
+                        <button class = "aboutv2" onclick="location.href='maps.php';" style="cursor:pointer;">Maps</button>
                     </div>
                     <div class="introActionsitem">
                         <h3>Haven't made an account?</h3>
@@ -50,7 +57,7 @@
                     </div>
                     <div class="introActionsitem">
                         <h3>Need a ride?</h3>
-                        <button class="aboutv2" onclick="location.href='booking.html';" style="cursor:pointer;">Book Here!</button>
+                        <button class="aboutv2" onclick="location.href='booking.php';" style="cursor:pointer;">Book Here!</button>
                     </div>
                 </div>
             </div>

@@ -1,3 +1,8 @@
+<?php
+session_start();
+$username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : null;
+$isLoggedIn = isset($_SESSION['user_id']);
+?>
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
@@ -12,7 +17,9 @@
     <nav id = "nav">
         <div class = "navTop">
             <div class = "navItem">
-                <img  class = "navItemimg" src = "./pics/Icon/voyage1.png" alt = ":3">
+                <a href="index.php">
+                    <img class = "navItemimg" src = "./pics/Icon/voyage1.png" alt = ":3">
+                </a>
             </div>
             <div class = "navItem">
                 <div class = "search">
@@ -21,13 +28,13 @@
                 </div>
             </div>
             <div class = "navItem">
-                 <span class="adminbutton" onclick="location.href='admin.php';" style="cursor:pointer;">Admin</span>
+                 <span class="profilebutton" onclick="location.href='<?php echo $isLoggedIn ? 'profile.php' : 'login.html'; ?>';" style="cursor:pointer;"><?php echo $isLoggedIn ? $username : 'Login'; ?></span>
             </div>
         </div>
         <div class = "navBottom">
             <div class = "navItem">
-                <button class="about" onclick="location.href='index.html';" style="cursor:pointer;">Homepage</button>
-                <button class="about" onclick="location.href='maps.html';" style="cursor:pointer;">Maps</button>
+                <button class="about" onclick="location.href='index.php';" style="cursor:pointer;">Homepage</button>
+                <button class="about" onclick="location.href='maps.php';" style="cursor:pointer;">Maps</button>
             </div>
             <div class = "navItem">
                 <button class="aboutSpecialCase" onclick="location.href='signupredir.html';" style="cursor:pointer;">Sign Up!</button>
@@ -62,8 +69,8 @@
                     <input type="text" name="address" placeholder="Diddy Av. 45 20 1785" class="payInput">
                     <br>
                         <div class="dropdown">
-                            <button onclick="myFunction()"class="dropbtn" type = "button">Dropdown</button>
-                                <div id = "myDropdown" class="dropdown-content" name="travelorigin">
+                            <button onclick="myFunction()"class="dropbtn" type = "button">Origin</button>
+                                <div id = "myDropdown1" class="dropdown-content" name="travelorigin">
                                     <a2> A01: PSR-A</a2>
                                     <a2> S02: Permatang Damar Laut</a2>
                                     <a2> S03: Lapangan Terbang Antarabangsa Pulau Pinang</a2>
@@ -87,8 +94,8 @@
                                 </div>
                             </button>
                             <h1>-></h1>
-                            <button onclick="myFunction()"class="dropbtn" type = "button">Dropdown</button>
-                                <div id = "myDropdown" class="dropdown-content" name="destination">
+                            <button onclick="myFunction()"class="dropbtn" type = "button">Destination</button>
+                                <div id = "myDropdown2" class="dropdown-content" name="destination">
                                     <a2> A01: PSR-A</a2>
                                     <a2> S02: Permatang Damar Laut</a2>
                                     <a2> S03: Lapangan Terbang Antarabangsa Pulau Pinang</a2>

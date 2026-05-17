@@ -1,9 +1,303 @@
-<form action="register.php" method="post">
-  <label>Username</label>
-  <input type="text" name="username" required>
-  <label>Email</label>
-  <input type="email" name="email" required>
-  <label>Password</label>
-  <input type="password" name="password" required>
-  <button type="submit">Sign Up</button>
-</form>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voyage - Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .authPage {
+            min-height: 100vh;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            background: linear-gradient(135deg, #3039ff 0%, #a580ff 100%);
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .authCard {
+            background: rgba(24, 18, 51, 0.98);
+            border-radius: 0;
+            max-width: none;
+            width: 100%;
+            min-height: calc(100vh - 40px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px 40px;
+            box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.25);
+            color: #fff;
+        }
+
+        .authCard h1 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 2.2rem;
+        }
+
+        .authCard p {
+            margin: 0 0 28px;
+            color: #d9d9ff;
+            line-height: 1.6;
+        }
+
+        .authField {
+            margin-bottom: 20px;
+        }
+
+        .authField label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: #f0f0ff;
+            font-size: 0.95rem;
+        }
+
+        .authField input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .authField input:focus {
+            border-color: #c330ff;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .authButton {
+            width: 100%;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 999px;
+            background: #c330ff;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .authButton:hover {
+            background: #7b0dd7;
+        }
+
+        .authCard {
+            padding-bottom: 60px;
+        }
+
+        .authText {
+            margin-top: 180px;
+            text-align: center;
+            color: #d0d0ff;
+        }
+
+        .authText a {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .homeLink {
+            color: #fff;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+
+        .homeLink img {
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 540px) {
+            .authCard {
+                padding: 28px 20px;
+            }
+        }
+
+        .popupOverlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.72);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            z-index: 9999;
+        }
+
+        .popupOverlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popupBox {
+            background: rgba(24, 18, 51, 0.98);
+            border-radius: 24px;
+            padding: 30px 28px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+        }
+
+        .popupBox h2 {
+            margin: 0 0 16px;
+            font-size: 1.9rem;
+            color: #fff;
+        }
+
+        .popupBox p {
+            margin: 0 0 24px;
+            color: #d9d9ff;
+            line-height: 1.6;
+        }
+
+        .popupButton,
+        .popupClose {
+            display: inline-block;
+            margin: 0 8px;
+            padding: 12px 22px;
+            border-radius: 999px;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .popupButton {
+            background: #c330ff;
+            color: #fff;
+        }
+
+        .popupButton:hover {
+            background: #7b0dd7;
+        }
+
+        .popupClose {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="authPage">
+        <div class="authCard">
+            <a class="homeLink" href="index.php">
+                <img src="./pics/Icon/voyage1.png" alt="Voyage logo">
+                Back to Home
+            </a>
+            <h1>Create an account</h1>
+            <p>Register for Voyage and book your LRT tickets quickly and securely.</p>
+            <form id="signupForm" action="register.php" method="post">
+                <div class="authField">
+                    <label for="username">Username</label>
+                    <input id="username" type="text" name="username" required>
+                </div>
+                <div class="authField">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email" required>
+                </div>
+                <div class="authField">
+                    <label for="phone">Phone Number</label>
+                    <input id="phone" type="tel" name="phone" pattern="[0-9+\- ]{7,}" placeholder="123-456-7890" required>
+                </div>
+                <div class="authField">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="password" required>
+                </div>
+                <button class="authButton" type="submit">Sign Up</button>
+            </form>
+            <p class="authText">Already have an account? <a href="login.html">Login here</a>.</p>
+        </div>
+    </div>
+
+    <div id="popupOverlay" class="popupOverlay" aria-hidden="true">
+        <div class="popupBox">
+            <h2 id="popupTitle"></h2>
+            <p id="popupMessage"></p>
+            <button id="popupAction" class="popupButton" type="button">Continue</button>
+            <button id="popupClose" class="popupClose" type="button">Close</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('signupForm');
+            const overlay = document.getElementById('popupOverlay');
+            const popupTitle = document.getElementById('popupTitle');
+            const popupMessage = document.getElementById('popupMessage');
+            const popupAction = document.getElementById('popupAction');
+            const popupClose = document.getElementById('popupClose');
+
+            function showPopup(title, message, actionText, actionUrl) {
+                popupTitle.textContent = title;
+                popupMessage.textContent = message;
+                if (actionText) {
+                    popupAction.textContent = actionText;
+                    popupAction.style.display = 'inline-block';
+                    popupAction.onclick = function () {
+                        if (actionUrl) {
+                            window.location.href = actionUrl;
+                        } else {
+                            closePopup();
+                        }
+                    };
+                } else {
+                    popupAction.style.display = 'none';
+                }
+                overlay.classList.add('visible');
+                overlay.setAttribute('aria-hidden', 'false');
+            }
+
+            function closePopup() {
+                overlay.classList.remove('visible');
+                overlay.setAttribute('aria-hidden', 'true');
+            }
+
+            popupClose.addEventListener('click', closePopup);
+            overlay.addEventListener('click', function (event) {
+                if (event.target === overlay) {
+                    closePopup();
+                }
+            });
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                const formData = new FormData(form);
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showPopup('Success!', data.message || 'Account created successfully.', 'Go to Login', 'login.html');
+                        form.reset();
+                    } else {
+                        showPopup('Error', data.message || 'Unable to create account.');
+                    }
+                })
+                .catch(() => {
+                    showPopup('Error', 'Unable to submit the form right now. Please try again later.');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,11 +1,17 @@
-//Hi zyu I copied this sry
 function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
+  var dropdowns = document.getElementsByClassName("dropdown-content");
+  for (var i = 0; i < dropdowns.length; i++) {
+    var openDropdown = dropdowns[i];
+    if (openDropdown.classList.contains('show')) {
+      openDropdown.classList.remove('show');
+    }
+  }
+  event.target.nextElementSibling.classList.toggle("show");
 }
 
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-contents");
+    var dropdowns = document.getElementsByClassName("dropdown-content");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
       var openDropdown = dropdowns[i];
@@ -16,7 +22,11 @@ window.onclick = function(event) {
   }
 }
 
-const btn = document.querySelector('button');
-btn.addEventListener('click', (event) => {
-  event.preventDefault();
+const btns = document.querySelectorAll('button');
+btns.forEach(btn => {
+  btn.addEventListener('click', (event) => {
+    if (!event.target.matches('.dropbtn')) {
+      event.preventDefault();
+    }
+  });
 });
