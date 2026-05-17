@@ -11,10 +11,13 @@
     }
 
     $name = $_POST['name'];
-    $phone_number = $_POST['phone_number'];
+    $phone_number = $_POST['IC_number'];
+    $address = $_POST['address'];
     $card_number = $_POST['card_number'];
     $ticket_date = $_POST['ticket_date'];
     $ticket_time = $_POST['ticket_time'];
+    $travelorigin = $_POST['travelorigin'];
+    $destination = $_POST['destination'];
 
     $sql = "INSERT INTO tickets (name, phone_number, card_number, ticket_date, ticket_time) 
     VALUES ('$name', '$phone_number', '$card_number', '$ticket_date', '$ticket_time')";

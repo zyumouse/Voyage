@@ -6,6 +6,7 @@ body{
     font-family: 'Lato', sans-serif;
     margin: 0;
     padding: 0;
+    font-size: 24px;
 }
 
 nav{
@@ -41,10 +42,10 @@ nav{
 
 .navBottom{
     display: flex;
-    justify-content: right;
     background-color: #00096f;
-    padding: 10px 20px;
+    padding: 10px 90px;
     border-color: #333;
+    justify-content: center;
 }
 
 .about{
@@ -65,9 +66,17 @@ nav{
 
 .aboutSpecialCase{
     color: #fff;
-    background-color: #c330ff;
+    background-color: #444499;
+    transition-duration: 0.4s;
     border-radius: 2px;
+    font-size: 90%; 
 }
+
+.aboutSpecialCase:hover{
+    color: #444499;
+    background-color: #fff;
+}
+
 
 .searchInput{
     background-color: transparent;
@@ -81,12 +90,283 @@ nav{
     align-items: center;
     justify-content: center;
     height: 100vh;
-    padding: 100px 0;
-    background-color: #307;
+    background-color: #cce;
     background-size: cover;
     background-position: center;
     color: #fff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
+.contents{
+    background-color: #181233;
+    width: 75vw;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
 
+.introTitle{
+    font-size: 3.5em;
+    margin-bottom: 20px;
+}
+
+.introActions{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.introActionscontainer{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.introActionsitem{
+    flex: 1;
+    padding: 0 0 50px 50px;
+}
+
+.aboutv2{
+    color: #000;
+    text-decoration: underline;
+    font-size: 100%;
+    transition-duration: 0.4s;
+    padding:0 50px;
+    border-radius: 5px;
+    background-color: #fff;
+    max-height: 100%;
+    width: auto;
+
+}
+
+.aboutv2:hover{
+    color: #fff;
+    background-color: #c330ff;
+}
+
+.missionandvision{
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 50px 100px;
+    background-color: #777;
+}
+
+.thing1{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    background-color: #ff90ff;
+    border-radius: 20px 20px 0 0;
+}
+
+.thing1Text{
+    max-width: 50%;
+    height: auto;
+    margin-bottom: 10px;
+    padding: 20px;
+}
+
+.thing1img{
+    max-width: 50%;
+    height: auto;
+    padding: 20px;
+}
+
+.thing2{
+    align-items: center;
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: #9379dd;
+}
+
+.thing2Text{
+    max-width: 50%;
+    height: auto;
+    margin-bottom: 10px;
+    padding: 20px;
+}
+
+.thing2img{
+    max-width: 50%;
+    height: auto;
+    padding: 20px;
+}
+
+
+.divide{
+    border-bottom: solid 5px #000;
+}
+
+.thing3{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    background-color: #7079ff;
+    border-radius: 0 0 20px 20px;
+}
+
+.thing3Text{
+    max-width: 50%;
+    height: auto;
+    margin-bottom: 10px;
+    padding: 20px;
+}
+
+.thing3img{
+    max-width: 50%;
+    height: auto;
+    padding: 20px;
+}
+
+.gradientbottomtext{
+    background: -webkit-linear-gradient( right, #3039ff, #a580ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.mainbottomtext{ 
+    background-color: #333;
+    text-align: center;
+    padding: 20px;
+}
+
+.aboutv3{
+    color: #000;
+    text-decoration: underline;
+    font-size: 100%;
+    transition-duration: 0.4s;
+    padding:0 50px;
+    border-radius: 5px;
+    background-image: linear-gradient(to bottom, #f390ff, #a580ff);
+    max-height: 100%;
+    width: auto;
+}
+
+.aboutv3:hover{
+    color: #fff;
+    background-image: linear-gradient(to bottom, #a580ff, #f390ff);
+}
+
+.mainbottomimage{
+    max-width: 100%;
+    height: auto;
+    align-items: center;
+}
+
+.footer{
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    padding: 0 200px;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.footerleft{
+    flex: 2 1 0%;
+}
+
+.footerright{
+    flex: 1 1 0%;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.footerIcons{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+a{
+    color: #ccf;
+}
+
+a:hover{
+    color: #fff;
+}
+
+.footerCopyright{
+    font-size: 14px;
+    color: #ccc;
+}
+
+.footerRighttext{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.adminbutton{
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: underline;
+    transition-duration: 0.4s;
+}
+
+.adminbutton:hover{
+    color: #c330ff;
+}
+
+.bookingContainer{
+    padding: 40px;
+}
+
+.bookingLog{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.bookingLogItem{
+    background-color: #eeeeee;
+    padding: 20px;
+    border-radius: 20px;
+    border-top: 20px solid #3039ff;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a2 {
+  font-size: 16px;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a2:hover {background-color: #ddd;}
+
+.show {display: block;}
