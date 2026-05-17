@@ -29,7 +29,91 @@ h2 {
     border: 3px solid #8800FF;
 }
 
-/* Back link */
+/* Header uses main site styles from style.css; admin.css only contains admin-specific overrides below. */
+
+.siteHeader-actions{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.siteHeader .search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(0,0,0,0.06);
+    padding: var(--search-padding-vertical) var(--search-padding-horizontal);
+    border-radius: calc(var(--search-radius) - 2px);
+}
+
+.siteHeader .searchInput{
+    background: transparent;
+    border: none;
+    color: inherit;
+    padding: 6px 8px;
+    font-size: 0.95rem;
+}
+
+.searchButton{
+    background: transparent;
+    border: none;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.profile-menu {
+    position: relative;
+    display: inline-block;
+    z-index: 1001;
+}
+
+.profile-menu .headerProfileButton{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--profile-padding-vertical) var(--profile-padding-horizontal);
+    border-radius: 999px;
+    background: var(--profile-bg);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.profile-menu .headerProfileButton:hover{
+    background: #3e2cdd;
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 160px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    overflow: hidden;
+    z-index: 1002;
+}
+
+.profile-dropdown a {
+    display: block;
+    padding: 10px 14px;
+    color: #1f1f1f;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.profile-menu:focus-within .profile-dropdown,
+.profile-menu:hover .profile-dropdown {
+    display: block;
+}
+
 .othera {
     text-decoration: none;
     color: #3498db;
@@ -126,4 +210,76 @@ tr:hover {
     td::before {
         content: attr(data-label);
     }
+}
+
+/* Admin form styles */
+.add-trip-form {
+    width: 90%;
+    max-width: 900px;
+    margin: 24px auto 40px;
+    background: rgba(255,255,255,0.95);
+    padding: 18px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 20px;
+    align-items: center;
+}
+
+.add-trip-form label {
+    font-weight: 700;
+    color: #333;
+}
+
+.add-trip-form select,
+.add-trip-form input[type="date"],
+.add-trip-form input[type="time"] {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+
+.add-trip-form button {
+    grid-column: 1 / -1;
+    padding: 12px 18px;
+    background: #8800FF;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 800;
+    cursor: pointer;
+    justify-self: start;
+}
+
+.add-trip-form button:hover {
+    background: #6a00d6;
+}
+
+/* Admin table tweaks */
+table {
+    width: 95%;
+    margin: 20px auto 60px;
+}
+
+th {
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+td a { 
+    color: #8800FF;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+td a:hover { text-decoration: underline; }
+
+/* Make header compact on small screens */
+@media (max-width: 600px) {
+    .siteHeader { padding: 12px; }
+    .siteHeader-title h1 { font-size: 1.1rem; }
+    .siteHeader-search { order: 3; width: 100%; margin-top: 8px; }
+    .siteHeader-actions { order: 2; margin-left: auto; }
+    .add-trip-form { grid-template-columns: 1fr; }
 }
