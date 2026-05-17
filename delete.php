@@ -1,10 +1,16 @@
 <?php
-$servermame = "localhost";
+session_start();
+if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
+    header('Location: login.html');
+    exit;
+}
+
+$servername = "localhost";
 $username = "root";
 $password = "";
 $database = "ticket_system";
 
-$conn = new mysqli($servermame, $username, $password, $database);
+$conn = new mysqli($servername, $username, $password, $database);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }

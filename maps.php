@@ -1,3 +1,8 @@
+<?php
+session_start();
+$username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : null;
+$isLoggedIn = isset($_SESSION['user_id']);
+?>
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
@@ -11,7 +16,9 @@
     <nav id = "nav">
         <div class = "navTop">
             <div class = "navItem">
-                <img  class = "navItemimg" src = "./pics/Icon/voyage1.png" alt = ":3">
+                <a href="index.php">
+                    <img class = "navItemimg" src = "./pics/Icon/voyage1.png" alt = ":3">
+                </a>
             </div>
             <div class = "navItem">
                 <div class = "search">
@@ -20,13 +27,13 @@
                 </div>
             </div>
             <div class = "navItem">
-                 <span class="adminbutton" onclick="location.href='admin.php';" style="cursor:pointer;">Admin</span>
+                 <span class="profilebutton" onclick="location.href='<?php echo $isLoggedIn ? 'profile.php' : 'login.html'; ?>';" style="cursor:pointer;"><?php echo $isLoggedIn ? $username : 'Login'; ?></span>
             </div>
         </div>
         <div class = "navBottom">
             <div class = "navItem">
-                <button class="about" onclick="location.href='index.html';" style="cursor:pointer;">Homepage</button>
-                <button class="about" onclick="location.href='booking.html';" style="cursor:pointer;">Booking</button>
+                <button class="about" onclick="location.href='index.php';" style="cursor:pointer;">Homepage</button>
+                <button class="about" onclick="location.href='booking.php';" style="cursor:pointer;">Booking</button>
             </div>
             <div class = "navItem">
                 <button class="aboutSpecialCase" onclick="location.href='signupredir.html';" style="cursor:pointer;">Sign Up!</button>

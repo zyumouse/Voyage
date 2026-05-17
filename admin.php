@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
+    header('Location: login.html');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +15,7 @@
 </head>
 <body>
     <h1>Admin Panel</h1>
-    <a href="index.html">Back</a>
+    <a href="index.php">Back</a>
     <table border="1">
         <tr>
             <th>ID</th>

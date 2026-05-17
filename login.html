@@ -1,7 +1,27 @@
-<form action="login.php" method="post">
-  <label>Email</label>
-  <input type="email" name="email" required>
-  <label>Password</label>
-  <input type="password" name="password" required>
-  <button type="submit">Login</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-card">
+      <h1 class="auth-title">Login to Your Account</h1>
+      <p class="auth-subtitle">Enter your email and password to continue.</p>
+      <form class="auth-form" action="login.php" method="post">
+        <label for="email">Email</label>
+        <input id="email" type="email" name="email" required>
+
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" required>
+
+        <button type="submit">Login</button>
+      </form>
+      <p class="auth-footer">Don&rsquo;t have an account? <a href="signupredir.html">Sign up</a>.</p>
+    </div>
+  </div>
+</body>
+</html>
