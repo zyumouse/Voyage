@@ -1,4 +1,3 @@
-//Hi zyu I copied this sry
 function myFunction() {
   var dropdowns = document.getElementsByClassName("dropdown-content");
   for (var i = 0; i < dropdowns.length; i++) {
