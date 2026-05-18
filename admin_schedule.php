@@ -38,6 +38,94 @@ $stops = [
     <title>Admin - Schedule</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="admin.css">
+    <style>
+        html, body {
+            min-height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .auth-page {
+            min-height: auto;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 50px 20px 40px;
+        }
+        .auth-card {
+            width: min(1400px, 94%);
+            max-width: 1400px;
+            padding: 40px 32px;
+        }
+        .auth-subtitle {
+            margin: 0 auto 24px;
+            max-width: 760px;
+            color: #4b4f7d;
+        }
+        .available-trips {
+            width: 100%;
+        }
+        .available-trips table {
+            width: 100%;
+            max-width: 1250px;
+            margin: 22px auto 0;
+            border-collapse: collapse;
+            background: #ffffff;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            font-size: 0.88rem;
+        }
+        .available-trips th,
+        .available-trips td {
+            padding: 10px 12px;
+            text-align: center;
+        }
+        .available-trips th {
+            background-image: linear-gradient(to bottom, black, #2c3550);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.88rem;
+        }
+        .available-trips tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .available-trips tr:hover {
+            background-color: #f1f1f1;
+        }
+        .available-trips td {
+            border-bottom: 1px solid #ddd;
+        }
+        .add-trip-form {
+            width: 100%;
+            max-width: 100%;
+            background: rgba(255,255,255,0.95);
+            padding: 22px;
+            border-radius: 18px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px 18px;
+            align-items: center;
+        }
+        .add-trip-form button {
+            grid-column: 2 / 3;
+            justify-self: end;
+            align-self: center;
+        }
+        .available-trips .errorMessage,
+        .available-trips .successMessage {
+            margin: 0 0 16px;
+            padding: 14px 16px;
+            border-radius: 12px;
+        }
+        .available-trips .errorMessage {
+            background: rgba(235, 87, 87, 0.12);
+            color: #b03030;
+        }
+        .available-trips .successMessage {
+            background: rgba(76, 61, 245, 0.12);
+            color: #2d2ba8;
+        }
+    </style>
 </head>
 <body>
     <header class="siteHeader">
@@ -53,14 +141,16 @@ $stops = [
             <a href="maps.php">Maps</a>
             <a href="booking.php">Book</a>
         </nav>
-        <div class="siteHeader-actions">
+        <div class="siteHeader-search">
             <div class="search" role="search">
                 <input type="text" placeholder="Search..." class="searchInput" aria-label="Search">
                 <button class="searchButton" aria-label="Search Button"><img src="./pics/search.png" width="20" height="20" alt="Search" class="searchIcon"></button>
             </div>
+        </div>
+        <div class="siteHeader-actions">
             <?php if (isset($_SESSION['user_id'])): ?>
                 <div class="profile-menu">
-                    <button class="headerProfileButton" aria-expanded="false"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></button>
+                    <button class="headerProfileButton" aria-expanded="false" tabindex="-1"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></button>
                     <div class="profile-dropdown">
                         <a href="profile.php">Account</a>
                         <a href="settings.php">Settings</a>
@@ -76,8 +166,10 @@ $stops = [
             <?php endif; ?>
         </div>
     </header>
-    <h1>Admin - Schedule</h1>
-    <a href="index.php">Back</a>
+    <div class="auth-page">
+        <div class="auth-card">
+            <h1 class="auth-title">Admin - Schedule</h1>
+            <p class="auth-subtitle">Manage available trips for the Voyage booking system.</p>
 
 <?php
 $servername = "localhost";
@@ -132,7 +224,6 @@ if ($tripResult) {
 ?>
 
 <section class="available-trips">
-    <h2>Available Trips</h2>
     <?php if (!empty($addError)): ?>
         <div class="errorMessage"><?php echo htmlspecialchars($addError); ?></div>
     <?php endif; ?>
@@ -165,7 +256,7 @@ if ($tripResult) {
         <button type="submit">Add Available Trip</button>
     </form>
 
-    <table border="1">
+    <table class="admin-customers-table">
         <tr>
             <th>ID</th>
             <th>Origin</th>
@@ -191,7 +282,9 @@ if ($tripResult) {
             <tr><td colspan="6">No available trips have been added yet.</td></tr>
         <?php endif; ?>
     </table>
-</section>
+    </section>
+        </div>
+    </div>
 
 </body>
 </html>

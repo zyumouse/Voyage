@@ -37,7 +37,7 @@ $isAdmin = !empty($_SESSION['is_admin']);
             </div>
             <?php if ($isLoggedIn): ?>
                 <div class="profile-menu">
-                    <button class="headerProfileButton" aria-expanded="false"><?php echo $username; ?></button>
+                    <button class="headerProfileButton" aria-expanded="false" tabindex="-1"><?php echo $username; ?></button>
                     <div class="profile-dropdown">
                         <a href="profile.php">Account</a>
                         <a href="settings.php">Settings</a>
@@ -53,26 +53,7 @@ $isAdmin = !empty($_SESSION['is_admin']);
             <?php endif; ?>
         </div>
     </header>
-    <nav id = "nav">
-        <div class = "navTop">
-            <div class = "navItem">
-                <a href="index.php">
-                    <img class = "navItemimg" src = "./pics/Icon/voyage1.png" alt = "Voyage logo">
-                </a>
-            </div>
-            
-            <div class = "navItem"></div>
-        </div>
-        <div class = "navBottom">
-            <div class = "navItem">
-                <button class="about" onclick="location.href='maps.php';" style="cursor:pointer;">Maps</button>
-                <button class="about" onclick="location.href='booking.php';" style="cursor:pointer;">Booking</button>
-            </div>
-            <div class = "navItem">
-                <button class="aboutSpecialCase" onclick="location.href='signupredir.html';" style="cursor:pointer;">Sign Up!</button>
-            </div>
-        </div>
-    </nav>
+    
     <div class = "introduction">
         <div class = "contents">
             <h1 class = "introTitle">Welcome to Voyage.</h1>

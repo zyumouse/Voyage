@@ -5,8 +5,13 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-// Accept POST from booking page
-$trip_id = isset($_POST['trip_id']) ? (int)$_POST['trip_id'] : 0;
+// Accept trip_id from POST or GET from booking page
+$trip_id = 0;
+if (isset($_POST['trip_id'])) {
+    $trip_id = (int)$_POST['trip_id'];
+} elseif (isset($_GET['trip_id'])) {
+    $trip_id = (int)$_GET['trip_id'];
+}
 
 if ($trip_id <= 0) {
     header('Location: booking.php?error=' . urlencode('Please select a trip first.'));
@@ -42,6 +47,46 @@ if (!$trip) {
     <script src="theme.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <title>Checkout</title>
+    <style>
+        .auth-page {
+            min-height: calc(100vh - 84px);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 70px 20px 32px;
+        }
+        .auth-card {
+            width: min(1250px, 100%);
+            padding: 36px 32px;
+            text-align: left;
+        }
+        .checkout-subtitle {
+            margin: 0 0 20px;
+            color: #4b4f7d;
+            font-size: 1rem;
+        }
+        .bookingContainer {
+            padding: 0;
+        }
+        .bookingLogItem {
+            margin-bottom: 22px;
+        }
+        .addBooking {
+            display: grid;
+            gap: 18px;
+            max-width: 540px;
+        }
+        .addBooking label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+            color: #2b2f58;
+        }
+        .payButton {
+            width: 100%;
+            justify-content: center;
+        }
+    </style>
 </head>
 <body>
     <header class="siteHeader">
@@ -64,7 +109,7 @@ if (!$trip) {
             </div>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <div class="profile-menu">
-                    <button class="headerProfileButton" aria-expanded="false"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></button>
+                    <button class="headerProfileButton" aria-expanded="false" tabindex="-1"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></button>
                     <div class="profile-dropdown">
                         <a href="profile.php">Account</a>
                         <a href="settings.php">Settings</a>
@@ -80,12 +125,29 @@ if (!$trip) {
             <?php endif; ?>
         </div>
     </header>
-    <div class="bookingContainer">
-        <h1 class="bookingTitle">Checkout</h1>
+    <div class="auth-page">
+        <div class="auth-card">
+            <h1 class="auth-title">Checkout</h1>
+            <p class="checkout-subtitle">Complete your trip booking details and secure your ticket.</p>
+            <div class="bookingContainer">
+        <?php
+            $departure = new DateTime($trip['ticket_date'] . ' ' . $trip['ticket_time']);
+            $arrival = new DateTime($trip['ticket_date'] . ' ' . $trip['estimated_arrival_time']);
+            if ($arrival < $departure) {
+                $arrival->modify('+1 day');
+            }
+            $duration = $departure->diff($arrival)->format('%h hr %i min');
+        ?>
         <div class="bookingLogItem">
             <div>
                 <h2><?php echo htmlspecialchars($trip['origin']); ?> &rarr; <?php echo htmlspecialchars($trip['destination']); ?></h2>
-                <h4>Trip on <?php echo date('d/m/Y', strtotime($trip['ticket_date'])); ?> at <?php echo date('H:i', strtotime($trip['ticket_time'])); ?></h4>
+                <h4><?php echo htmlspecialchars(date('d/m/Y', strtotime($trip['ticket_date']))); ?> at <?php echo htmlspecialchars(date('H:i', strtotime($trip['ticket_time']))); ?></h4>
+                <p class="bookingLogMeta">Estimated arrival: <?php echo htmlspecialchars(date('H:i', strtotime($trip['estimated_arrival_time']))); ?> &bull; Duration <?php echo htmlspecialchars($duration); ?></p>
+            </div>
+            <div>
+                <h3>Route details</h3>
+                <h4>Departure: <?php echo htmlspecialchars($trip['origin']); ?></h4>
+                <h4>Destination: <?php echo htmlspecialchars($trip['destination']); ?></h4>
             </div>
         </div>
 
@@ -93,20 +155,18 @@ if (!$trip) {
             <input type="hidden" name="trip_id" value="<?php echo (int)$trip['id']; ?>">
 
             <label for="name">Name</label>
-            <input id="name" type="text" name="name" placeholder="Socrates" class="payInput" required>
+            <input id="name" type="text" name="name" placeholder="" class="payInput" required>
 
-            <label for="IC_number">IC number</label>
-            <input id="IC_number" type="text" name="IC_number" placeholder="+6012 345 6781" class="payInput" maxlength="13" required>
-
-            <label for="address">Address</label>
-            <input id="address" type="text" name="address" placeholder="Diddy Av. 45 20 1785" class="payInput" required>
+            <label for="IC_number">Phone Number</label>
+            <input id="IC_number" type="text" name="IC_number" placeholder="" class="payInput" maxlength="13" required>
 
             <label for="card_number">Card Number</label>
-            <input id="card_number" type="text" name="card_number" class="payInput" placeholder="Card Number" maxlength="19" required>
+            <input id="card_number" type="text" name="card_number" class="payInput" placeholder="" maxlength="19">
 
             <button type="submit" class="payButton">Confirm & Pay</button>
         </form>
-
+            </div>
+        </div>
     </div>
 </body>
 </html>

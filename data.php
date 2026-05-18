@@ -30,7 +30,6 @@ $conn->query("CREATE TABLE IF NOT EXISTS tickets (
     user_id INT NOT NULL,
     name VARCHAR(100) NOT NULL,
     phone_number VARCHAR(30) NOT NULL,
-    address VARCHAR(255) NOT NULL,
     origin VARCHAR(100) NOT NULL,
     destination VARCHAR(100) NOT NULL,
     card_number VARCHAR(32) NOT NULL,
@@ -44,7 +43,6 @@ $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS trip_id INT NOT NULL 
 $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS user_id INT NOT NULL DEFAULT 0");
 $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS name VARCHAR(100) NOT NULL DEFAULT ''");
 $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS phone_number VARCHAR(30) NOT NULL DEFAULT ''");
-$conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS address VARCHAR(255) NOT NULL DEFAULT ''");
 $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS card_number VARCHAR(32) NOT NULL DEFAULT ''");
 $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS origin VARCHAR(100) NOT NULL DEFAULT ''");
 $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS destination VARCHAR(100) NOT NULL DEFAULT ''");
@@ -54,7 +52,6 @@ $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS estimated_arrival_tim
 
 $name = isset($_POST['name']) ? trim($_POST['name']) : '';
 $phone_number = isset($_POST['IC_number']) ? trim($_POST['IC_number']) : '';
-$address = isset($_POST['address']) ? trim($_POST['address']) : '';
 $trip_id = isset($_POST['trip_id']) ? (int)$_POST['trip_id'] : 0;
 $card_number = isset($_POST['card_number']) ? trim($_POST['card_number']) : '';
 
@@ -65,15 +62,8 @@ if ($name === '') {
 if ($phone_number === '') {
     $errors[] = 'IC number is required.';
 }
-if ($address === '') {
-    $errors[] = 'Address is required.';
-}
 if ($trip_id <= 0) {
     $errors[] = 'Please select a valid available trip.';
-}
-$cardDigits = preg_replace('/\D+/', '', $card_number);
-if (strlen($cardDigits) < 12) {
-    $errors[] = 'Please enter a valid card number.';
 }
 
 if (!empty($errors)) {
@@ -94,8 +84,8 @@ if (!$trip) {
 }
 
 $userId = (int)$_SESSION['user_id'];
-$stmt = $conn->prepare('INSERT INTO tickets (trip_id, user_id, name, phone_number, address, origin, destination, card_number, ticket_date, ticket_time, estimated_arrival_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-$stmt->bind_param('iisssssssss', $trip_id, $userId, $name, $phone_number, $address, $trip['origin'], $trip['destination'], $cardDigits, $trip['ticket_date'], $trip['ticket_time'], $trip['estimated_arrival_time']);
+$stmt = $conn->prepare('INSERT INTO tickets (trip_id, user_id, name, phone_number, origin, destination, card_number, ticket_date, ticket_time, estimated_arrival_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+$stmt->bind_param('iissssssss', $trip_id, $userId, $name, $phone_number, $trip['origin'], $trip['destination'], $card_number, $trip['ticket_date'], $trip['ticket_time'], $trip['estimated_arrival_time']);
 
 if ($stmt->execute()) {
     header('Location: booking.php?success=1');

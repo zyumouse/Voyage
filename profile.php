@@ -36,6 +36,15 @@ if (!$user) {
     <script src="theme.js" defer></script>
     <title>My Profile</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-page {
+            min-height: calc(100vh - 84px);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 70px 20px 32px;
+        }
+    </style>
 </head>
 <body>
     <header class="siteHeader">
@@ -60,7 +69,7 @@ if (!$user) {
         <div class="siteHeader-actions">
             <?php if (isset($_SESSION['user_id'])): ?>
                 <div class="profile-menu">
-                    <button class="headerProfileButton" aria-expanded="false"><?php echo htmlspecialchars($user['username']); ?></button>
+                    <button class="headerProfileButton" aria-expanded="false" tabindex="-1"><?php echo htmlspecialchars($user['username']); ?></button>
                     <div class="profile-dropdown">
                         <a href="profile.php">Account</a>
                         <a href="settings.php">Settings</a>
@@ -86,10 +95,9 @@ if (!$user) {
           <div class="profile-row"><span>Created:</span> <?php echo htmlspecialchars($user['created_at']); ?></div>
           <div class="profile-row"><span>Role:</span> <?php echo $user['is_admin'] ? 'Administrator' : 'Regular user'; ?></div>
         </div>
-        <div class="auth-actions">
-          <a class="auth-link" href="index.php">Back to Home</a>
-          <a class="auth-link" href="logout.php">Logout</a>
-        </div>
+                <div class="auth-actions">
+                    <a class="auth-link" href="logout.php">Logout</a>
+                </div>
       </div>
     </div>
 </body>

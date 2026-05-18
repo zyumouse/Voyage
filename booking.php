@@ -36,6 +36,77 @@ $stops = [
     <link rel="stylesheet" href="style.css">
     <title>Voyage - Booking</title>
     <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico">
+    <style>
+        .auth-page.booking-page {
+            min-height: calc(100vh - 84px);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 70px 20px 32px;
+        }
+        .booking-page .auth-card {
+            width: min(1200px, 100%);
+            padding: 36px 32px;
+            text-align: left;
+        }
+        .booking-page .bookingContainer {
+            padding: 0;
+        }
+        .booking-page .bookingTitle {
+            margin: 0 0 8px;
+        }
+        .booking-page .bookingLog {
+            gap: 24px;
+        }
+        .booking-page .addBooking {
+            margin-top: 32px;
+        }
+        .booking-page .payTitle {
+            margin-bottom: 16px;
+        }
+        .trip-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin: 8px 0 18px;
+        }
+        .trip-card {
+            display: block;
+            width: calc(50% - 8px);
+            box-sizing: border-box;
+            background: #ffffff;
+            border: 1px solid #e6e7fb;
+            border-radius: 12px;
+            padding: 14px;
+            cursor: pointer;
+            transition: box-shadow 0.18s ease, border-color 0.18s ease;
+        }
+        .trip-card input[type="radio"] {
+            display: none;
+        }
+        .trip-card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .trip-card .trip-route {
+            font-weight: 700;
+            color: #1f2360;
+        }
+        .trip-card .trip-datetime,
+        .trip-card .trip-eta {
+            color: #4b4f7d;
+            font-size: 0.95rem;
+        }
+        .trip-card input[type="radio"]:checked + .trip-card-content {
+            border-radius: 10px;
+            box-shadow: 0 12px 30px rgba(46,37,119,0.12);
+            border-color: #6356ff;
+        }
+        @media (max-width: 720px) {
+            .trip-card { width: 100%; }
+        }
+    </style>
 </head>
 <body>
     <header class="siteHeader">
@@ -58,7 +129,7 @@ $stops = [
             </div>
             <?php if ($isLoggedIn): ?>
                 <div class="profile-menu">
-                    <button class="headerProfileButton" aria-expanded="false"><?php echo $username; ?></button>
+                    <button class="headerProfileButton" aria-expanded="false" tabindex="-1"><?php echo $username; ?></button>
                     <div class="profile-dropdown">
                         <a href="profile.php">Account</a>
                         <a href="settings.php">Settings</a>
@@ -74,29 +145,13 @@ $stops = [
             <?php endif; ?>
         </div>
     </header>
-    <nav id="nav">
-        <div class="navTop">
-            <div class="navItem">
-                <a href="index.php">
-                    <img class="navItemimg" src="./pics/Icon/voyage1.png" alt="Voyage logo">
-                </a>
-            </div>
-            
-            <div class="navItem"></div>
-        </div>
-        <div class="navBottom">
-            <div class="navItem">
-                <button class="about" onclick="location.href='index.php';" style="cursor:pointer;">Homepage</button>
-                <button class="about" onclick="location.href='maps.php';" style="cursor:pointer;">Maps</button>
-            </div>
-            <div class="navItem">
-                <button class="aboutSpecialCase" onclick="location.href='signupredir.html';" style="cursor:pointer;">Sign Up!</button>
-            </div>
-        </div>
-    </nav>
+    
 
-    <div class="bookingContainer">
-        <h1 class="bookingTitle">Your Trips</h1>
+    <div class="auth-page booking-page">
+        <div class="auth-card">
+            <h1 class="auth-title">Your Trips</h1>
+            <p class="auth-subtitle">Review your current bookings and select an available trip to reserve.</p>
+            <div class="bookingContainer">
 
         <?php if (!$isLoggedIn): ?>
             <div class="bookingNotice">
@@ -120,7 +175,6 @@ $stops = [
                     user_id INT NOT NULL,
                     name VARCHAR(100) NOT NULL,
                     phone_number VARCHAR(30) NOT NULL,
-                    address VARCHAR(255) NOT NULL,
                     origin VARCHAR(100) NOT NULL,
                     destination VARCHAR(100) NOT NULL,
                     card_number VARCHAR(32) NOT NULL,
@@ -133,7 +187,6 @@ $stops = [
                 $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS user_id INT NOT NULL DEFAULT 0");
                 $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS name VARCHAR(100) NOT NULL DEFAULT ''");
                 $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS phone_number VARCHAR(30) NOT NULL DEFAULT ''");
-                $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS address VARCHAR(255) NOT NULL DEFAULT ''");
                 $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS card_number VARCHAR(32) NOT NULL DEFAULT ''");
                 $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS origin VARCHAR(100) NOT NULL DEFAULT ''");
                 $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS destination VARCHAR(100) NOT NULL DEFAULT ''");
@@ -142,14 +195,14 @@ $stops = [
                 $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS estimated_arrival_time TIME NOT NULL DEFAULT '00:00:00'");
 
                 $availableTrips = [];
-                $tripResult = $conn->query("SELECT id, origin, destination, ticket_date, ticket_time FROM available_tickets ORDER BY ticket_date, ticket_time");
+                $tripResult = $conn->query("SELECT id, origin, destination, ticket_date, ticket_time, estimated_arrival_time FROM available_tickets ORDER BY ticket_date, ticket_time");
                 if ($tripResult) {
                     while ($tripRow = $tripResult->fetch_assoc()) {
                         $availableTrips[] = $tripRow;
                     }
                 }
 
-                $stmt = $conn->prepare('SELECT origin, destination, ticket_date, ticket_time, created_at FROM tickets WHERE user_id = ? ORDER BY created_at DESC');
+                $stmt = $conn->prepare('SELECT origin, destination, ticket_date, ticket_time, estimated_arrival_time, created_at FROM tickets WHERE user_id = ? ORDER BY created_at DESC');
                 $stmt->bind_param('i', $_SESSION['user_id']);
                 $stmt->execute();
                 $result = $stmt->get_result();
@@ -164,14 +217,28 @@ $stops = [
             <div class="bookingLog">
                 <?php if (!empty($result) && $result->num_rows > 0): ?>
                     <?php while ($row = $result->fetch_assoc()): ?>
+                        <?php
+                            $departureDateTime = date('d/m/Y @ H:i', strtotime($row['ticket_date'] . ' ' . $row['ticket_time']));
+                            $etaTime = date('H:i', strtotime($row['estimated_arrival_time']));
+                            $createdDateTime = date('d/m/Y H:i', strtotime($row['created_at']));
+                            $departure = new DateTime($row['ticket_date'] . ' ' . $row['ticket_time']);
+                            $arrival = new DateTime($row['ticket_date'] . ' ' . $row['estimated_arrival_time']);
+                            if ($arrival < $departure) {
+                                $arrival->modify('+1 day');
+                            }
+                            $durationText = $departure->diff($arrival)->format('%h hr %i min');
+                        ?>
                         <div class="bookingLogItem">
                             <div>
                                 <h2><?php echo htmlspecialchars($row['origin']); ?> &rarr; <?php echo htmlspecialchars($row['destination']); ?></h2>
-                                <h4>Booked on <?php echo date('d/m/Y', strtotime($row['created_at'])); ?></h4>
+                                <h4>Booked on <?php echo htmlspecialchars($createdDateTime); ?></h4>
+                                <p class="bookingLogMeta">Trip date: <?php echo htmlspecialchars(date('d/m/Y', strtotime($row['ticket_date']))); ?> | Carrier: Voyage</p>
+                                <p class="bookingLogMeta">Route: <?php echo htmlspecialchars($row['origin']); ?> → <?php echo htmlspecialchars($row['destination']); ?></p>
                             </div>
                             <div>
-                                <h3><?php echo htmlspecialchars(date('d/m/Y', strtotime($row['ticket_date'])) . ' @ ' . date('H:i', strtotime($row['ticket_time']))); ?></h3>
-                                <h4>ETA <?php echo htmlspecialchars(date('H:i', strtotime($row['estimated_arrival_time']))); ?></h4>
+                                <h3><?php echo htmlspecialchars($departureDateTime); ?></h3>
+                                <h4>ETA <?php echo htmlspecialchars($etaTime); ?> • Duration <?php echo htmlspecialchars($durationText); ?></h4>
+                                <h4>Ticket status: Confirmed</h4>
                             </div>
                         </div>
                     <?php endwhile; ?>
@@ -184,41 +251,27 @@ $stops = [
 
             <div class="addBooking">
                 <h1 class="payTitle">Choose Your Trip</h1>
-                <form action="checkout.php" method="POST">
-                    <?php if (empty($availableTrips)): ?>
-                        <div class="bookingNotice">
-                            <p>No available trips have been provided by the admin yet.</p>
-                            <p>Please check back later or contact support.</p>
-                        </div>
-                    <?php else: ?>
-                        <label for="trip_id">Choose available trip</label>
-                        <select id="trip_id" name="trip_id" class="payInput" required>
-                            <option value="">Select available trip</option>
-                            <?php foreach ($availableTrips as $trip): ?>
-                                <option value="<?php echo htmlspecialchars($trip['id']); ?>"><?php echo htmlspecialchars($trip['origin'] . ' → ' . $trip['destination'] . ' — ' . date('d/m/Y', strtotime($trip['ticket_date'])) . ' @ ' . date('H:i', strtotime($trip['ticket_time'])) . ' (ETA ' . date('H:i', strtotime($trip['estimated_arrival_time'])) . ')'); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-
-                        <button id="checkoutButton" type="submit" class="payButton" style="display: none;">Proceed to checkout</button>
-                    <?php endif; ?>
-                </form>
+                <?php if (empty($availableTrips)): ?>
+                    <div class="bookingNotice">
+                        <p>No available trips have been provided by the admin yet.</p>
+                        <p>Please check back later or contact support.</p>
+                    </div>
+                <?php else: ?>
+                    <div class="trip-cards">
+                        <?php foreach ($availableTrips as $trip): ?>
+                            <a class="trip-card" href="checkout.php?trip_id=<?php echo urlencode($trip['id']); ?>">
+                                <div class="trip-card-content">
+                                    <div class="trip-route"><?php echo htmlspecialchars($trip['origin'] . ' → ' . $trip['destination']); ?></div>
+                                    <div class="trip-datetime"><?php echo htmlspecialchars(date('d/m/Y', strtotime($trip['ticket_date'])) . ' @ ' . date('H:i', strtotime($trip['ticket_time']))); ?></div>
+                                    <div class="trip-eta">ETA <?php echo htmlspecialchars(date('H:i', strtotime($trip['estimated_arrival_time']))); ?></div>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
             </div>
         <?php endif; ?>
+        </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var tripSelect = document.getElementById('trip_id');
-            var checkoutButton = document.getElementById('checkoutButton');
-            if (tripSelect && checkoutButton) {
-                tripSelect.addEventListener('change', function() {
-                    if (tripSelect.value) {
-                        checkoutButton.style.display = 'inline-flex';
-                    } else {
-                        checkoutButton.style.display = 'none';
-                    }
-                });
-            }
-        });
-    </script>
 </body>
 </html>

@@ -13,6 +13,15 @@ $username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username'
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-page {
+            min-height: calc(100vh - 84px);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 70px 20px 32px;
+        }
+    </style>
     <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
     <script src="theme.js" defer></script>
 </head>
@@ -39,7 +48,7 @@ $username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username'
         <div class="siteHeader-actions">
             <?php if (isset($_SESSION['user_id'])): ?>
                 <div class="profile-menu">
-                    <button class="headerProfileButton" aria-expanded="false"><?php echo $username; ?></button>
+                    <button class="headerProfileButton" aria-expanded="false" tabindex="-1"><?php echo $username; ?></button>
                     <div class="profile-dropdown">
                         <a href="profile.php">Account</a>
                         <a href="settings.php">Settings</a>
@@ -62,10 +71,6 @@ $username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username'
             <div class="theme-card">
                 <p>Current theme: <strong id="themeStatus">Loading...</strong></p>
                 <button id="themeToggle" type="button" class="theme-button">Switch theme</button>
-            </div>
-            <div class="auth-actions">
-                <a class="auth-link" href="profile.php">Back to Profile</a>
-                <a class="auth-link" href="index.php">Back to Home</a>
             </div>
         </div>
     </div>

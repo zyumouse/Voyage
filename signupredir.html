@@ -8,107 +8,12 @@
     <title>Voyage - Sign Up</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .authPage {
-            min-height: 100vh;
-            display: flex;
-            align-items: stretch;
-            justify-content: center;
-            background: linear-gradient(135deg, #3039ff 0%, #a580ff 100%);
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .authCard {
-            background: rgba(24, 18, 51, 0.98);
-            border-radius: 0;
-            max-width: none;
-            width: 100%;
-            min-height: calc(100vh - 40px);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 60px 40px;
-            box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.25);
-            color: #fff;
-        }
-
-        .authCard h1 {
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-size: 2.2rem;
-        }
-
-        .authCard p {
-            margin: 0 0 28px;
-            color: #d9d9ff;
-            line-height: 1.6;
-        }
-
-        .authField {
-            margin-bottom: 20px;
-        }
-
-        .authField label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 700;
-            color: #f0f0ff;
-            font-size: 0.95rem;
-        }
-
-        .authField input {
-            width: 100%;
-            padding: 14px 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            background: rgba(255, 255, 255, 0.08);
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-        }
-
-        .authField input:focus {
-            border-color: #c330ff;
-            background: rgba(255, 255, 255, 0.12);
-        }
-
-        .authButton {
-            width: 100%;
-            padding: 14px 18px;
-            border: none;
-            border-radius: 999px;
-            background: #c330ff;
-            color: #fff;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .authButton:hover {
-            background: #7b0dd7;
-        }
-
-        .authCard {
-            padding-bottom: 60px;
-        }
-
-        .authText {
-            margin-top: 180px;
-            text-align: center;
-            color: #d0d0ff;
-        }
-
-        .authText a {
-            color: #fff;
-            text-decoration: underline;
-        }
-
         .homeLink {
-            color: #fff;
+            color: #1a1c47;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            margin-bottom: 24px;
+            margin: 0 auto 24px;
             font-weight: 700;
         }
 
@@ -117,10 +22,77 @@
             margin-right: 10px;
         }
 
-        @media (max-width: 540px) {
-            .authCard {
-                padding: 28px 20px;
-            }
+        .auth-page {
+            min-height: calc(100vh - 84px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            margin: 0;
+            background: linear-gradient(135deg, #3039ff 0%, #a580ff 100%);
+        }
+
+        .auth-page .auth-card {
+            width: min(700px, 100%);
+            background: #ffffffee;
+            border-radius: 24px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+            padding: 42px 38px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .auth-form {
+            width: min(520px, 100%);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .authField {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .authField label {
+            width: 100%;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .authField input {
+            width: 100%;
+            max-width: 520px;
+            min-height: 46px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            border: 1px solid rgba(26, 28, 71, 0.18);
+            background: #f8f9ff;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .auth-page .auth-card h1,
+        .auth-page .auth-card .auth-title {
+            color: #1a1c47;
+            margin: 0;
+        }
+
+        .auth-page .auth-card p,
+        .auth-page .auth-card .auth-subtitle {
+            color: #4b4f7d;
+            margin: 0;
+        }
+
+        .auth-page .auth-card .auth-footer {
+            margin-top: 0;
         }
 
         .popupOverlay {
@@ -142,24 +114,24 @@
         }
 
         .popupBox {
-            background: rgba(24, 18, 51, 0.98);
+            background: rgba(255, 255, 255, 0.98);
             border-radius: 24px;
             padding: 30px 28px;
             max-width: 420px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.15);
         }
 
         .popupBox h2 {
             margin: 0 0 16px;
             font-size: 1.9rem;
-            color: #fff;
+            color: #1a1c47;
         }
 
         .popupBox p {
             margin: 0 0 24px;
-            color: #d9d9ff;
+            color: #4b4f7d;
             line-height: 1.6;
         }
 
@@ -175,17 +147,17 @@
         }
 
         .popupButton {
-            background: #c330ff;
+            background: #4c3df5;
             color: #fff;
         }
 
         .popupButton:hover {
-            background: #7b0dd7;
+            background: #3e2cdd;
         }
 
         .popupClose {
-            background: rgba(255, 255, 255, 0.12);
-            color: #fff;
+            background: rgba(99, 86, 255, 0.1);
+            color: #1a1c47;
         }
     </style>
 </head>
@@ -213,15 +185,11 @@
             </div>
         </div>
     </header>
-    <div class="authPage">
-        <div class="authCard">
-            <a class="homeLink" href="index.php">
-                <img src="./pics/Icon/voyage1.png" alt="Voyage logo">
-                Back to Home
-            </a>
-            <h1>Create an account</h1>
-            <p>Register for Voyage and book your LRT tickets quickly and securely.</p>
-            <form id="signupForm" action="register.php" method="post">
+    <div class="auth-page">
+        <div class="auth-card">
+            <h1 class="auth-title">Create an account</h1>
+            <p class="auth-subtitle">Register for Voyage and book your LRT tickets quickly and securely.</p>
+            <form id="signupForm" class="auth-form" action="register.php" method="post">
                 <div class="authField">
                     <label for="username">Username</label>
                     <input id="username" type="text" name="username" required>
@@ -238,9 +206,9 @@
                     <label for="password">Password</label>
                     <input id="password" type="password" name="password" required>
                 </div>
-                <button class="authButton" type="submit">Sign Up</button>
+                <button type="submit">Sign Up</button>
             </form>
-            <p class="authText">Already have an account? <a href="login.html">Login here</a>.</p>
+            <p class="auth-footer">Already have an account? <a href="login.html">Login here</a>.</p>
         </div>
     </div>
 

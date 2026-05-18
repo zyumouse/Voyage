@@ -15,6 +15,45 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
     <title>Admin - Customers</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="admin.css">
+    <style>
+        .auth-page {
+            min-height: calc(100vh - 84px);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 50px 20px 40px;
+        }
+        .auth-card {
+            width: min(1400px, 94%);
+            max-width: 1400px;
+            padding: 32px 28px;
+        }
+        .auth-subtitle {
+            margin: 0 auto 24px;
+            max-width: 760px;
+            color: #4b4f7d;
+        }
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 18px;
+            padding: 0 16px;
+        }
+        .admin-customers-table {
+            width: 100%;
+            max-width: calc(100% - 32px);
+            border-collapse: collapse;
+            margin: 0 auto;
+            font-size: 0.97rem;
+        }
+        .admin-customers-table th,
+        .admin-customers-table td {
+            padding: 14px 16px;
+        }
+        .admin-customers-table th {
+            font-size: 1rem;
+        }
+    </style>
 </head>
 <body>
     <header class="siteHeader">
@@ -37,7 +76,7 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
             </div>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <div class="profile-menu">
-                    <button class="headerProfileButton" aria-expanded="false"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></button>
+                    <button class="headerProfileButton" aria-expanded="false" tabindex="-1"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></button>
                     <div class="profile-dropdown">
                         <a href="profile.php">Account</a>
                         <a href="settings.php">Settings</a>
@@ -53,9 +92,10 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
             <?php endif; ?>
         </div>
     </header>
-    <h1>Admin - Customers</h1>
-    <a href="index.php">Back</a>
-
+    <div class="auth-page">
+        <div class="auth-card">
+            <h1 class="auth-title">Admin - Customers</h1>
+            <p class="auth-subtitle">Review and manage customer bookings from the admin dashboard.</p>
 <?php
 $servername = "localhost";
 $username = "root";
@@ -74,8 +114,8 @@ if(!$result) {
     die("Query failed: " . $conn->error);
 }
 ?>
-
-<table border="1">
+            <div class="table-wrapper">
+            <table class="admin-customers-table">
     <tr>
         <th>Booking ID</th>
         <th>Account ID</th>
@@ -108,7 +148,10 @@ if(!$result) {
     }
     $conn->close();
     ?>
-</table>
+            </table>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

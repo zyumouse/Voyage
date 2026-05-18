@@ -62,7 +62,8 @@ nav{
     z-index: 1001;
 }
 
-.profilebutton {
+.profilebutton,
+.headerProfileButton {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -70,8 +71,14 @@ nav{
     color: #fff;
     padding: 10px 18px;
     border-radius: 30px;
-    cursor: pointer;
+    cursor: default;
+    user-select: none;
     transition: background-color 0.2s ease;
+    pointer-events: none;
+}
+
+.profile-menu:hover .headerProfileButton {
+    background-color: #a02bde;
 }
 
 .profilebutton:hover,
@@ -163,9 +170,10 @@ body.light-mode .searchInput {
 
 .introduction{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    height: 100vh;
+    min-height: calc(100vh - 140px);
+    padding: 140px 0 60px;
     background-color: #cce;
     background-size: cover;
     background-position: center;
@@ -174,8 +182,11 @@ body.light-mode .searchInput {
 }
 
 .contents{
-    background-color: #181233;
-    width: 75vw;
+    background-color: rgba(24, 18, 51, 0.95);
+    width: min(90vw, 1100px);
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -521,15 +532,30 @@ body.light-mode .headerProfileButton {
     padding: 20px;
     border-radius: 20px;
     border-top: 20px solid #3039ff;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) minmax(180px, 260px);
+    gap: 18px;
+    align-items: start;
+    min-width: 0;
 }
 
 .bookingLogItem.empty {
+    grid-template-columns: 1fr;
     flex-direction: column;
     align-items: center;
     text-align: center;
     border-top-color: #777;
+}
+
+.bookingLogItem h4,
+.bookingLogItem h3 {
+    margin: 8px 0 0;
+}
+
+.bookingLogItem p.bookingLogMeta {
+    margin: 10px 0 0;
+    font-size: 0.95rem;
+    color: #5f5f79;
 }
 
 .payInput,
@@ -641,6 +667,13 @@ body.light-mode .headerProfileButton {
 .auth-form {
   display: grid;
   gap: 18px;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.authField {
+  width: 100%;
 }
 
 .auth-form label {
@@ -648,6 +681,11 @@ body.light-mode .headerProfileButton {
   text-align: left;
   font-size: 0.95rem;
   color: #373a6e;
+}
+
+.auth-form input,
+.auth-form button {
+  box-sizing: border-box;
 }
 
 .auth-form input {
@@ -686,6 +724,10 @@ body.light-mode .headerProfileButton {
   margin-top: 20px;
   font-size: 0.95rem;
   color: #5a5f87;
+  width: 100%;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .auth-footer a {
