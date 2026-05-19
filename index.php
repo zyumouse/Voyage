@@ -17,142 +17,119 @@ $isAdmin = !empty($_SESSION['is_admin']);
     <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico">
 </head>
 <body>
-    <header class="siteHeader">
-        <div class="siteHeader-brand">
-            <a href="index.php"><img class="siteHeader-logo" src="./pics/Icon/voyage1.png" alt="Voyage logo"></a>
-            <div class="siteHeader-title">
-                <h1>Voyage</h1>
-                <p>A better LRT booking experience</p>
+    <?php include __DIR__ . '/header.php'; ?>
+    
+    <main class="hero-section">
+        <div class="hero-copy">
+            <span class="hero-eyebrow">Light Rail Transit</span>
+            <h1 class="hero-title">Voyage makes every LRT journey simple, fast, and dependable.</h1>
+            <p>Find stations, book tickets, and plan your commute with a modern transit experience built for riders who want clarity and control.</p>
+            <div class="hero-actions">
+                <a class="primary-button" href="booking.php">Book a Ride</a>
+                <a class="secondary-button" href="maps.php">View Route Map</a>
+                <a class="secondary-button" href="signupredir.html">Create Account</a>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card"><strong>21</strong><span>Stations</span></div>
+                <div class="stat-card"><strong>7</strong><span>Lines</span></div>
+                <div class="stat-card"><strong>99%</strong><span>On-time service</span></div>
+                <div class="stat-card"><strong>Fast</strong><span>Mobile ticketing</span></div>
             </div>
         </div>
-        <nav class="siteHeader-nav">
-            <a href="index.php">Home</a>
-            <a href="maps.php">Maps</a>
-            <a href="booking.php">Book</a>
-        </nav>
-        <div class="siteHeader-actions">
-            <div class="search" role="search">
-                <input type="text" placeholder="Search..." class="searchInput" aria-label="Search">
-                <button class="searchButton" aria-label="Search Button"><img src="./pics/search.png" width="20" height="20" alt="Search" class="searchIcon"></button>
-            </div>
-            <?php if ($isLoggedIn): ?>
-                <div class="profile-menu">
-                    <button class="headerProfileButton" aria-expanded="false"><?php echo $username; ?></button>
-                    <div class="profile-dropdown">
-                        <a href="profile.php">Account</a>
-                        <a href="settings.php">Settings</a>
-                        <?php if ($isAdmin): ?>
-                            <a href="admin_schedule.php">Schedule</a>
-                            <a href="admin_customers.php">Customers</a>
-                        <?php endif; ?>
-                        <a href="logout.php">Logout</a>
-                    </div>
-                </div>
-            <?php else: ?>
-                <a class="headerProfileButton" href="login.html">Login</a>
-            <?php endif; ?>
+        <div class="hero-visual">
+            <img src="./pics/bannerstuff.png" alt="Banner for Voyage booking section">
         </div>
-    </header>
-    <nav id = "nav">
-        <div class = "navTop">
-            <div class = "navItem">
-                <a href="index.php">
-                    <img class = "navItemimg" src = "./pics/Icon/voyage1.png" alt = "Voyage logo">
-                </a>
-            </div>
-            
-            <div class = "navItem"></div>
+    </main>
+
+    <section class="section-title">
+        <h2>All the tools you need for a smart transit journey</h2>
+        <p>Voyage blends station maps, ticket booking, and schedule tracking into a single experience designed for commuters, visitors, and travellers.</p>
+    </section>
+
+    <section class="feature-grid">
+        <div class="feature-card">
+            <h3>Route coverage</h3>
+            <p>Explore the network map with connected stops, airport transfer points, and clear route paths for every journey.</p>
         </div>
-        <div class = "navBottom">
-            <div class = "navItem">
-                <button class="about" onclick="location.href='maps.php';" style="cursor:pointer;">Maps</button>
-                <button class="about" onclick="location.href='booking.php';" style="cursor:pointer;">Booking</button>
-            </div>
-            <div class = "navItem">
-                <button class="aboutSpecialCase" onclick="location.href='signupredir.html';" style="cursor:pointer;">Sign Up!</button>
-            </div>
+        <div class="feature-card">
+            <h3>Smart bookings</h3>
+            <p>Book a ride in seconds, compare schedules, and confirm your trip with a few easy steps.</p>
         </div>
-    </nav>
-    <div class = "introduction">
-        <div class = "contents">
-            <h1 class = "introTitle">Welcome to Voyage.</h1>
-            <p>The future of LRT travel at your fingertips.</p>
-            <div class = "introActions">
-                <div class = "introActionscontainer">
-                    <div class="introActionsitem">
-                        <h3>Check our coverage!</h3>
-                        <button class = "aboutv2" onclick="location.href='maps.php';" style="cursor:pointer;">Maps</button>
-                    </div>
-                    <div class="introActionsitem">
-                        <h3>Haven't made an account?</h3>
-                        <button class="aboutv2" onclick="location.href='signupredir.html';" style="cursor:pointer;">Sign Up!</button>
-                    </div>
-                    <div class="introActionsitem">
-                        <h3>Need a ride?</h3>
-                        <button class="aboutv2" onclick="location.href='booking.php';" style="cursor:pointer;">Book Here!</button>
-                    </div>
-                </div>
-            </div>
-            <div class = "introImage">
-                <img src = "./pics/placeholder1.png" alt = "Image of the website booking page">
-            </div>
-        </div>      
-    </div>
-    <div class = "missionandvision">
-        <div class = "thing1">
-            <div class = "thing1Image">
-                <img src = "./pics/placeholder2.png" alt = "gif navigating the map">
-            </div>
-            <div class = "thing1Text">
-                <h2>Ordering rail tickets has never been more convenient.</h2>
-                <p>Voyage provides the user with a seamless experience for booking and managing their trips. All it takes is a few buttons, and you're set for your destination.</p>
-            </div>
+        <div class="feature-card">
+            <h3>Reliable support</h3>
+            <p>Stay informed with the latest service updates and trusted support for your daily commute.</p>
         </div>
-        <div class = "divide"></div>
-        <div class = "thing2">
-            <div class = "thing2Image">
-                <img src = "./pics/placeholder3.png" alt = "gif of the price of the tickets">
-            </div>
-            <div class = "thing2Text">
-                <h2>Let us handle the calculations.</h2>
-                <p>Voyage takes the complexity out of pricing, ensuring you always know the price of your trip.</p>
-            </div>
+    </section>
+
+    <section class="work-grid">
+        <div class="work-step">
+            <h3>1. Pick your station</h3>
+            <p>Check the route map and choose the closest stop with fast access to the city, airport, or transit hub.</p>
         </div>
-        <div class = "divide"></div>
-        <div class = "thing3">
-            <div class = "thing3Image">
-                <img src = "./pics/placeholder4.png" alt = "gif of removing the tickets">
-            </div>
-            <div class = "thing3Text">
-                <h2>Change of plans? No problem.</h2>
-                <p>With Voyage, you can easily modify or cancel your bookings in just a few clicks, allowing for flexibility to adapt to your changing schedule.</p> 
-            </div>
+        <div class="work-step">
+            <h3>2. Book your ride</h3>
+            <p>Select your departure and destination, choose the best fare, and confirm your trip in a few taps.</p>
         </div>
-    </div>
-    <div class = "mainbottomtext">
-        <h1 class = "gradientbottomtext">Can't wait to get started?</h1>
-        <button class="aboutv3" onclick="location.href='signupredir.html';" style="cursor:pointer;">Begin by signing up here.</button>
-    </div>
-    <div class = "mainbottomimage">
-        <img src = "./pics/placeholder4.png" alt = "bottom image of the website, mascot of the mouse with a train hat or whatever">
-    </div>
-    <div class = "footer">
-        <div class = "footerLeft">
+        <div class="work-step">
+            <h3>3. Travel with confidence</h3>
+            <p>Receive journey details, boarding notifications, and status updates so you always travel with clarity.</p>
+        </div>
+    </section>
+
+    <section class="network-panel">
+        <div class="network-copy">
+            <h3>Connected service across the city</h3>
+            <p>Voyage keeps the network transparent with route details, station amenities, and transfer connections for every leg of your trip.</p>
+        </div>
+        <div class="network-card">
+            <h4>Airport access</h4>
+            <p>Seamless transit to and from major terminals with dedicated airport transfer stops and easy planning.</p>
+        </div>
+        <div class="network-card">
+            <h4>Peak-time schedules</h4>
+            <p>Realistic service times and up-to-date arrival info help you travel when it matters most.</p>
+        </div>
+        <div class="network-card">
+            <h4>Secure booking</h4>
+            <p>Book with confidence using a clean interface and fast checkout for every commute.</p>
+        </div>
+    </section>
+
+    <section class="section-title">
+        <h2>Need help with booking?</h2>
+        <p>Visit our dedicated <a href="faq.php">FAQ page</a> for answers about ticket expiry, checkout, and route planning.</p>
+    </section>
+
+    <section class="cta-panel">
+        <div>
+            <h2 class="gradientbottomtext">Start your first trip today</h2>
+            <p>Enjoy the freedom of a transit plan built for modern passengers — all from the Voyage homepage.</p>
+        </div>
+        <a class="primary-button" href="booking.php">Book a Ride</a>
+    </section>
+
+    <section class="mainbottomimage">
+        <img src="./pics/lrt.jpg" alt="Illustration of modern transit travel">
+    </section>
+
+    <footer class="footer">
+        <div class="footerleft">
             <h5>Useful Links</h5>
             <ul>
-                <li><a href="notbuilt.html">FAQ</a></li>
+                <li><a href="faq.php#faq-section">FAQ</a></li>
+                <li><a href="maps.php">Route map</a></li>
             </ul>
         </div>
-        <div class = "footerRight">
-            <h4 class = "footerRighttext">Follow Us</h4>
-            <div class ="footerIcons">  
-                <img src = "./pics/Icon/discord.png" alt = "discord" onclick="location.href='https://discord.gg/BSxnSfRn';" style="cursor:pointer;">
-                <img src = "./pics/Icon/instagram.webp" alt = "instagram" onclick="location.href='https://www.instagram.com/voyagingmouse?igsh==MXAxazQxb3Zxdnk3NQ==';" style="cursor:pointer;">
+        <div class="footerright">
+            <h4 class="footerRighttext">Follow Us</h4>
+            <div class="footerIcons">
+                <img src="./pics/Icon/discord.png" alt="discord" onclick="location.href='https://discord.gg/BSxnSfRn';" style="cursor:pointer;">
+                <img src="./pics/Icon/instagram.webp" alt="instagram" onclick="location.href='https://www.instagram.com/voyagingmouse?igsh==MXAxazQxb3Zxdnk3NQ==';" style="cursor:pointer;">
             </div>
-            <div class = "footerCopyright">
+            <div class="footerCopyright">
                 <p>&copy; 2026 MOUSE. All rights reserved.</p>
             </div>
         </div>
-    </div>
+    </footer>
 </body>
 </html>

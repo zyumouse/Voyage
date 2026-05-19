@@ -36,46 +36,18 @@ if (!$user) {
     <script src="theme.js" defer></script>
     <title>My Profile</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-page {
+            min-height: calc(100vh - 84px);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 70px 20px 32px;
+        }
+    </style>
 </head>
 <body>
-    <header class="siteHeader">
-        <div class="siteHeader-brand">
-            <a href="index.php"><img class="siteHeader-logo" src="./pics/Icon/voyage1.png" alt="Voyage logo"></a>
-            <div class="siteHeader-title">
-                <h1>Voyage</h1>
-                <p>A better LRT booking experience</p>
-            </div>
-        </div>
-        <nav class="siteHeader-nav">
-            <a href="index.php">Home</a>
-            <a href="maps.php">Maps</a>
-            <a href="booking.php">Book</a>
-        </nav>
-        <div class="siteHeader-search">
-            <div class="search" role="search">
-                <input type="text" placeholder="Search..." class="searchInput" aria-label="Search">
-                <button class="searchButton" aria-label="Search Button"><img src="./pics/search.png" width="20" height="20" alt="Search" class="searchIcon"></button>
-            </div>
-        </div>
-        <div class="siteHeader-actions">
-            <?php if (isset($_SESSION['user_id'])): ?>
-                <div class="profile-menu">
-                    <button class="headerProfileButton" aria-expanded="false"><?php echo htmlspecialchars($user['username']); ?></button>
-                    <div class="profile-dropdown">
-                        <a href="profile.php">Account</a>
-                        <a href="settings.php">Settings</a>
-                        <?php if (!empty($user['is_admin'])): ?>
-                            <a href="admin_schedule.php">Schedule</a>
-                            <a href="admin_customers.php">Customers</a>
-                        <?php endif; ?>
-                        <a href="logout.php">Logout</a>
-                    </div>
-                </div>
-            <?php else: ?>
-                <a class="headerProfileButton" href="login.html">Login</a>
-            <?php endif; ?>
-        </div>
-    </header>
+    <?php include __DIR__ . '/header.php'; ?>
     <div class="auth-page">
       <div class="auth-card">
         <h1 class="auth-title">My Profile</h1>
@@ -86,10 +58,9 @@ if (!$user) {
           <div class="profile-row"><span>Created:</span> <?php echo htmlspecialchars($user['created_at']); ?></div>
           <div class="profile-row"><span>Role:</span> <?php echo $user['is_admin'] ? 'Administrator' : 'Regular user'; ?></div>
         </div>
-        <div class="auth-actions">
-          <a class="auth-link" href="index.php">Back to Home</a>
-          <a class="auth-link" href="logout.php">Logout</a>
-        </div>
+                <div class="auth-actions">
+                    <a class="auth-link" href="logout.php">Logout</a>
+                </div>
       </div>
     </div>
 </body>
