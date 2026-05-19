@@ -13,9 +13,22 @@ if (isset($_POST['trip_id'])) {
     $trip_id = (int)$_GET['trip_id'];
 }
 
+$origin = isset($_GET['origin']) ? trim($_GET['origin']) : '';
+$destination = isset($_GET['destination']) ? trim($_GET['destination']) : '';
+$ticket_date = isset($_GET['ticket_date']) ? trim($_GET['ticket_date']) : '';
+
 if ($trip_id <= 0) {
-    header('Location: booking.php?error=' . urlencode('Please select a trip first.'));
-    exit;
+    if ($origin === '' || $destination === '') {
+        header('Location: booking.php?error=' . urlencode('Please choose an origin and destination for your trip.'));
+        exit;
+    }
+    if ($origin === $destination) {
+        header('Location: booking.php?error=' . urlencode('Origin and destination must be different.'));
+        exit;
+    }
+    if ($ticket_date === '') {
+        $ticket_date = (new DateTime('+1 day'))->format('Y-m-d');
+    }
 }
 
 $servername = 'localhost';
@@ -28,14 +41,26 @@ if ($conn->connect_error) {
     die('Connection failed: ' . $conn->connect_error);
 }
 
-$tripStmt = $conn->prepare('SELECT id, origin, destination, ticket_date, ticket_time, estimated_arrival_time FROM available_tickets WHERE id = ?');
-$tripStmt->bind_param('i', $trip_id);
-$tripStmt->execute();
-$tripResult = $tripStmt->get_result();
-$trip = $tripResult ? $tripResult->fetch_assoc() : null;
-if (!$trip) {
-    header('Location: booking.php?error=' . urlencode('Selected trip not found.'));
-    exit;
+$trip = null;
+if ($trip_id > 0) {
+    $tripStmt = $conn->prepare('SELECT id, origin, destination, ticket_date, ticket_time, estimated_arrival_time FROM available_tickets WHERE id = ?');
+    $tripStmt->bind_param('i', $trip_id);
+    $tripStmt->execute();
+    $tripResult = $tripStmt->get_result();
+    $trip = $tripResult ? $tripResult->fetch_assoc() : null;
+    if (!$trip) {
+        header('Location: booking.php?error=' . urlencode('Selected trip not found.'));
+        exit;
+    }
+} else {
+    $trip = [
+        'id' => 0,
+        'origin' => $origin,
+        'destination' => $destination,
+        'ticket_date' => $ticket_date,
+        'ticket_time' => '',
+        'estimated_arrival_time' => ''
+    ];
 }
 ?>
 <!DOCTYPE html>
@@ -89,60 +114,20 @@ if (!$trip) {
     </style>
 </head>
 <body>
-    <header class="siteHeader">
-        <div class="siteHeader-brand">
-            <a href="index.php"><img class="siteHeader-logo" src="./pics/Icon/voyage1.png" alt="Voyage logo"></a>
-            <div class="siteHeader-title">
-                <h1>Voyage</h1>
-                <p>A better LRT booking experience</p>
-            </div>
-        </div>
-        <nav class="siteHeader-nav">
-            <a href="index.php">Home</a>
-            <a href="maps.php">Maps</a>
-            <a href="booking.php">Book</a>
-        </nav>
-        <div class="siteHeader-actions">
-            <div class="search" role="search">
-                <input type="text" placeholder="Search..." class="searchInput" aria-label="Search">
-                <button class="searchButton" aria-label="Search Button"><img src="./pics/search.png" width="20" height="20" alt="Search" class="searchIcon"></button>
-            </div>
-            <?php if (isset($_SESSION['user_id'])): ?>
-                <div class="profile-menu">
-                    <button class="headerProfileButton" aria-expanded="false" tabindex="-1"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></button>
-                    <div class="profile-dropdown">
-                        <a href="profile.php">Account</a>
-                        <a href="settings.php">Settings</a>
-                        <?php if (!empty($_SESSION['is_admin'])): ?>
-                            <a href="admin_schedule.php">Schedule</a>
-                            <a href="admin_customers.php">Customers</a>
-                        <?php endif; ?>
-                        <a href="logout.php">Logout</a>
-                    </div>
-                </div>
-            <?php else: ?>
-                <a class="headerProfileButton" href="login.html">Login</a>
-            <?php endif; ?>
-        </div>
-    </header>
+    <?php include __DIR__ . '/header.php'; ?>
     <div class="auth-page">
         <div class="auth-card">
             <h1 class="auth-title">Checkout</h1>
             <p class="checkout-subtitle">Complete your trip booking details and secure your ticket.</p>
             <div class="bookingContainer">
         <?php
-            $departure = new DateTime($trip['ticket_date'] . ' ' . $trip['ticket_time']);
-            $arrival = new DateTime($trip['ticket_date'] . ' ' . $trip['estimated_arrival_time']);
-            if ($arrival < $departure) {
-                $arrival->modify('+1 day');
-            }
-            $duration = $departure->diff($arrival)->format('%h hr %i min');
+            $duration = 'N/A';
         ?>
         <div class="bookingLogItem">
             <div>
                 <h2><?php echo htmlspecialchars($trip['origin']); ?> &rarr; <?php echo htmlspecialchars($trip['destination']); ?></h2>
-                <h4><?php echo htmlspecialchars(date('d/m/Y', strtotime($trip['ticket_date']))); ?> at <?php echo htmlspecialchars(date('H:i', strtotime($trip['ticket_time']))); ?></h4>
-                <p class="bookingLogMeta">Estimated arrival: <?php echo htmlspecialchars(date('H:i', strtotime($trip['estimated_arrival_time']))); ?> &bull; Duration <?php echo htmlspecialchars($duration); ?></p>
+                <h4><?php echo htmlspecialchars(date('d/m/Y', strtotime($trip['ticket_date']))); ?></h4>
+                <p class="bookingLogMeta">Ticket valid for 24 hours from booking time.</p>
             </div>
             <div>
                 <h3>Route details</h3>
@@ -152,7 +137,12 @@ if (!$trip) {
         </div>
 
         <form action="data.php" method="POST" class="addBooking">
-            <input type="hidden" name="trip_id" value="<?php echo (int)$trip['id']; ?>">
+            <?php if ($trip['id'] > 0): ?>
+                <input type="hidden" name="trip_id" value="<?php echo (int)$trip['id']; ?>">
+            <?php else: ?>
+                <input type="hidden" name="origin" value="<?php echo htmlspecialchars($trip['origin']); ?>">
+                <input type="hidden" name="destination" value="<?php echo htmlspecialchars($trip['destination']); ?>">
+            <?php endif; ?>
 
             <label for="name">Name</label>
             <input id="name" type="text" name="name" placeholder="" class="payInput" required>
@@ -160,7 +150,7 @@ if (!$trip) {
             <label for="IC_number">Phone Number</label>
             <input id="IC_number" type="text" name="IC_number" placeholder="" class="payInput" maxlength="13" required>
 
-            <label for="card_number">Card Number</label>
+            <label for="card_number">Credit Card Number</label>
             <input id="card_number" type="text" name="card_number" class="payInput" placeholder="" maxlength="19">
 
             <button type="submit" class="payButton">Confirm & Pay</button>

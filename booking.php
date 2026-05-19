@@ -22,8 +22,11 @@ $stops = [
     'S17: Sungai Pinang',
     'S18: Bandar Sri Pinang',
     'S19: Macallum',
-    'S20: Komtar'
+    'S20: Komtar',
+    'S31: Penang Sentral'
 ];
+$today = (new DateTime())->format('Y-m-d');
+$maxDate = (new DateTime('+7 days'))->format('Y-m-d');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,93 +67,98 @@ $stops = [
         .booking-page .payTitle {
             margin-bottom: 16px;
         }
-        .trip-cards {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin: 8px 0 18px;
-        }
-        .trip-card {
-            display: block;
-            width: calc(50% - 8px);
-            box-sizing: border-box;
+        .route-search {
+            margin: 26px 0 20px;
+            padding: 24px;
             background: #ffffff;
-            border: 1px solid #e6e7fb;
-            border-radius: 12px;
-            padding: 14px;
-            cursor: pointer;
-            transition: box-shadow 0.18s ease, border-color 0.18s ease;
+            border: 1px solid rgba(77,64,255,0.16);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(92,88,173,0.08);
         }
-        .trip-card input[type="radio"] {
-            display: none;
+        .route-search h2 {
+            margin: 0 0 16px;
+            font-size: 1.3rem;
+            color: #161c3f;
         }
-        .trip-card-content {
+        .route-search-form {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(180px, 1fr));
+            gap: 16px;
+            align-items: end;
+        }
+        .route-search-form label {
             display: flex;
             flex-direction: column;
             gap: 8px;
-        }
-        .trip-card .trip-route {
+            color: #1f2350;
             font-weight: 700;
-            color: #1f2360;
         }
-        .trip-card .trip-datetime,
-        .trip-card .trip-eta {
-            color: #4b4f7d;
+        .route-search-form select,
+        .route-search-form input[type="date"],
+        .route-search-form button {
+            width: 100%;
+            min-height: 46px;
+            padding: 10px 12px;
+            border-radius: 14px;
+            border: 1px solid #c8cbe8;
             font-size: 0.95rem;
+            color: #161c3f;
+            background: #ffffff;
+            box-sizing: border-box;
+            font-family: inherit;
+            line-height: 1.5;
         }
-        .trip-card input[type="radio"]:checked + .trip-card-content {
-            border-radius: 10px;
-            box-shadow: 0 12px 30px rgba(46,37,119,0.12);
-            border-color: #6356ff;
+        .route-search-form input[type="date"] {
+            appearance: textfield;
+            -webkit-appearance: textfield;
+            -moz-appearance: textfield;
+        }
+        .route-search-form label[for="custom_ticket_date"] {
+            grid-column: 1;
+        }
+        .route-search-form button {
+            grid-column: 1 / -1;
+            background: #3039ff;
+            border-color: transparent;
+            color: #ffffff;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .route-search-form button:hover {
+            transform: translateY(-1px);
+            background: #202dce;
+        }
+        .route-notes {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+        .route-notes .route-note {
+            margin: 0;
+            font-size: 0.86rem;
+            color: #5a5f7d;
+            line-height: 1.4;
+        }
+        .route-search .message-box {
+            display: none;
         }
         @media (max-width: 720px) {
-            .trip-card { width: 100%; }
+            .route-search-form {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <header class="siteHeader">
-        <div class="siteHeader-brand">
-            <a href="index.php"><img class="siteHeader-logo" src="./pics/Icon/voyage1.png" alt="Voyage logo"></a>
-            <div class="siteHeader-title">
-                <h1>Voyage</h1>
-                <p>A better LRT booking experience</p>
-            </div>
-        </div>
-        <nav class="siteHeader-nav">
-            <a href="index.php">Home</a>
-            <a href="maps.php">Maps</a>
-            <a href="booking.php">Book</a>
-        </nav>
-        <div class="siteHeader-actions">
-            <div class="search" role="search">
-                <input type="text" placeholder="Search..." class="searchInput" aria-label="Search">
-                <button class="searchButton" aria-label="Search Button"><img src="./pics/search.png" width="20" height="20" alt="Search" class="searchIcon"></button>
-            </div>
-            <?php if ($isLoggedIn): ?>
-                <div class="profile-menu">
-                    <button class="headerProfileButton" aria-expanded="false" tabindex="-1"><?php echo $username; ?></button>
-                    <div class="profile-dropdown">
-                        <a href="profile.php">Account</a>
-                        <a href="settings.php">Settings</a>
-                        <?php if (!empty($_SESSION['is_admin'])): ?>
-                            <a href="admin_schedule.php">Schedule</a>
-                            <a href="admin_customers.php">Customers</a>
-                        <?php endif; ?>
-                        <a href="logout.php">Logout</a>
-                    </div>
-                </div>
-            <?php else: ?>
-                <a class="headerProfileButton" href="login.html">Login</a>
-            <?php endif; ?>
-        </div>
-    </header>
-    
+    <?php include __DIR__ . '/header.php'; ?>
 
     <div class="auth-page booking-page">
         <div class="auth-card">
             <h1 class="auth-title">Your Trips</h1>
-            <p class="auth-subtitle">Review your current bookings and select an available trip to reserve.</p>
+            <p class="auth-subtitle">Review your current bookings and book a custom route with your chosen origin and destination.</p>
             <div class="bookingContainer">
 
         <?php if (!$isLoggedIn): ?>
@@ -166,7 +174,6 @@ $stops = [
                     origin VARCHAR(100) NOT NULL,
                     destination VARCHAR(100) NOT NULL,
                     ticket_date DATE NOT NULL,
-                    ticket_time TIME NOT NULL,
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
                 )");
                 $conn->query("CREATE TABLE IF NOT EXISTS tickets (
@@ -179,8 +186,6 @@ $stops = [
                     destination VARCHAR(100) NOT NULL,
                     card_number VARCHAR(32) NOT NULL,
                     ticket_date DATE NOT NULL,
-                    ticket_time TIME NOT NULL,
-                    estimated_arrival_time TIME NOT NULL,
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
                 )");
                 $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS trip_id INT NOT NULL DEFAULT 0");
@@ -191,18 +196,8 @@ $stops = [
                 $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS origin VARCHAR(100) NOT NULL DEFAULT ''");
                 $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS destination VARCHAR(100) NOT NULL DEFAULT ''");
                 $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS ticket_date DATE NOT NULL DEFAULT '1970-01-01'");
-                $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS ticket_time TIME NOT NULL DEFAULT '00:00:00'");
-                $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS estimated_arrival_time TIME NOT NULL DEFAULT '00:00:00'");
 
-                $availableTrips = [];
-                $tripResult = $conn->query("SELECT id, origin, destination, ticket_date, ticket_time, estimated_arrival_time FROM available_tickets ORDER BY ticket_date, ticket_time");
-                if ($tripResult) {
-                    while ($tripRow = $tripResult->fetch_assoc()) {
-                        $availableTrips[] = $tripRow;
-                    }
-                }
-
-                $stmt = $conn->prepare('SELECT origin, destination, ticket_date, ticket_time, estimated_arrival_time, created_at FROM tickets WHERE user_id = ? ORDER BY created_at DESC');
+                $stmt = $conn->prepare('SELECT origin, destination, ticket_date, created_at FROM tickets WHERE user_id = ? AND created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR) ORDER BY created_at DESC');
                 $stmt->bind_param('i', $_SESSION['user_id']);
                 $stmt->execute();
                 $result = $stmt->get_result();
@@ -214,19 +209,38 @@ $stops = [
             <?php if (isset($_GET['error'])): ?>
                 <div class="errorMessage"><?php echo htmlspecialchars(urldecode($_GET['error'])); ?></div>
             <?php endif; ?>
+
+            <div class="route-search" style="margin-top: 0;">
+                <h2>Book your own route</h2>
+                <form class="route-search-form" method="GET" action="checkout.php">
+                    <label for="custom_origin">Origin
+                        <select id="custom_origin" name="origin" required>
+                            <option value="" disabled selected>Select origin</option>
+                            <?php foreach ($stops as $stop): ?>
+                                <option value="<?php echo htmlspecialchars($stop); ?>"><?php echo htmlspecialchars($stop); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </label>
+                    <label for="custom_destination">Destination
+                        <select id="custom_destination" name="destination" required>
+                            <option value="" disabled selected>Select destination</option>
+                            <?php foreach ($stops as $stop): ?>
+                                <option value="<?php echo htmlspecialchars($stop); ?>"><?php echo htmlspecialchars($stop); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </label>
+                    <div class="route-notes">
+                        <p class="route-note">Ticket expiry date will be created automatically after purchase.</p>
+                        <p class="route-note">Choose a route from our list of predefined stations. Tickets are valid for 24 hours from booking.</p>
+                    </div>
+                    <button type="submit">Book custom route</button>
+                </form>
+            </div>
             <div class="bookingLog">
                 <?php if (!empty($result) && $result->num_rows > 0): ?>
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <?php
-                            $departureDateTime = date('d/m/Y @ H:i', strtotime($row['ticket_date'] . ' ' . $row['ticket_time']));
-                            $etaTime = date('H:i', strtotime($row['estimated_arrival_time']));
                             $createdDateTime = date('d/m/Y H:i', strtotime($row['created_at']));
-                            $departure = new DateTime($row['ticket_date'] . ' ' . $row['ticket_time']);
-                            $arrival = new DateTime($row['ticket_date'] . ' ' . $row['estimated_arrival_time']);
-                            if ($arrival < $departure) {
-                                $arrival->modify('+1 day');
-                            }
-                            $durationText = $departure->diff($arrival)->format('%h hr %i min');
                         ?>
                         <div class="bookingLogItem">
                             <div>
@@ -236,40 +250,19 @@ $stops = [
                                 <p class="bookingLogMeta">Route: <?php echo htmlspecialchars($row['origin']); ?> → <?php echo htmlspecialchars($row['destination']); ?></p>
                             </div>
                             <div>
-                                <h3><?php echo htmlspecialchars($departureDateTime); ?></h3>
-                                <h4>ETA <?php echo htmlspecialchars($etaTime); ?> • Duration <?php echo htmlspecialchars($durationText); ?></h4>
+                                <h3><?php echo htmlspecialchars(date('d/m/Y', strtotime($row['ticket_date']))); ?></h3>
+                                <h4>Ticket valid for 24 hours from booking time</h4>
                                 <h4>Ticket status: Confirmed</h4>
                             </div>
                         </div>
                     <?php endwhile; ?>
                 <?php else: ?>
                     <div class="bookingLogItem empty">
-                        <p>No bookings yet. Use the form below to book your first trip.</p>
+                        <p>No active tickets yet. Book a custom route now — tickets expire 24 hours after purchase.</p>
                     </div>
                 <?php endif; ?>
             </div>
 
-            <div class="addBooking">
-                <h1 class="payTitle">Choose Your Trip</h1>
-                <?php if (empty($availableTrips)): ?>
-                    <div class="bookingNotice">
-                        <p>No available trips have been provided by the admin yet.</p>
-                        <p>Please check back later or contact support.</p>
-                    </div>
-                <?php else: ?>
-                    <div class="trip-cards">
-                        <?php foreach ($availableTrips as $trip): ?>
-                            <a class="trip-card" href="checkout.php?trip_id=<?php echo urlencode($trip['id']); ?>">
-                                <div class="trip-card-content">
-                                    <div class="trip-route"><?php echo htmlspecialchars($trip['origin'] . ' → ' . $trip['destination']); ?></div>
-                                    <div class="trip-datetime"><?php echo htmlspecialchars(date('d/m/Y', strtotime($trip['ticket_date'])) . ' @ ' . date('H:i', strtotime($trip['ticket_time']))); ?></div>
-                                    <div class="trip-eta">ETA <?php echo htmlspecialchars(date('H:i', strtotime($trip['estimated_arrival_time']))); ?></div>
-                                </div>
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-            </div>
         <?php endif; ?>
         </div>
     </div>

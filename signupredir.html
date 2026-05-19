@@ -162,29 +162,7 @@
     </style>
 </head>
 <body>
-    <header class="siteHeader">
-        <div class="siteHeader-brand">
-            <a href="index.php"><img class="siteHeader-logo" src="./pics/Icon/voyage1.png" alt="Voyage logo"></a>
-            <div class="siteHeader-title">
-                <h1>Voyage</h1>
-                <p>A better LRT booking experience</p>
-            </div>
-        </div>
-        <nav class="siteHeader-nav">
-            <a href="index.php">Home</a>
-            <a href="maps.php">Maps</a>
-            <a href="booking.php">Book</a>
-        </nav>
-        <div class="siteHeader-actions">
-            <div class="search" role="search">
-                <input type="text" placeholder="Search..." class="searchInput" aria-label="Search">
-                <button class="searchButton" aria-label="Search Button"><img src="./pics/search.png" width="20" height="20" alt="Search" class="searchIcon"></button>
-            </div>
-            <div class="profile-menu">
-                <a class="headerProfileButton" href="login.html">Login</a>
-            </div>
-        </div>
-    </header>
+    <div id="shared-header"></div>
     <div class="auth-page">
         <div class="auth-card">
             <h1 class="auth-title">Create an account</h1>
@@ -292,5 +270,6 @@
             });
         });
     </script>
+    <script src="header-loader.js" defer></script>
 </body>
 </html>

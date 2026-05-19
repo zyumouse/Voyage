@@ -16,42 +16,7 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
     <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-    <header class="siteHeader">
-        <div class="siteHeader-brand">
-            <a href="index.php"><img class="siteHeader-logo" src="./pics/Icon/voyage1.png" alt="Voyage logo"></a>
-            <div class="siteHeader-title">
-                <h1>Voyage</h1>
-                <p>A better LRT booking experience</p>
-            </div>
-        </div>
-        <nav class="siteHeader-nav">
-            <a href="index.php">Home</a>
-            <a href="maps.php">Maps</a>
-            <a href="booking.php">Book</a>
-        </nav>
-        <div class="siteHeader-actions">
-            <div class="search" role="search">
-                <input type="text" placeholder="Search..." class="searchInput" aria-label="Search">
-                <button class="searchButton" aria-label="Search Button"><img src="./pics/search.png" width="20" height="20" alt="Search" class="searchIcon"></button>
-            </div>
-            <?php if (isset($_SESSION['user_id'])): ?>
-                <div class="profile-menu">
-                    <button class="headerProfileButton" aria-expanded="false" tabindex="-1"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></button>
-                    <div class="profile-dropdown">
-                        <a href="profile.php">Account</a>
-                        <a href="settings.php">Settings</a>
-                        <?php if (!empty($_SESSION['is_admin'])): ?>
-                            <a href="admin_schedule.php">Schedule</a>
-                            <a href="admin_customers.php">Customers</a>
-                        <?php endif; ?>
-                        <a href="logout.php">Logout</a>
-                    </div>
-                </div>
-            <?php else: ?>
-                <a class="headerProfileButton" href="login.html">Login</a>
-            <?php endif; ?>
-        </div>
-    </header>
+    <?php include __DIR__ . '/header.php'; ?>
     <h1>Admin Panel</h1>
     <a href="index.php">Back</a>
 
@@ -71,7 +36,6 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
             origin VARCHAR(100) NOT NULL,
             destination VARCHAR(100) NOT NULL,
             ticket_date DATE NOT NULL,
-            ticket_time TIME NOT NULL,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )");
 
@@ -80,15 +44,14 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
             $origin = isset($_POST['origin']) ? trim($_POST['origin']) : '';
             $destination = isset($_POST['destination']) ? trim($_POST['destination']) : '';
             $ticket_date = isset($_POST['ticket_date']) ? trim($_POST['ticket_date']) : '';
-            $ticket_time = isset($_POST['ticket_time']) ? trim($_POST['ticket_time']) : '';
 
-            if ($origin === '' || $destination === '' || $ticket_date === '' || $ticket_time === '') {
+            if ($origin === '' || $destination === '' || $ticket_date === '') {
                 $addError = 'All fields are required to add an available trip.';
             } elseif ($origin === $destination) {
                 $addError = 'Origin and destination must be different.';
             } else {
-                $stmt = $conn->prepare('INSERT INTO available_tickets (origin, destination, ticket_date, ticket_time) VALUES (?, ?, ?, ?)');
-                $stmt->bind_param('ssss', $origin, $destination, $ticket_date, $ticket_time);
+                $stmt = $conn->prepare('INSERT INTO available_tickets (origin, destination, ticket_date) VALUES (?, ?, ?)');
+                $stmt->bind_param('sss', $origin, $destination, $ticket_date);
                 $stmt->execute();
                 header('Location: admin.php?added=1');
                 exit;
@@ -96,7 +59,7 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
         }
 
         $availableTrips = [];
-        $tripResult = $conn->query("SELECT id, origin, destination, ticket_date, ticket_time FROM available_tickets ORDER BY ticket_date, ticket_time");
+        $tripResult = $conn->query("SELECT id, origin, destination, ticket_date FROM available_tickets ORDER BY ticket_date");
         if ($tripResult) {
             while ($tripRow = $tripResult->fetch_assoc()) {
                 $availableTrips[] = $tripRow;
@@ -119,10 +82,8 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
             <input id="origin" name="origin" type="text" required>
             <label for="destination">Destination</label>
             <input id="destination" name="destination" type="text" required>
-            <label for="ticket_date">Date</label>
+            <label for="ticket_date">Ticket expiry date</label>
             <input id="ticket_date" name="ticket_date" type="date" required>
-            <label for="ticket_time">Time</label>
-            <input id="ticket_time" name="ticket_time" type="time" required>
             <button type="submit">Add Available Trip</button>
         </form>
 
@@ -131,8 +92,7 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
                 <th>ID</th>
                 <th>Origin</th>
                 <th>Destination</th>
-                <th>Trip Date</th>
-                <th>Trip Time</th>
+                <th>Expiry Date</th>
                 <th>Actions</th>
             </tr>
             <?php if (!empty($availableTrips)): ?>
@@ -142,7 +102,6 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
                         <td><?php echo htmlspecialchars($trip['origin']); ?></td>
                         <td><?php echo htmlspecialchars($trip['destination']); ?></td>
                         <td><?php echo htmlspecialchars($trip['ticket_date']); ?></td>
-                        <td><?php echo htmlspecialchars($trip['ticket_time']); ?></td>
                         <td><a href="delete_trip.php?id=<?php echo htmlspecialchars($trip['id']); ?>" onclick="return confirm('Delete this available trip?');">Delete</a></td>
                     </tr>
                 <?php endforeach; ?>
@@ -157,9 +116,8 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
             <th>ID</th>
             <th>Name</th>
             <th>Phone Number</th>
-            <th>Card Number</th>
+            <th>Credit Card Number</th>
             <th>Ticket Date</th>
-            <th>Ticket Time</th>
         </tr>
         <?php
             $servername = "localhost";
@@ -172,7 +130,7 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "SELECT id, name, phone_number, card_number, ticket_date, ticket_time FROM tickets";
+            $sql = "SELECT id, name, phone_number, card_number, ticket_date FROM tickets";
             $result = $conn->query($sql);
 
             if(!$result) {
@@ -188,7 +146,6 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
                     echo "<td>" . $row["phone_number"] . "</td>";
                     echo "<td>" . $row["card_number"] . "</td>";
                     echo "<td>" . $row["ticket_date"] . "</td>";
-                    echo "<td>" . $row["ticket_time"] . "</td>";
                     echo "<td><a href='delete.php?id=" . $row["id"] . "'class='delete-btn'
                     onclick='return confirm(\"Are you sure you want to delete this record?\")'>Delete</a></td>";
                     echo "</tr>";
