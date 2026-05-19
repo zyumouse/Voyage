@@ -15,6 +15,21 @@
       justify-content: center;
       padding: 20px 20px 32px;
     }
+    .admin-notice {
+      margin: 20px 0 24px;
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(48, 57, 255, 0.08);
+      border: 1px solid rgba(48, 57, 255, 0.16);
+      color: #1b1f52;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .admin-notice strong {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
   </style>
 </head>
 <body>
@@ -23,6 +38,11 @@
     <div class="auth-card">
       <h1 class="auth-title">Login to Your Account</h1>
       <p class="auth-subtitle">Enter your email and password to continue.</p>
+      <div class="admin-notice">
+        <strong>Admin Account</strong><br>
+        Email: admin@mouse.com<br>
+        Password: admin
+      </div>
       <form class="auth-form" action="login.php" method="post">
         <label for="email">Email</label>
         <input id="email" type="email" name="email" required>
