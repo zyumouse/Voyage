@@ -37,7 +37,7 @@ $isAdmin = !empty($_SESSION['is_admin']);
             </div>
         </div>
         <div class="hero-visual">
-            <img src="./pics/bannerstuff.png" alt="Banner for Voyage booking section">
+            <img src="./pics/bannerstuff2.png" alt="Banner for Voyage booking section">
         </div>
     </main>
 
