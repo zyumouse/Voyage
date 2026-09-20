@@ -18,16 +18,26 @@ $isAdmin = !empty($_SESSION['is_admin']);
 </head>
 <body>
     <?php include __DIR__ . '/header.php'; ?>
-    
+
+    <div class="homepage-content">
     <main class="hero-section">
         <div class="hero-copy">
             <span class="hero-eyebrow">Light Rail Transit</span>
             <h1 class="hero-title">Voyage makes every LRT journey simple, fast, and dependable.</h1>
             <p>Find stations, book tickets, and plan your commute with a modern transit experience built for riders who want clarity and control.</p>
             <div class="hero-actions">
-                <a class="primary-button" href="booking.php">Book a Ride</a>
-                <a class="secondary-button" href="maps.php">View Route Map</a>
-                <a class="secondary-button" href="signupredir.html">Create Account</a>
+                <?php if ($isLoggedIn): ?>
+                    <a class="primary-button" href="booking.php">Book a Ride</a>
+                <?php else: ?>
+                    <a class="primary-button" href="signupredir.html">Create Account</a>
+                <?php endif; ?>
+                <?php if ($isLoggedIn): ?>
+                    <a class="secondary-button" href="maps.php">View Route Map</a>
+                    <a class="secondary-button" href="faq.php">Need Help?</a>
+                <?php else: ?>
+                    <a class="secondary-button" href="booking.php">Book a Ride</a>
+                    <a class="secondary-button" href="maps.php">View Route Map</a>
+                <?php endif; ?>
             </div>
             <div class="stats-grid">
                 <div class="stat-card"><strong>21</strong><span>Stations</span></div>
@@ -37,7 +47,7 @@ $isAdmin = !empty($_SESSION['is_admin']);
             </div>
         </div>
         <div class="hero-visual">
-            <img src="./pics/bannerstuff2.png" alt="Banner for Voyage booking section">
+            <img src="./pics/bannerstuff.png" alt="Banner for Voyage booking section">
         </div>
     </main>
 
@@ -61,19 +71,8 @@ $isAdmin = !empty($_SESSION['is_admin']);
         </div>
     </section>
 
-    <section class="work-grid">
-        <div class="work-step">
-            <h3>1. Pick your station</h3>
-            <p>Check the route map and choose the closest stop with fast access to the city, airport, or transit hub.</p>
-        </div>
-        <div class="work-step">
-            <h3>2. Book your ride</h3>
-            <p>Select your departure and destination, choose the best fare, and confirm your trip in a few taps.</p>
-        </div>
-        <div class="work-step">
-            <h3>3. Travel with confidence</h3>
-            <p>Receive journey details, boarding notifications, and status updates so you always travel with clarity.</p>
-        </div>
+    <section class="mainbottomimage">
+        <img src="./pics/lrt.jpg" alt="Illustration of modern transit travel">
     </section>
 
     <section class="network-panel">
@@ -95,11 +94,6 @@ $isAdmin = !empty($_SESSION['is_admin']);
         </div>
     </section>
 
-    <section class="section-title">
-        <h2>Need help with booking?</h2>
-        <p>Visit our dedicated <a href="faq.php">FAQ page</a> for answers about ticket expiry, checkout, and route planning.</p>
-    </section>
-
     <section class="cta-panel">
         <div>
             <h2 class="gradientbottomtext">Start your first trip today</h2>
@@ -108,28 +102,28 @@ $isAdmin = !empty($_SESSION['is_admin']);
         <a class="primary-button" href="booking.php">Book a Ride</a>
     </section>
 
-    <section class="mainbottomimage">
-        <img src="./pics/lrt.jpg" alt="Illustration of modern transit travel">
+    <section class="work-grid">
+        <div class="work-step">
+            <h3>1. Pick your station</h3>
+            <p>Check the route map and choose the closest stop with fast access to the city, airport, or transit hub.</p>
+        </div>
+        <div class="work-step">
+            <h3>2. Book your ride</h3>
+            <p>Select your departure and destination, choose the best fare, and confirm your trip in a few taps.</p>
+        </div>
+        <div class="work-step">
+            <h3>3. Travel with confidence</h3>
+            <p>Receive journey details, boarding notifications, and status updates so you always travel with clarity.</p>
+        </div>
     </section>
 
-    <footer class="footer">
-        <div class="footerleft">
-            <h5>Useful Links</h5>
-            <ul>
-                <li><a href="faq.php#faq-section">FAQ</a></li>
-                <li><a href="maps.php">Route map</a></li>
-            </ul>
-        </div>
-        <div class="footerright">
-            <h4 class="footerRighttext">Follow Us</h4>
-            <div class="footerIcons">
-                <img src="./pics/Icon/discord.png" alt="discord" onclick="location.href='https://discord.gg/BSxnSfRn';" style="cursor:pointer;">
-                <img src="./pics/Icon/instagram.webp" alt="instagram" onclick="location.href='https://www.instagram.com/voyagingmouse?igsh==MXAxazQxb3Zxdnk3NQ==';" style="cursor:pointer;">
-            </div>
-            <div class="footerCopyright">
-                <p>&copy; 2026 MOUSE. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <section class="section-title">
+        <h2>Need help?</h2>
+        <p>Visit our dedicated <a class="gradient-link" href="faq.php">FAQ page</a> for answers about ticket expiry, checkout, and route planning.</p>
+    </section>
+
+    </div>
+
+    <?php include __DIR__ . '/footer.php'; ?>
 </body>
 </html>

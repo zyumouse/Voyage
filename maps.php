@@ -5,7 +5,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
 $stops = [
     'A01: PSR-A',
     'S02: Permatang Damar Laut',
-    'S03: Lapangan Terbang Antarabangsa Pulau Pinang',
+    'S03: Penang International Airport',
     'S04: Sungai Tiram',
     'S05: FIZ South',
     'S06: FIZ North',
@@ -22,7 +22,7 @@ $stops = [
     'S17: Sungai Pinang',
     'S18: Bandar Sri Pinang',
     'S19: Macallum',
-    'S20: Komtar',
+    'S20: KOMTAR',
     'S31: Penang Sentral'];
 ?>
 <!DOCTYPE html>
@@ -39,10 +39,28 @@ $stops = [
 </head>
 <body>
     <?php include __DIR__ . '/header.php'; ?>
-    <div class="auth-page">
-        <div class="auth-card" style="max-width:1200px; width:90%;">
-            <h1 class="auth-title">Voyage Route Map</h1>
-            <p class="auth-subtitle">Explore the stops available on the Voyage line and plan your journey.</p>
+    <div class="maps-page-content">
+        <main class="hero-section maps-hero">
+            <div class="hero-copy">
+                <span class="hero-eyebrow">Route Planning</span>
+                <h1 class="hero-title">Explore the Voyage network with confidence.</h1>
+                <p>Discover every stop on the line, check the route map, and choose a station for your next journey.</p>
+                <div class="hero-actions">
+                    <a class="primary-button" href="booking.php">Book a Ride</a>
+                    <a class="secondary-button" href="faq.php">Need Help?</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <img src="./pics/bannerstuff.png" alt="Voyage route planning">
+            </div>
+        </main>
+
+        <section class="section-title maps-intro">
+            <h2>Voyage Route Map</h2>
+            <p>Explore the stops available on the Voyage line and plan your journey.</p>
+        </section>
+
+        <section class="maps-workspace">
             <?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
                 <div class="success-banner">
                     <strong>Thank you!</strong> Your checkout is complete. Bon Voyage!
@@ -56,19 +74,19 @@ $stops = [
                 <div class="list-column list-below">
                     <div class="profile-info">
                         <?php foreach ($stops as $index => $stop): ?>
-                            <div class="profile-row stop-item" data-stop-index="<?php echo $index; ?>" data-x="50" data-y="50">
+                            <div class="profile-row stop-item" role="button" tabindex="0" aria-pressed="false" data-stop-index="<?php echo $index; ?>" data-x="50" data-y="50">
                                 <?php if ($index === 2): ?>
                                     <img src="./pics/Icon/airport.png" alt="airport" class="stop-icon">
                                 <?php else: ?>
                                     <img src="./pics/Icon/location.png.png" alt="location" class="stop-icon">
                                 <?php endif; ?>
-                                <?php echo htmlspecialchars($stop); ?>
+                                <span class="stop-label"><?php echo htmlspecialchars($stop); ?></span>
                             </div>
                         <?php endforeach; ?>
                     </div>
+                    <p class="selected-stop" aria-live="polite">Select a station to highlight it on the map.</p>
                 </div>
             </div>
-
             <script>
                 (function(){
                     // Basic click-to-highlight: positions use percentage (data-x, data-y). Default 50/50.
@@ -88,17 +106,26 @@ $stops = [
                         return marker;
                     }
 
-                    stopItems.forEach(item => {
-                        item.style.cursor = 'pointer';
-                        item.addEventListener('click', function(){
-                            // highlight selected row
-                            document.querySelectorAll('.stop-item').forEach(r=>r.classList.remove('selected'));
-                            this.classList.add('selected');
+                    const selectedStop = document.querySelector('.selected-stop');
 
-                            const x = parseFloat(this.getAttribute('data-x') || 50);
-                            const y = parseFloat(this.getAttribute('data-y') || 50);
-                            const stopIndex = this.getAttribute('data-stop-index') || '';
-                            const label = this.textContent.trim();
+                    function selectStop(item){
+                            // highlight selected row
+                            document.querySelectorAll('.stop-item').forEach(r=>{
+                                r.classList.remove('selected');
+                                r.setAttribute('aria-pressed', 'false');
+                            });
+                            item.classList.add('selected');
+                            item.setAttribute('aria-pressed', 'true');
+
+                            const x = parseFloat(item.getAttribute('data-x') || 50);
+                            const y = parseFloat(item.getAttribute('data-y') || 50);
+                            const stopIndex = item.getAttribute('data-stop-index') || '';
+                            const label = item.textContent.trim();
+
+                            if (selectedStop) {
+                                selectedStop.textContent = 'Selected Station: ' + label;
+                            }
+                            item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
                             const m = ensureMarker();
                             const labelEl = m.querySelector('.label');
@@ -115,15 +142,24 @@ $stops = [
                             m.classList.remove('pulse-anim');
                             void m.offsetWidth;
                             m.classList.add('pulse-anim');
+                    }
+
+                    stopItems.forEach(item => {
+                        item.addEventListener('click', function(){
+                            selectStop(item);
+                        });
+                        item.addEventListener('keydown', function(event){
+                            if (event.key === 'Enter' || event.key === ' ') {
+                                event.preventDefault();
+                                selectStop(item);
+                            }
                         });
                     });
                 })();
             </script>
-            <div class="auth-actions">
-                <a class="auth-link" href="maps.php">Refresh map</a>
-            </div>
-        </div>
+        </section>
     </div>
+    <?php include __DIR__ . '/footer.php'; ?>
 </body>
 </html>
     
