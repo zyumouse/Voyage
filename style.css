@@ -474,7 +474,7 @@ body.light-mode .searchInput {
 }
 .cta-panel p{
     margin: 0;
-    color: #000);
+    color: #000;
     max-width: 600px;
 }
 .mainbottomimage{
@@ -1236,7 +1236,7 @@ body.light-mode .headerProfileButton {
   display: block;
   text-align: left;
   font-size: 0.95rem;
-  color: #373a6e;
+  color: #8186e9;
 }
 
 .auth-form input,
