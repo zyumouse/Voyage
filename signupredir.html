@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
     <script src="theme.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <title>Voyage - Sign Up</title>
     <link rel="stylesheet" href="style.css">
     <style>
@@ -163,10 +164,16 @@
 </head>
 <body>
     <div id="shared-header"></div>
-    <div class="auth-page">
-        <div class="auth-card">
-            <h1 class="auth-title">Create an account</h1>
-            <p class="auth-subtitle">Register for Voyage and book your LRT tickets quickly and securely.</p>
+    <main class="signup-page-content">
+        <section class="signup-layout">
+            <div class="signup-intro">
+                <span class="hero-eyebrow">Start your journey</span>
+                <h1>Create your Voyage account.</h1>
+                <p>Register once to book LRT tickets, manage your trips, and move through the city with confidence.</p>
+            </div>
+            <div class="signup-card">
+            <h2>Create an account</h2>
+            <p class="signup-card-subtitle">Register for Voyage and book your LRT tickets quickly and securely.</p>
             <form id="signupForm" class="auth-form" action="register.php" method="post">
                 <div class="authField">
                     <label for="username">Username</label>
@@ -187,8 +194,9 @@
                 <button type="submit">Sign Up</button>
             </form>
             <p class="auth-footer">Already have an account? <a href="login.html">Login here</a>.</p>
-        </div>
-    </div>
+            </div>
+        </section>
+    </main>
 
     <div id="popupOverlay" class="popupOverlay" aria-hidden="true">
         <div class="popupBox">
@@ -270,6 +278,8 @@
             });
         });
     </script>
+    <div id="shared-footer"></div>
     <script src="header-loader.js" defer></script>
+    <script src="footer-loader.js" defer></script>
 </body>
 </html>

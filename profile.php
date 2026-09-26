@@ -32,6 +32,7 @@ if (!$user) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
     <script src="theme.js" defer></script>
     <title>My Profile</title>
@@ -63,5 +64,6 @@ if (!$user) {
                 </div>
       </div>
     </div>
+    <?php include __DIR__ . '/footer.php'; ?>
 </body>
 </html>

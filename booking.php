@@ -60,12 +60,24 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
         }
         .booking-page .bookingLog {
             gap: 24px;
+            margin-top: 32px;
         }
         .booking-page .addBooking {
             margin-top: 32px;
         }
         .booking-page .payTitle {
             margin-bottom: 16px;
+        }
+        .bookingNotice a {
+            background: linear-gradient(90deg, #6a35d4, #c330ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .bookingNotice a:hover {
+            text-decoration: underline;
         }
         .route-search {
             margin: 26px 0 20px;
@@ -155,8 +167,24 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
 <body>
     <?php include __DIR__ . '/header.php'; ?>
 
-    <div class="auth-page booking-page">
-        <div class="auth-card">
+    <div class="booking-page-content">
+        <main class="hero-section booking-hero">
+            <div class="hero-copy">
+                <span class="hero-eyebrow">Smart Ticketing</span>
+                <h1 class="hero-title">Plan your next journey with Voyage.</h1>
+                <p>Choose your stations, confirm your route, and keep every active ticket in one clear place.</p>
+                <div class="hero-actions">
+                    <a class="primary-button" href="maps.php">View Route Map</a>
+                    <a class="secondary-button" href="faq.php">Need Help?</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <img src="./pics/bannerstuff.png" alt="Voyage booking experience">
+            </div>
+        </main>
+
+    <section class="booking-page booking-workspace<?php echo $isLoggedIn ? ' is-logged-in' : ''; ?>" id="route-booking">
+        <div class="booking-workspace-inner">
             <h1 class="auth-title">Your Trips</h1>
             <p class="auth-subtitle">Review your current bookings and book a custom route with your chosen origin and destination.</p>
             <div class="bookingContainer">
@@ -210,7 +238,7 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
                 <div class="errorMessage"><?php echo htmlspecialchars(urldecode($_GET['error'])); ?></div>
             <?php endif; ?>
 
-            <div class="route-search" style="margin-top: 0;">
+            <div class="route-search">
                 <h2>Book your own route</h2>
                 <form class="route-search-form" method="GET" action="checkout.php">
                     <label for="custom_origin">Origin
@@ -266,5 +294,8 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
         <?php endif; ?>
         </div>
     </div>
+    </section>
+    </div>
+    <?php include __DIR__ . '/footer.php'; ?>
 </body>
 </html>

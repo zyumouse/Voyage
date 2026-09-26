@@ -13,6 +13,7 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
     <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
     <script src="theme.js" defer></script>
     <title>Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="admin.css">
 </head>
 <body>
@@ -156,5 +157,6 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
             $conn->close();
         ?>
         </table>
-</body>
+    <?php include __DIR__ . '/footer.php'; ?>
+    </body>
 </html>

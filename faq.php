@@ -18,6 +18,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
 <body>
     <?php include __DIR__ . '/header.php'; ?>
 
+    <div class="faq-page-content">
     <main class="hero-section">
         <div class="hero-copy">
             <span class="hero-eyebrow">FAQ</span>
@@ -25,7 +26,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
             <p>Find answers for ticket expiry, route planning, and checkout details all in one place.</p>
             <div class="hero-actions">
                 <a class="primary-button" href="booking.php">Book a Ride</a>
-                <a class="secondary-button" href="index.php">Back to Home</a>
+                <a class="secondary-button" href="maps.php">View Route Map</a>
             </div>
         </div>
         <div class="hero-visual">
@@ -35,10 +36,11 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
     <section id="faq-section" class="faq-section">
         <div class="section-title">
-            <h2>Frequently asked questions</h2>
+            <h2>Frequently Asked Questions</h2>
             <p>Everything you need to know about booking, ticket expiry, and getting the most out of Voyage.</p>
         </div>
         <div class="faq-grid">
+            <div class="faq-column">
             <div class="faq-card">
                 <button type="button" class="faq-summary" aria-expanded="false">How do I book a ride?<span class="faq-toggle-icon">+</span></button>
                 <div class="faq-body" hidden>
@@ -69,6 +71,8 @@ $isLoggedIn = isset($_SESSION['user_id']);
                     <p>His name is LeRarTee.</p>
                 </div>
             </div>
+            </div>
+            <div class="faq-column">
             <div class="faq-card">
                 <button type="button" class="faq-summary" aria-expanded="false">How many tickets can I book at once?<span class="faq-toggle-icon">+</span></button>
                 <div class="faq-body" hidden>
@@ -84,7 +88,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
             <div class="faq-card">
                 <button type="button" class="faq-summary" aria-expanded="false">Will there be any further updates to this website?<span class="faq-toggle-icon">+</span></button>
                 <div class="faq-body" hidden>
-                    <p>Coming soon... TM</p>
+                    <p>More will be coming soon...</p>
                 </div>
             </div>
             <div class="faq-card">
@@ -92,6 +96,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
                 <div class="faq-body" hidden>
                     <p>Yes. Voyage uses secure checkout practices, and only the required card details are collected to complete your payment.</p>
                 </div>
+            </div>
             </div>
         </div>
     </section>
@@ -101,8 +106,11 @@ $isLoggedIn = isset($_SESSION['user_id']);
             <h2 class="gradientbottomtext">Still need help?</h2>
             <p>Reach out through our support channels or continue booking with confidence after reviewing the FAQs.</p>
         </div>
-        <button class="primary-button" type="button">Contact Us</button>
+        <a class="contact-button" href="" target="_blank" rel="noopener noreferrer">
+            Contact Us <span aria-hidden="true">&#8594;</span>
+        </a>
     </section>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -128,5 +136,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
             });
         });
     </script>
+    <?php include __DIR__ . '/footer.php'; ?>
 </body>
 </html>
