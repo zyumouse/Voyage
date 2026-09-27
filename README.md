@@ -11,9 +11,10 @@ QR Code Generator : davidshimjs; https://github.com/davidshimjs/qrcodejs
 
 LRT Stations Map : Gamuda Berhad ; https://gamuda.com/our-expertise/engineering-construction/penang-mutiara-line-mtl/
 
-Voyage Logo & Icon : pleaseplayetoh ; https://github.com/pleaseplayetoh
+Voyage Logo & Icon : <a href="https://github.com/pleaseplayetoh">pleaseplayetoh</a>
 
 Icons : 
+
 <a href="https://www.flaticon.com/free-icons/rise" title="rise icons">Rise icons created by Magnific - Flaticon</a>
 
 <a href="https://www.flaticon.com/free-icons/payment" title="payment icons">Payment icons created by Pixel perfect - Flaticon</a>
