@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/schema.php';
 if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
     header('Location: login.html');
     exit;
@@ -13,6 +14,7 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
     <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
     <script src="theme.js" defer></script>
     <title>Admin Panel</title>
+    <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="admin.css">
 </head>
@@ -31,8 +33,9 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
+        voyage_migrate_legacy_tables($conn);
 
-        $conn->query("CREATE TABLE IF NOT EXISTS available_tickets (
+        $conn->query("CREATE TABLE IF NOT EXISTS available_trips (
             id INT AUTO_INCREMENT PRIMARY KEY,
             origin VARCHAR(100) NOT NULL,
             destination VARCHAR(100) NOT NULL,
@@ -51,7 +54,7 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
             } elseif ($origin === $destination) {
                 $addError = 'Origin and destination must be different.';
             } else {
-                $stmt = $conn->prepare('INSERT INTO available_tickets (origin, destination, ticket_date) VALUES (?, ?, ?)');
+                $stmt = $conn->prepare('INSERT INTO available_trips (origin, destination, ticket_date) VALUES (?, ?, ?)');
                 $stmt->bind_param('sss', $origin, $destination, $ticket_date);
                 $stmt->execute();
                 header('Location: admin.php?added=1');
@@ -60,7 +63,7 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
         }
 
         $availableTrips = [];
-        $tripResult = $conn->query("SELECT id, origin, destination, ticket_date FROM available_tickets ORDER BY ticket_date");
+        $tripResult = $conn->query("SELECT id, origin, destination, ticket_date FROM available_trips ORDER BY ticket_date");
         if ($tripResult) {
             while ($tripRow = $tripResult->fetch_assoc()) {
                 $availableTrips[] = $tripRow;
@@ -131,7 +134,8 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "SELECT id, name, phone_number, card_number, ticket_date FROM tickets";
+            voyage_migrate_legacy_tables($conn);
+            $sql = "SELECT id, name, phone_number, card_number, ticket_date FROM ticket_records";
             $result = $conn->query($sql);
 
             if(!$result) {

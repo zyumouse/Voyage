@@ -8,3 +8,4 @@ For Admin Account
 Email : admin@mouse.com
 Password : admin
 
+QR Code Generator : https://github.com/davidshimjs/qrcodejs

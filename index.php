@@ -11,7 +11,6 @@ $isAdmin = !empty($_SESSION['is_admin']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
     <script src="theme.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Voyage - Home</title>
     <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico">
@@ -58,40 +57,41 @@ $isAdmin = !empty($_SESSION['is_admin']);
 
     <section class="feature-grid">
         <div class="feature-card">
-            <h3>Route coverage</h3>
+            <h3><img class="feature-icon" src="./pics/Icon/track.png" alt="">Route coverage</h3>
             <p>Explore the network map with connected stops, airport transfer points, and clear route paths for every journey.</p>
         </div>
         <div class="feature-card">
-            <h3>Smart bookings</h3>
+            <h3><img class="feature-icon" src="./pics/Icon/booking.png" alt="">Smart bookings</h3>
             <p>Book a ride in seconds, compare schedules, and confirm your trip with a few easy steps.</p>
         </div>
         <div class="feature-card">
-            <h3>Reliable support</h3>
+            <h3><img class="feature-icon" src="./pics/Icon/support.png" alt="">Reliable support</h3>
             <p>Stay informed with the latest service updates and trusted support for your daily commute.</p>
         </div>
     </section>
 
-    <section class="mainbottomimage">
-        <img src="./pics/lrt.jpg" alt="Illustration of modern transit travel">
-    </section>
-
     <section class="network-panel">
-        <div class="network-copy">
-            <h3>Connected service across the city</h3>
-            <p>Voyage keeps the network transparent with route details, station amenities, and transfer connections for every leg of your trip.</p>
+        <div class="network-info">
+            <div class="network-copy">
+                <h3>Connected service across the city</h3>
+                <p>Voyage keeps the network transparent with route details, station amenities, and transfer connections for every leg of your trip.</p>
+            </div>
+            <div class="network-card">
+                <h4><img class="feature-icon" src="./pics/Icon/airport.png" alt="">Airport access</h4>
+                <p>Seamless transit to and from major terminals with dedicated airport transfer stops and easy planning.</p>
+            </div>
+            <div class="network-card">
+                <h4><img class="feature-icon" src="./pics/Icon/peak.png" alt="">Peak-time schedules</h4>
+                <p>Realistic service times and up-to-date arrival info help you travel when it matters most.</p>
+            </div>
+            <div class="network-card">
+                <h4><img class="feature-icon" src="./pics/Icon/secure.png" alt="">Secure booking</h4>
+                <p>Book with confidence using a clean interface and fast checkout for every commute.</p>
+            </div>
         </div>
-        <div class="network-card">
-            <h4>Airport access</h4>
-            <p>Seamless transit to and from major terminals with dedicated airport transfer stops and easy planning.</p>
-        </div>
-        <div class="network-card">
-            <h4>Peak-time schedules</h4>
-            <p>Realistic service times and up-to-date arrival info help you travel when it matters most.</p>
-        </div>
-        <div class="network-card">
-            <h4>Secure booking</h4>
-            <p>Book with confidence using a clean interface and fast checkout for every commute.</p>
-        </div>
+        <section class="mainbottomimage">
+            <img src="./pics/lrt.jpg" alt="Illustration of modern transit travel">
+        </section>
     </section>
 
     <section class="cta-panel">
@@ -104,15 +104,15 @@ $isAdmin = !empty($_SESSION['is_admin']);
 
     <section class="work-grid">
         <div class="work-step">
-            <h3>1. Pick your station</h3>
+            <h3><span class="work-step-number">1</span>Pick your station</h3>
             <p>Check the route map and choose the closest stop with fast access to the city, airport, or transit hub.</p>
         </div>
         <div class="work-step">
-            <h3>2. Book your ride</h3>
+            <h3><span class="work-step-number">2</span>Book your ride</h3>
             <p>Select your departure and destination, choose the best fare, and confirm your trip in a few taps.</p>
         </div>
         <div class="work-step">
-            <h3>3. Travel with confidence</h3>
+            <h3><span class="work-step-number">3</span>Travel with confidence</h3>
             <p>Receive journey details, boarding notifications, and status updates so you always travel with clarity.</p>
         </div>
     </section>

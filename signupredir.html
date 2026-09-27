@@ -5,162 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
     <script src="theme.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="form-validation.js" defer></script>
     <title>Voyage - Sign Up</title>
+    <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico">
     <link rel="stylesheet" href="style.css">
-    <style>
-        .homeLink {
-            color: #1a1c47;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            margin: 0 auto 24px;
-            font-weight: 700;
-        }
-
-        .homeLink img {
-            height: 30px;
-            margin-right: 10px;
-        }
-
-        .auth-page {
-            min-height: calc(100vh - 84px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            margin: 0;
-            background: linear-gradient(135deg, #3039ff 0%, #a580ff 100%);
-        }
-
-        .auth-page .auth-card {
-            width: min(700px, 100%);
-            background: #ffffffee;
-            border-radius: 24px;
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
-            padding: 42px 38px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            align-items: center;
-        }
-
-        .auth-form {
-            width: min(520px, 100%);
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            align-items: center;
-        }
-
-        .authField {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .authField label {
-            width: 100%;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        .authField input {
-            width: 100%;
-            max-width: 520px;
-            min-height: 46px;
-            padding: 12px 14px;
-            border-radius: 14px;
-            border: 1px solid rgba(26, 28, 71, 0.18);
-            background: #f8f9ff;
-            font-size: 1rem;
-            box-sizing: border-box;
-        }
-
-        .auth-page .auth-card h1,
-        .auth-page .auth-card .auth-title {
-            color: #9ca1ff;
-            margin: 0;
-        }
-
-        .auth-page .auth-card p,
-        .auth-page .auth-card .auth-subtitle {
-            color: #4b4f7d;
-            margin: 0;
-        }
-
-        .auth-page .auth-card .auth-footer {
-            margin-top: 0;
-        }
-
-        .popupOverlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.72);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.2s ease, visibility 0.2s ease;
-            z-index: 9999;
-        }
-
-        .popupOverlay.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .popupBox {
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 24px;
-            padding: 30px 28px;
-            max-width: 420px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.15);
-        }
-
-        .popupBox h2 {
-            margin: 0 0 16px;
-            font-size: 1.9rem;
-            color: #1a1c47;
-        }
-
-        .popupBox p {
-            margin: 0 0 24px;
-            color: #4b4f7d;
-            line-height: 1.6;
-        }
-
-        .popupButton,
-        .popupClose {
-            display: inline-block;
-            margin: 0 8px;
-            padding: 12px 22px;
-            border-radius: 999px;
-            border: none;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-
-        .popupButton {
-            background: #4c3df5;
-            color: #fff;
-        }
-
-        .popupButton:hover {
-            background: #3e2cdd;
-        }
-
-        .popupClose {
-            background: rgba(99, 86, 255, 0.1);
-            color: #1a1c47;
-        }
-    </style>
 </head>
 <body>
     <div id="shared-header"></div>
@@ -171,41 +19,38 @@
                 <h1>Create your Voyage account.</h1>
                 <p>Register once to book LRT tickets, manage your trips, and move through the city with confidence.</p>
             </div>
-            <div class="signup-card">
+            <div class="signup-card site-form-card">
             <h2>Create an account</h2>
-            <p class="signup-card-subtitle">Register for Voyage and book your LRT tickets quickly and securely.</p>
-            <form id="signupForm" class="auth-form" action="register.php" method="post">
+            <form id="signupForm" class="auth-form site-form" action="register.php" method="post">
                 <div class="authField">
-                    <label for="username">Username</label>
-                    <input id="username" type="text" name="username" required>
+                    <label for="name">Name</label>
+                    <input id="name" type="text" name="name" maxlength="100" pattern="[\p{L}\p{M}][\p{L}\p{M} .'\-]{0,99}" title="Use letters, spaces, apostrophes, periods, or hyphens." required>
                 </div>
                 <div class="authField">
                     <label for="email">Email</label>
-                    <input id="email" type="email" name="email" required>
+                    <input id="email" type="email" name="email" maxlength="255" data-no-spaces required>
                 </div>
                 <div class="authField">
                     <label for="phone">Phone Number</label>
-                    <input id="phone" type="tel" name="phone" pattern="[0-9+\- ]{7,}" placeholder="123-456-7890" required>
+                    <input id="phone" type="tel" name="phone" pattern="\+[0-9]{7,15}" maxlength="16" placeholder="+60123456789" title="Start with + followed by 7 to 15 digits. Do not use spaces or punctuation." data-voyage-phone required>
                 </div>
                 <div class="authField">
                     <label for="password">Password</label>
-                    <input id="password" type="password" name="password" required>
+                    <input id="password" type="password" name="password" maxlength="255" pattern="\S+" data-no-spaces required>
                 </div>
                 <button type="submit">Sign Up</button>
             </form>
-            <p class="auth-footer">Already have an account? <a href="login.html">Login here</a>.</p>
+            <p class="auth-footer">Already have an account? <a href="login.html">Log in here</a>.</p>
             </div>
         </section>
     </main>
 
-    <div id="popupOverlay" class="popupOverlay" aria-hidden="true">
-        <div class="popupBox">
-            <h2 id="popupTitle"></h2>
-            <p id="popupMessage"></p>
-            <button id="popupAction" class="popupButton" type="button">Continue</button>
-            <button id="popupClose" class="popupClose" type="button">Close</button>
-        </div>
-    </div>
+    <dialog id="popupOverlay" class="site-dialog" aria-labelledby="popupTitle">
+        <h2 id="popupTitle"></h2>
+        <p id="popupMessage"></p>
+        <button id="popupAction" type="button">Continue</button>
+        <button id="popupClose" type="button">Close</button>
+    </dialog>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -219,6 +64,7 @@
             function showPopup(title, message, actionText, actionUrl) {
                 popupTitle.textContent = title;
                 popupMessage.textContent = message;
+                popupClose.style.display = actionText ? 'none' : 'inline-block';
                 if (actionText) {
                     popupAction.textContent = actionText;
                     popupAction.style.display = 'inline-block';
@@ -232,21 +78,18 @@
                 } else {
                     popupAction.style.display = 'none';
                 }
-                overlay.classList.add('visible');
-                overlay.setAttribute('aria-hidden', 'false');
+                if (!overlay.open) {
+                    overlay.showModal();
+                }
             }
 
             function closePopup() {
-                overlay.classList.remove('visible');
-                overlay.setAttribute('aria-hidden', 'true');
+                if (overlay.open) {
+                    overlay.close();
+                }
             }
 
             popupClose.addEventListener('click', closePopup);
-            overlay.addEventListener('click', function (event) {
-                if (event.target === overlay) {
-                    closePopup();
-                }
-            });
 
             form.addEventListener('submit', function (event) {
                 event.preventDefault();
@@ -263,17 +106,29 @@
                         'X-Requested-With': 'XMLHttpRequest'
                     }
                 })
-                .then(response => response.json())
-                .then(data => {
+                .then(async response => {
+                    const responseText = await response.text();
+                    let data;
+                    try {
+                        data = JSON.parse(responseText);
+                    } catch (error) {
+                        throw new Error(`The registration server returned an unreadable response (HTTP ${response.status}).`);
+                    }
+                    return { response, data };
+                })
+                .then(({ response, data }) => {
                     if (data.success) {
                         showPopup('Success!', data.message || 'Account created successfully.', 'Go to Login', 'login.html');
                         form.reset();
                     } else {
-                        showPopup('Error', data.message || 'Unable to create account.');
+                        showPopup('Error', data.message || `Registration failed (HTTP ${response.status}).`);
                     }
                 })
-                .catch(() => {
-                    showPopup('Error', 'Unable to submit the form right now. Please try again later.');
+                .catch(error => {
+                    const message = error instanceof TypeError
+                        ? 'Could not connect to the registration server. Check your connection and try again.'
+                        : error.message;
+                    showPopup('Error', message || 'Registration failed for an unknown reason.');
                 });
             });
         });

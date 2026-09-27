@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/schema.php';
 $username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : null;
 $isLoggedIn = isset($_SESSION['user_id']);
 $stops = [
@@ -35,7 +36,6 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
     <script src="theme.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Voyage - Booking</title>
     <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico">
@@ -67,17 +67,6 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
         }
         .booking-page .payTitle {
             margin-bottom: 16px;
-        }
-        .bookingNotice a {
-            background: linear-gradient(90deg, #6a35d4, #c330ff);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            font-weight: 700;
-            text-decoration: none;
-        }
-        .bookingNotice a:hover {
-            text-decoration: underline;
         }
         .route-search {
             margin: 26px 0 20px;
@@ -191,20 +180,21 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
 
         <?php if (!$isLoggedIn): ?>
             <div class="bookingNotice">
-                <p>Please <a href="login.html">log in</a> to create and view bookings.</p>
+                <p>Please <a class="gradient-link" href="login.html">log in</a> to create and view bookings.</p>
             </div>
         <?php else: ?>
             <?php
             $conn = new mysqli('localhost', 'root', '', 'ticket_system');
             if (!$conn->connect_error) {
-                $conn->query("CREATE TABLE IF NOT EXISTS available_tickets (
+                voyage_migrate_legacy_tables($conn);
+                $conn->query("CREATE TABLE IF NOT EXISTS available_trips (
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     origin VARCHAR(100) NOT NULL,
                     destination VARCHAR(100) NOT NULL,
                     ticket_date DATE NOT NULL,
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
                 )");
-                $conn->query("CREATE TABLE IF NOT EXISTS tickets (
+                $conn->query("CREATE TABLE IF NOT EXISTS ticket_records (
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     trip_id INT NOT NULL DEFAULT 0,
                     user_id INT NOT NULL,
@@ -212,27 +202,38 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
                     phone_number VARCHAR(30) NOT NULL,
                     origin VARCHAR(100) NOT NULL,
                     destination VARCHAR(100) NOT NULL,
-                    card_number VARCHAR(32) NOT NULL,
+                    card_number VARCHAR(50) NOT NULL,
+                    qr_token CHAR(64) NULL,
                     ticket_date DATE NOT NULL,
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
                 )");
-                $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS trip_id INT NOT NULL DEFAULT 0");
-                $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS user_id INT NOT NULL DEFAULT 0");
-                $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS name VARCHAR(100) NOT NULL DEFAULT ''");
-                $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS phone_number VARCHAR(30) NOT NULL DEFAULT ''");
-                $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS card_number VARCHAR(32) NOT NULL DEFAULT ''");
-                $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS origin VARCHAR(100) NOT NULL DEFAULT ''");
-                $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS destination VARCHAR(100) NOT NULL DEFAULT ''");
-                $conn->query("ALTER TABLE tickets ADD COLUMN IF NOT EXISTS ticket_date DATE NOT NULL DEFAULT '1970-01-01'");
+                $conn->query("ALTER TABLE ticket_records ADD COLUMN IF NOT EXISTS trip_id INT NOT NULL DEFAULT 0");
+                $conn->query("ALTER TABLE ticket_records ADD COLUMN IF NOT EXISTS user_id INT NOT NULL DEFAULT 0");
+                $conn->query("ALTER TABLE ticket_records ADD COLUMN IF NOT EXISTS name VARCHAR(100) NOT NULL DEFAULT ''");
+                $conn->query("ALTER TABLE ticket_records ADD COLUMN IF NOT EXISTS phone_number VARCHAR(30) NOT NULL DEFAULT ''");
+                $conn->query("ALTER TABLE ticket_records ADD COLUMN IF NOT EXISTS card_number VARCHAR(50) NOT NULL DEFAULT ''");
+                $conn->query("ALTER TABLE ticket_records ADD COLUMN IF NOT EXISTS origin VARCHAR(100) NOT NULL DEFAULT ''");
+                $conn->query("ALTER TABLE ticket_records ADD COLUMN IF NOT EXISTS destination VARCHAR(100) NOT NULL DEFAULT ''");
+                $conn->query("ALTER TABLE ticket_records ADD COLUMN IF NOT EXISTS ticket_date DATE NOT NULL DEFAULT '1970-01-01'");
 
-                $stmt = $conn->prepare('SELECT origin, destination, ticket_date, created_at FROM tickets WHERE user_id = ? AND created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR) ORDER BY created_at DESC');
+                $stmt = $conn->prepare('SELECT id, qr_token, origin, destination, ticket_date, created_at FROM ticket_records WHERE user_id = ? AND created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR) ORDER BY created_at DESC');
                 $stmt->bind_param('i', $_SESSION['user_id']);
                 $stmt->execute();
                 $result = $stmt->get_result();
             }
             ?>
             <?php if (isset($_GET['success'])): ?>
-                <div class="successMessage">Booking created successfully!</div>
+                <dialog class="site-dialog" id="checkout-success-dialog" aria-labelledby="checkout-success-title">
+                    <h2 id="checkout-success-title">Thank you!</h2>
+                    <p>Your checkout is complete. Bon Voyage!</p>
+                    <button type="button" id="checkout-success-close">Continue</button>
+                </dialog>
+                <script>
+                    const checkoutSuccessDialog = document.getElementById('checkout-success-dialog');
+                    checkoutSuccessDialog.showModal();
+                    document.getElementById('checkout-success-close').addEventListener('click', () => checkoutSuccessDialog.close());
+                    window.history.replaceState(null, '', window.location.pathname);
+                </script>
             <?php endif; ?>
             <?php if (isset($_GET['error'])): ?>
                 <div class="errorMessage"><?php echo htmlspecialchars(urldecode($_GET['error'])); ?></div>
@@ -268,19 +269,30 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
                 <?php if (!empty($result) && $result->num_rows > 0): ?>
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <?php
-                            $createdDateTime = date('d/m/Y H:i', strtotime($row['created_at']));
+                            $createdTimestamp = strtotime((string)$row['created_at']);
+                            $createdDateTime = $createdTimestamp !== false ? date('d/m/Y H:i', $createdTimestamp) : 'Not recorded';
+                            $expiryTimestamp = $createdTimestamp !== false
+                                ? $createdTimestamp + 86400
+                                : strtotime((string)$row['ticket_date']);
                         ?>
-                        <div class="bookingLogItem">
+                                <?php
+                                    $host = isset($_SERVER['HTTP_HOST']) && preg_match('/\A[a-z0-9.\-\[\]:]+\z/i', $_SERVER['HTTP_HOST'])
+                                        ? $_SERVER['HTTP_HOST']
+                                        : 'localhost';
+                                    $scheme = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
+                                    $scriptDirectory = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/')), '/');
+                                    $verificationUrl = $scheme . '://' . $host . $scriptDirectory . '/verify_ticket.php?token=' . rawurlencode((string)$row['qr_token']);
+                                ?>
+                                <div class="bookingLogItem">
                             <div>
                                 <h2><?php echo htmlspecialchars($row['origin']); ?> &rarr; <?php echo htmlspecialchars($row['destination']); ?></h2>
                                 <h4>Booked on <?php echo htmlspecialchars($createdDateTime); ?></h4>
-                                <p class="bookingLogMeta">Trip date: <?php echo htmlspecialchars(date('d/m/Y', strtotime($row['ticket_date']))); ?> | Carrier: Voyage</p>
-                                <p class="bookingLogMeta">Route: <?php echo htmlspecialchars($row['origin']); ?> → <?php echo htmlspecialchars($row['destination']); ?></p>
+                                <p class="bookingLogMeta">Expires: <?php echo $expiryTimestamp !== false ? htmlspecialchars(date('d/m/Y H:i', $expiryTimestamp)) : 'Not set'; ?></p>
                             </div>
                             <div>
-                                <h3><?php echo htmlspecialchars(date('d/m/Y', strtotime($row['ticket_date']))); ?></h3>
-                                <h4>Ticket valid for 24 hours from booking time</h4>
-                                <h4>Ticket status: Confirmed</h4>
+                                <h3>Ticket status</h3>
+                                <h4>Confirmed</h4>
+                                <button class="booking-qr-button" type="button" data-verification-url="<?php echo htmlspecialchars($verificationUrl, ENT_QUOTES, 'UTF-8'); ?>" data-ticket-id="<?php echo (int)$row['id']; ?>">Show QR Ticket</button>
                             </div>
                         </div>
                     <?php endwhile; ?>
@@ -290,6 +302,43 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
                     </div>
                 <?php endif; ?>
             </div>
+
+            <dialog class="site-dialog" id="ticket-qr-dialog" aria-label="Ticket QR code">
+                <div class="ticket-qr-surface">
+                    <div id="ticket-qr-code" aria-label="Ticket verification QR code"></div>
+                </div>
+                <button type="button" id="ticket-qr-close">Close</button>
+            </dialog>
+            <script src="./assets/vendor/qrcode.min.js"></script>
+            <script>
+                (function () {
+                    const ticketQrDialog = document.getElementById('ticket-qr-dialog');
+                    const qrCodeContainer = document.getElementById('ticket-qr-code');
+
+                    document.querySelectorAll('.booking-qr-button').forEach(function (button) {
+                        button.addEventListener('click', function () {
+                            qrCodeContainer.replaceChildren();
+                            if (typeof QRCode === 'undefined') {
+                                qrCodeContainer.textContent = 'QR code could not be loaded. Check your connection and try again.';
+                            } else {
+                                new QRCode(qrCodeContainer, {
+                                    text: button.dataset.verificationUrl,
+                                    width: 224,
+                                    height: 224,
+                                    colorDark: '#17172b',
+                                    colorLight: '#ffffff',
+                                    correctLevel: QRCode.CorrectLevel.M
+                                });
+                            }
+                            ticketQrDialog.showModal();
+                        });
+                    });
+
+                    document.getElementById('ticket-qr-close').addEventListener('click', function () {
+                        ticketQrDialog.close();
+                    });
+                })();
+            </script>
 
         <?php endif; ?>
         </div>

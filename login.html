@@ -5,17 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
   <script src="theme.js" defer></script>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  <script src="form-validation.js" defer></script>
   <title>Login</title>
+  <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico">
   <link rel="stylesheet" href="style.css">
   <style>
-    .auth-page {
-      min-height: calc(100vh - 84px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px 20px 32px;
-    }
     .admin-notice {
       margin: 20px 0 24px;
       padding: 16px;
@@ -47,15 +41,19 @@
           Password: admin
         </div>
       </div>
-      <div class="login-card">
-        <h2>Login to your account</h2>
+      <div class="login-card site-form-card">
+        <h2>Log in to your account</h2>
         <p class="login-card-subtitle">Enter your email and password to continue.</p>
-        <form class="auth-form" action="login.php" method="post">
-          <label for="email">Email</label>
-          <input id="email" type="email" name="email" required>
+        <form id="loginForm" class="auth-form site-form" action="login.php" method="post">
+          <div class="authField">
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" maxlength="255" data-no-spaces required>
+          </div>
 
-          <label for="password">Password</label>
-          <input id="password" type="password" name="password" required>
+          <div class="authField">
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" maxlength="255" pattern="\S+" data-no-spaces required>
+          </div>
 
           <button type="submit">Login</button>
         </form>
@@ -63,6 +61,43 @@
       </div>
     </section>
   </main>
+  <dialog class="site-dialog" id="login-error-dialog" aria-labelledby="login-error-title">
+    <h2 id="login-error-title">Log in failed</h2>
+    <p id="login-error-message">Invalid email or password.</p>
+    <button type="button" id="login-error-close">Close</button>
+  </dialog>
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const loginErrorDialog = document.getElementById('login-error-dialog');
+    const loginErrorMessage = document.getElementById('login-error-message');
+
+    loginForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!loginForm.checkValidity()) {
+        loginForm.reportValidity();
+        return;
+      }
+
+      try {
+        const response = await fetch(loginForm.action, {
+          method: 'POST',
+          body: new FormData(loginForm),
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        });
+        const result = await response.json();
+        if (result.success) {
+          window.location.assign(result.redirect || 'index.php');
+          return;
+        }
+        loginErrorMessage.textContent = result.message || 'Invalid email or password.';
+      } catch (error) {
+        loginErrorMessage.textContent = 'Unable to log in right now. Please try again.';
+      }
+      loginErrorDialog.showModal();
+    });
+
+    document.getElementById('login-error-close').addEventListener('click', () => loginErrorDialog.close());
+  </script>
   <div id="shared-footer"></div>
   <script src="header-loader.js" defer></script>
   <script src="footer-loader.js" defer></script>

@@ -24,6 +24,29 @@ $stops = [
     'S19: Macallum',
     'S20: KOMTAR',
     'S31: Penang Sentral'];
+$stopPositions = [
+    'A01: PSR-A' => ['x' => 17, 'y' => 99],
+    'S02: Permatang Damar Laut' => ['x' => 24, 'y' => 95],
+    'S03: Penang International Airport' => ['x' => 35, 'y' => 85],
+    'S04: Sungai Tiram' => ['x' => 34, 'y' => 80],
+    'S05: FIZ South' => ['x' => 37, 'y' => 76],
+    'S06: FIZ North' => ['x' => 40, 'y' => 72],
+    'S07: Jalan Tengah' => ['x' => 39, 'y' => 68],
+    'S08: SPICE' => ['x' => 32, 'y' => 64],
+    'S09: Bukit Jambul' => ['x' => 42, 'y' => 60],
+    'S10: Sungai Nibong' => ['x' => 47, 'y' => 59],
+    'S11: Sungai Dua' => ['x' => 50, 'y' => 54],
+    'S12: Batu Uban' => ['x' => 52, 'y' => 49],
+    'S13: Jalan Universiti' => ['x' => 60, 'y' => 43],
+    'S14: Gelugor' => ['x' => 56, 'y' => 38],
+    'S15: Penang Waterfront' => ['x' => 65, 'y' => 32],
+    'S16: East Jelutong' => ['x' => 64, 'y' => 23],
+    'S17: Sungai Pinang' => ['x' => 68, 'y' => 19],
+    'S18: Bandar Sri Pinang' => ['x' => 73, 'y' => 15],
+    'S19: Macallum' => ['x' => 71, 'y' => 12],
+    'S20: KOMTAR' => ['x' => 71, 'y' => 8],
+    'S31: Penang Sentral' => ['x' => 101, 'y' => 21],
+];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +55,6 @@ $stops = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
     <script src="theme.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Voyage - Maps</title>
     <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico">
@@ -56,16 +78,10 @@ $stops = [
         </main>
 
         <section class="section-title maps-intro">
-            <h2>Voyage Route Map</h2>
-            <p>Explore the stops available on the Voyage line and plan your journey.</p>
+            <h2>Penang LRT Mutiara Line</h2>
         </section>
 
         <section class="maps-workspace">
-            <?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
-                <div class="success-banner">
-                    <strong>Thank you!</strong> Your checkout is complete. Bon Voyage!
-                </div>
-            <?php endif; ?>
             <div class="map-and-list">
                 <div class="map-column">
                     <img src="./pics/Groundbreaking-Alignment-map.png" alt="Groundbreaking Alignment" class="maps-image">
@@ -74,7 +90,8 @@ $stops = [
                 <div class="list-column list-below">
                     <div class="profile-info">
                         <?php foreach ($stops as $index => $stop): ?>
-                            <div class="profile-row stop-item" role="button" tabindex="0" aria-pressed="false" data-stop-index="<?php echo $index; ?>" data-x="50" data-y="50">
+                            <?php $position = $stopPositions[$stop] ?? ['x' => 50, 'y' => 50]; ?>
+                            <div class="profile-row stop-item" role="button" tabindex="0" aria-pressed="false" data-stop-index="<?php echo $index; ?>" data-x="<?php echo $position['x']; ?>" data-y="<?php echo $position['y']; ?>">
                                 <?php if ($index === 2): ?>
                                     <img src="./pics/Icon/airport.png" alt="airport" class="stop-icon">
                                 <?php else: ?>

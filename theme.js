@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function setTheme(theme) {
+  document.documentElement.classList.remove('light-mode', 'dark-mode');
+  document.documentElement.classList.add(`${theme}-mode`);
   document.body.classList.remove('light-mode', 'dark-mode');
   document.body.classList.add(`${theme}-mode`);
   localStorage.setItem('voyage-theme', theme);
@@ -25,6 +27,12 @@ function setTheme(theme) {
     button.textContent = theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode';
   }
 }
+
+document.addEventListener('cancel', function (event) {
+  if (event.target.matches('dialog.site-dialog')) {
+    event.preventDefault();
+  }
+});
 
 // Profile dropdown handling
 document.addEventListener('click', function (e) {

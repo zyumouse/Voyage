@@ -17,6 +17,7 @@
             <div class="footer-column">
                 <h5>Support</h5>
                 <a href="faq.php#faq-section">FAQ</a>
+                <a href="support.php">Customer Support</a>
                 <a href="login.html">Login</a>
                 <a href="signupredir.html">Create Account</a>
             </div>

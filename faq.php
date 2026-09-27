@@ -10,7 +10,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
     <script src="theme.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Voyage - FAQ</title>
     <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico">
@@ -21,12 +20,12 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <div class="faq-page-content">
     <main class="hero-section">
         <div class="hero-copy">
-            <span class="hero-eyebrow">FAQ</span>
-            <h1 class="hero-title">Questions about booking, tickets, and travel with Voyage.</h1>
+            <span class="hero-eyebrow">Frequently Asked Questions</span>
+            <h1 class="hero-title">Everything you need to know to get the most out of Voyage.</h1>
             <p>Find answers for ticket expiry, route planning, and checkout details all in one place.</p>
             <div class="hero-actions">
                 <a class="primary-button" href="booking.php">Book a Ride</a>
-                <a class="secondary-button" href="maps.php">View Route Map</a>
+                <a class="secondary-button" href="support.php">Send a Message</a>
             </div>
         </div>
         <div class="hero-visual">
@@ -37,7 +36,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <section id="faq-section" class="faq-section">
         <div class="section-title">
             <h2>Frequently Asked Questions</h2>
-            <p>Everything you need to know about booking, ticket expiry, and getting the most out of Voyage.</p>
         </div>
         <div class="faq-grid">
             <div class="faq-column">
@@ -104,9 +102,9 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <section class="cta-panel">
         <div>
             <h2 class="gradientbottomtext">Still need help?</h2>
-            <p>Reach out through our support channels or continue booking with confidence after reviewing the FAQs.</p>
+            <p>Reach out through our support channels after reviewing the FAQs.</p>
         </div>
-        <a class="contact-button" href="" target="_blank" rel="noopener noreferrer">
+        <a class="contact-button" href="support.php">
             Contact Us <span aria-hidden="true">&#8594;</span>
         </a>
     </section>
