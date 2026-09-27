@@ -1,11 +1,10 @@
 # MOUSE
-PSC System Management Website
+PSC CS² System Management Website
 
-Canva : https://www.canva.com/design/DAHKBImUd2k/Ey9e3TJin4vHQLLksM0kpA/edit
+Presentation : https://www.canva.com/design/DAHKBImUd2k/Ey9e3TJin4vHQLLksM0kpA/edit
 
 For Admin Account
-
 Email : admin@mouse.com
 Password : admin
 
-QR Code Generator : https://github.com/davidshimjs/qrcodejs
+QR Code Generator Used : https://github.com/davidshimjs/qrcodejs
