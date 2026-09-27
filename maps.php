@@ -84,8 +84,11 @@ $stopPositions = [
         <section class="maps-workspace">
             <div class="map-and-list">
                 <div class="map-column">
-                    <img src="./pics/Groundbreaking-Alignment-map.png" alt="Groundbreaking Alignment" class="maps-image">
-                    <div class="map-overlay" aria-hidden="true"></div>
+                    <div class="map-visual">
+                        <img src="./pics/Groundbreaking-Alignment-map.png" alt="Groundbreaking Alignment" class="maps-image">
+                        <div class="map-overlay" aria-hidden="true"></div>
+                    </div>
+                    <p class="map-source">Source: Gamuda Berhad</p>
                 </div>
                 <div class="list-column list-below">
                     <div class="profile-info">

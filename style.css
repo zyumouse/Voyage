@@ -3168,6 +3168,19 @@ body.dark-mode .signup-card .authField label{
     position: relative;
     align-items: center;
 }
+.map-visual{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.map-source{
+    margin: 8px 0 0;
+    color: #6b6e87;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    text-align: center;
+}
 .list-column{
     width: 100%;
     min-width: 0;

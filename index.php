@@ -61,7 +61,7 @@ $isAdmin = !empty($_SESSION['is_admin']);
             <p>Explore the network map with connected stops, airport transfer points, and clear route paths for every journey.</p>
         </div>
         <div class="feature-card">
-            <h3><img class="feature-icon" src="./pics/Icon/booking.png" alt="">Smart bookings</h3>
+            <h3><img class="feature-icon" src="./pics/Icon/booking.png" alt="">Smart booking</h3>
             <p>Book a ride in seconds, compare schedules, and confirm your trip with a few easy steps.</p>
         </div>
         <div class="feature-card">
