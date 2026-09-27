@@ -1,11 +1,6 @@
 # VOYAGE (MOUSE PSC CS² System Management Website)
+
 Presentation : https://www.canva.com/design/DAHKBImUd2k/Ey9e3TJin4vHQLLksM0kpA/edit
-
-For Admin Access
-
-Email : admin@mouse.com
-
-Password : admin
 
 # CREDITS
 QR Code Generator : <a href="https://github.com/davidshimjs/qrcodejs">qrcodejs by davidshimjs</a>
@@ -14,7 +9,7 @@ LRT Stations Map : <a href="https://gamuda.com/our-expertise/engineering-constru
 
 Voyage Logo & Icon : <a href="https://github.com/pleaseplayetoh">pleaseplayetoh</a>
 
-Icons : 
+Icons (png) : 
 
 <a href="https://www.flaticon.com/free-icons/rise" title="rise icons">Rise icons created by Magnific - Flaticon</a>
 
