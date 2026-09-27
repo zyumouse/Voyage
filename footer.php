@@ -18,6 +18,7 @@
                 <h5>Support</h5>
                 <a href="faq.php#faq-section">FAQ</a>
                 <a href="support.php">Customer Support</a>
+                <a href="credits.php">Credits &amp; Misc.</a>
             </div>
         </div>
         <div class="footer-social">

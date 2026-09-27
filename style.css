@@ -4039,6 +4039,93 @@ html.dark-mode .theme-card, body.dark-mode .theme-card {
     color: #1f2360;
     box-shadow: 0 24px 70px rgba(20,24,65,0.24);
 }
+.credits-page-content{
+    min-height: calc(100vh - 180px);
+    padding: 56px 20px 80px;
+    background: #f4f6ff;
+}
+.credits-card{
+    width: min(820px, 100%);
+    margin: 0 auto;
+    padding: 40px;
+    border: 1px solid rgba(76,61,245,0.14);
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 20px 50px rgba(31,35,96,0.08);
+}
+.credits-card h1{
+    margin: 8px 0 10px;
+    color: #1f2360;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+}
+.credits-card .hero-eyebrow{
+    color: #6d28d9;
+}
+.credits-card .hero-eyebrow::before{
+    background: #8b5cf6;
+}
+.credits-intro{
+    margin: 0;
+    color: #5b5f7d;
+    line-height: 1.6;
+}
+.credits-section{
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(76,61,245,0.14);
+}
+.credits-section h2{
+    margin: 0 0 14px;
+    color: #1f2360;
+    font-size: 1.25rem;
+}
+.credits-section a{
+    color: #6d28d9;
+    font-weight: 700;
+}
+.credits-list{
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding-left: 20px;
+    color: #5b5f7d;
+    line-height: 1.5;
+}
+html.dark-mode .credits-page-content,
+body.dark-mode .credits-page-content{
+    background: #101328;
+}
+html.dark-mode .credits-card,
+body.dark-mode .credits-card{
+    border-color: rgba(255,255,255,0.14);
+    background: #1a1d38;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+html.dark-mode .credits-card h1,
+body.dark-mode .credits-card h1,
+html.dark-mode .credits-section h2,
+body.dark-mode .credits-section h2{
+    color: #f2f4ff;
+}
+html.dark-mode .credits-card .hero-eyebrow,
+body.dark-mode .credits-card .hero-eyebrow{
+    color: #d2bdff;
+}
+html.dark-mode .credits-card .hero-eyebrow::before,
+body.dark-mode .credits-card .hero-eyebrow::before{
+    background: #a580ff;
+}
+html.dark-mode .credits-intro,
+body.dark-mode .credits-intro,
+html.dark-mode .credits-list,
+body.dark-mode .credits-list{
+    color: #c4c8e5;
+}
+html.dark-mode .credits-section,
+body.dark-mode .credits-section{
+    border-color: rgba(255,255,255,0.14);
+}
+
 .site-dialog::backdrop{
     background: rgba(13,16,40,0.62);
     backdrop-filter: blur(3px);
