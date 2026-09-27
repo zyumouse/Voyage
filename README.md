@@ -1,4 +1,4 @@
-# MOUSE, PSC CS² System Management Website
+# VOYAGE (MOUSE PSC CS² System Management Website)
 Presentation : https://www.canva.com/design/DAHKBImUd2k/Ey9e3TJin4vHQLLksM0kpA/edit
 
 For Admin Access
@@ -7,9 +7,9 @@ Email : admin@mouse.com
 Password : admin
 
 # CREDITS
-QR Code Generator : davidshimjs; https://github.com/davidshimjs/qrcodejs
+QR Code Generator : <a href="https://github.com/davidshimjs/qrcodejs">qrcodejs by davidshimjs</a>
 
-LRT Stations Map : Gamuda Berhad ; https://gamuda.com/our-expertise/engineering-construction/penang-mutiara-line-mtl/
+LRT Stations Map : <a href="https://gamuda.com/our-expertise/engineering-construction/penang-mutiara-line-mtl/">Gamuda Berhad</a>
 
 Voyage Logo & Icon : <a href="https://github.com/pleaseplayetoh">pleaseplayetoh</a>
 
