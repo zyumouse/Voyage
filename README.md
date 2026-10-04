@@ -11,7 +11,7 @@ Voyage Logo & Icon : <a href="https://github.com/pleaseplayetoh">pleaseplayetoh<
 
 bannerstuff.png : <a href="https://github.com/pleaseplayetoh">pleaseplayetoh</a>
 
-Icons (png) : 
+Icons : 
 
 <a href="https://www.flaticon.com/free-icons/rise" title="rise icons">Rise icons created by Magnific - Flaticon</a>
 
