@@ -48,12 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="support-page-content">
         <main class="hero-section support-hero">
             <div class="hero-copy">
-                <span class="hero-eyebrow">Customer Support</span>
                 <h1 class="hero-title">Tell us what happened.</h1>
                 <p>Send the Voyage team a message. We are here to keep your trip moving.</p>
                 <div class="hero-actions">
                     <a class="primary-button" href="faq.php">Browse FAQs</a>
-                    <a class="secondary-button" href="booking.php">Book a Ride</a>
+                    <a class="secondary-button" href="booking.php">Buy a Ticket</a>
                 </div>
             </div>
             <div class="hero-visual support-hero-visual">
@@ -66,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p>Share enough detail for us to understand the issue. Please do not include sensitive information.</p>
                 <div class="support-contact-note">
                     <strong>Before you send</strong>
-                    <span>Check the FAQ for instant answers about ticket expiry and booking limits.</span>
+                    <span>Check the FAQ for instant answers about ticket expiry and limits.</span>
                 </div>
                 <div class="support-response-meta" aria-label="Support response information">
                     <div>
@@ -81,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="support-form-card site-form-card">
                 <div class="support-form-heading">
-                    <h3>Send a support request</h3>
+                    <h3>Create A Support Ticket</h3>
                     <p>We will use your email to follow up on this request.</p>
                 </div>
                 <?php if ($formError !== ''): ?>
@@ -104,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label for="support-topic">What can we help with?</label>
                         <select id="support-topic" name="topic" required>
                             <option value="">Select a topic</option>
-                            <option value="booking"<?php echo $formData['topic'] === 'booking' ? ' selected' : ''; ?>>Booking or route</option>
+                            <option value="booking"<?php echo $formData['topic'] === 'booking' ? ' selected' : ''; ?>>Route planning</option>
                             <option value="ticket"<?php echo $formData['topic'] === 'ticket' ? ' selected' : ''; ?>>Ticket or payment</option>
                             <option value="account"<?php echo $formData['topic'] === 'account' ? ' selected' : ''; ?>>Account access</option>
                             <option value="technical"<?php echo $formData['topic'] === 'technical' ? ' selected' : ''; ?>>Technical issue</option>
@@ -114,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label for="support-message">Message</label>
                         <textarea id="support-message" name="message" rows="5" required><?php echo htmlspecialchars($formData['message']); ?></textarea>
                     </div>
-                    <button type="submit">Create Support Ticket</button>
+                    <button type="submit">Create</button>
                 </form>
             </div>
         </section>

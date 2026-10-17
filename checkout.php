@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/schema.php';
+require_once __DIR__ . '/stations.php';
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.html');
     exit;
@@ -63,6 +64,11 @@ if ($trip_id > 0) {
         'ticket_time' => '',
         'estimated_arrival_time' => ''
     ];
+}
+$ticketPriceCents = voyage_ticket_price_cents((string)$trip['origin'], (string)$trip['destination']);
+if ($ticketPriceCents === null) {
+    header('Location: booking.php?error=' . urlencode('Unable to calculate a fare for the selected route. Please choose two different listed stations.'));
+    exit;
 }
 $customer = [
     'username' => '',
@@ -142,9 +148,7 @@ $escape = static function ($value): string {
     <div class="checkout-page-content">
         <main class="checkout-main">
             <header class="checkout-header">
-                <p class="checkout-eyebrow">Ticket checkout</p>
-                <h1>Confirm your trip</h1>
-                <p>Review your journey and enter the information for this ticket.</p>
+                <h1>Conf<span class="confirm-letter-gap">i</span>rm Your Ticket</h1>
             </header>
 
             <div class="checkout-layout">
@@ -172,14 +176,19 @@ $escape = static function ($value): string {
                                 <dd><?php echo $escape(date('H:i', strtotime((string)$trip['estimated_arrival_time']))); ?></dd>
                             </div>
                         <?php endif; ?>
+                        <div>
+                            <dt>Ticket price</dt>
+                            <dd>
+                                RM <?php echo $escape(number_format($ticketPriceCents / 100, 2)); ?>
+                                <small class="checkout-fare-note">RM 0.50 per stop, including both endpoints.</small>
+                            </dd>
+                        </div>
                     </dl>
                     <p class="checkout-validity">Ticket valid for 24 hours from purchase.</p>
                 </section>
 
-                <section class="checkout-form-panel" aria-labelledby="checkout-form-title">
+                <section class="checkout-form-panel">
                     <div class="checkout-form-heading">
-                        <p class="checkout-section-label">Passenger details</p>
-                        <h2 id="checkout-form-title">Complete booking</h2>
                         <p>Enter the related information for this ticket.</p>
                     </div>
                     <form action="data.php" method="POST" class="checkout-form">

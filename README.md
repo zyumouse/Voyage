@@ -7,7 +7,7 @@ QR Code Generator : <a href="https://github.com/davidshimjs/qrcodejs">qrcodejs b
 
 LRT Stations Map : <a href="https://gamuda.com/our-expertise/engineering-construction/penang-mutiara-line-mtl/">Gamuda Berhad</a>
 
-Voyage Logo & Icon : <a href="https://github.com/pleaseplayetoh">pleaseplayetoh</a>
+Voyage Logo & Art : <a href="https://github.com/pleaseplayetoh">pleaseplayetoh</a>
 
 Icons (png) : 
 

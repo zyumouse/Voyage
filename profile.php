@@ -47,13 +47,16 @@ if (!$user) {
             justify-content: center;
             padding: 70px 20px 32px;
         }
+        .profile-title-f {
+            margin-right: 0.5px;
+        }
     </style>
 </head>
 <body>
     <?php include __DIR__ . '/header.php'; ?>
     <div class="auth-page">
             <div class="auth-card profile-card">
-        <h1 class="auth-title">My Profile</h1>
+        <h1 class="auth-title">My Pro<span class="profile-title-f">f</span>ile</h1>
         <div class="profile-info">
                     <div class="profile-row"><span class="profile-row-label">Name:</span><span class="profile-row-value"><?php echo htmlspecialchars($user['username']); ?></span></div>
                     <div class="profile-row"><span class="profile-row-label">Email:</span><span class="profile-row-value"><?php echo htmlspecialchars($user['email']); ?></span></div>

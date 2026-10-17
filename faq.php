@@ -20,11 +20,10 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <div class="faq-page-content">
     <main class="hero-section">
         <div class="hero-copy">
-            <span class="hero-eyebrow">Frequently Asked Questions</span>
             <h1 class="hero-title">Everything you need to know to get the most out of Voyage.</h1>
-            <p>Find answers for ticket expiry, route planning, and checkout details all in one place.</p>
+            <p>Find answers for common questions about our services here.</p>
             <div class="hero-actions">
-                <a class="primary-button" href="booking.php">Book a Ride</a>
+                <a class="primary-button" href="booking.php">Buy a Ticket</a>
                 <a class="secondary-button" href="support.php">Send a Message</a>
             </div>
         </div>
@@ -40,7 +39,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <div class="faq-grid">
             <div class="faq-column">
             <div class="faq-card">
-                <button type="button" class="faq-summary" aria-expanded="false">How do I book a ride?<span class="faq-toggle-icon">+</span></button>
+                <button type="button" class="faq-summary" aria-expanded="false">How do I buy a ticket?<span class="faq-toggle-icon">+</span></button>
                 <div class="faq-body" hidden>
                     <p>Select your departure and destination from the predefined stations, then confirm your trip at checkout.</p>
                 </div>
@@ -48,13 +47,13 @@ $isLoggedIn = isset($_SESSION['user_id']);
             <div class="faq-card">
                 <button type="button" class="faq-summary" aria-expanded="false">When does my ticket expire?<span class="faq-toggle-icon">+</span></button>
                 <div class="faq-body" hidden>
-                    <p>Tickets automatically expire 24 hours after purchase. You do not need to choose an expiry date manually.</p>
+                    <p>Tickets automatically expire 24 hours after purchase. Expired tickets cannot be used and will not be compensated.</p>
                 </div>
             </div>
             <div class="faq-card">
-                <button type="button" class="faq-summary" aria-expanded="false">Where can I see my current bookings?<span class="faq-toggle-icon">+</span></button>
+                <button type="button" class="faq-summary" aria-expanded="false">Where can I see my tickets?<span class="faq-toggle-icon">+</span></button>
                 <div class="faq-body" hidden>
-                    <p>Log in and visit the booking page to review active tickets, the route details, and expiry information.</p>
+                    <p>Log in and visit the tickets page to review active tickets, the route details and expiry information.</p>
                 </div>
             </div>
             <div class="faq-card">
@@ -92,7 +91,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
             <div class="faq-card">
                 <button type="button" class="faq-summary" aria-expanded="false">Is my payment information secure?<span class="faq-toggle-icon">+</span></button>
                 <div class="faq-body" hidden>
-                    <p>Yes. Voyage uses secure checkout practices, and only the required card details are collected to complete your payment.</p>
+                    <p>Yes. Voyage uses secure checkout practices and only the required card details are collected to complete your payment.</p>
                 </div>
             </div>
             </div>
@@ -102,7 +101,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <section class="cta-panel">
         <div>
             <h2 class="gradientbottomtext">Still need help?</h2>
-            <p>Reach out through our support channels after reviewing the FAQs.</p>
+            <p>Reach out through our support channel after reviewing the FAQs.</p>
         </div>
         <a class="contact-button" href="support.php">
             Contact Us <span aria-hidden="true">&#8594;</span>

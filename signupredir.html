@@ -17,26 +17,26 @@
             <div class="signup-intro">
                 <span class="hero-eyebrow">Start your journey</span>
                 <h1>Create your Voyage account.</h1>
-                <p>Register once to book LRT tickets, manage your trips, and move through the city with confidence.</p>
+                <p>Register once to book LRT tickets, manage your trips and move through the city with confidence.</p>
             </div>
             <div class="signup-card site-form-card">
             <h2>Create an account</h2>
             <form id="signupForm" class="auth-form site-form" action="register.php" method="post">
                 <div class="authField">
                     <label for="name">Name</label>
-                    <input id="name" type="text" name="name" maxlength="100" pattern="[\p{L}\p{M}][\p{L}\p{M} .'\-]{0,99}" title="Use letters, spaces, apostrophes, periods, or hyphens." required>
+                    <input id="name" type="text" name="name" autocomplete="name" maxlength="100" pattern="[\p{L}\p{M}][\p{L}\p{M} .'\-]{0,99}" title="Use letters, spaces, apostrophes, periods, or hyphens." required>
                 </div>
                 <div class="authField">
                     <label for="email">Email</label>
-                    <input id="email" type="email" name="email" maxlength="255" data-no-spaces required>
+                    <input id="email" type="email" name="email" autocomplete="email" maxlength="255" data-no-spaces required>
                 </div>
                 <div class="authField">
                     <label for="phone">Phone Number</label>
-                    <input id="phone" type="tel" name="phone" pattern="\+[0-9]{7,15}" maxlength="16" placeholder="+60123456789" title="Start with + followed by 7 to 15 digits. Do not use spaces or punctuation." data-voyage-phone required>
+                    <input id="phone" type="tel" name="phone" autocomplete="tel" pattern="\+[0-9]{7,15}" maxlength="16" placeholder="+60123456789" title="Start with + followed by 7 to 15 digits. Do not use spaces or punctuation." data-voyage-phone required>
                 </div>
                 <div class="authField">
                     <label for="password">Password</label>
-                    <input id="password" type="password" name="password" maxlength="255" pattern="\S+" data-no-spaces required>
+                    <input id="password" type="password" name="password" autocomplete="new-password" maxlength="255" pattern="\S+" data-no-spaces required>
                 </div>
                 <button type="submit">Sign Up</button>
             </form>

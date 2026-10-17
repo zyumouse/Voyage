@@ -1,31 +1,10 @@
 <?php
 session_start();
 require_once __DIR__ . '/schema.php';
+require_once __DIR__ . '/stations.php';
 $username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : null;
 $isLoggedIn = isset($_SESSION['user_id']);
-$stops = [
-    'A01: PSR-A',
-    'S02: Permatang Damar Laut',
-    'S03: Lapangan Terbang Antarabangsa Pulau Pinang',
-    'S04: Sungai Tiram',
-    'S05: FIZ South',
-    'S06: FIZ North',
-    'S07: Jalan Tengah',
-    'S08: SPICE',
-    'S09: Bukit Jambul',
-    'S10: Sungai Nibong',
-    'S11: Sungai Dua',
-    'S12: Batu Uban',
-    'S13: Jalan Universiti',
-    'S14: Gelugor',
-    'S15: Penang Waterfront',
-    'S16: Jelutong East',
-    'S17: Sungai Pinang',
-    'S18: Bandar Sri Pinang',
-    'S19: Macallum',
-    'S20: Komtar',
-    'S31: Penang Sentral'
-];
+$stops = voyage_station_list();
 $today = (new DateTime())->format('Y-m-d');
 $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
 ?>
@@ -37,7 +16,7 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
     <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
     <script src="theme.js" defer></script>
     <link rel="stylesheet" href="style.css">
-    <title>Voyage - Booking</title>
+    <title>Voyage - Tickets</title>
     <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico">
     <style>
         .auth-page.booking-page {
@@ -159,9 +138,8 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
     <div class="booking-page-content">
         <main class="hero-section booking-hero">
             <div class="hero-copy">
-                <span class="hero-eyebrow">Smart Ticketing</span>
                 <h1 class="hero-title">Plan your next journey with Voyage.</h1>
-                <p>Choose your stations, confirm your route, and keep every active ticket in one clear place.</p>
+                <p>Choose your stations, confirm your route and find all your active tickets in one place.</p>
                 <div class="hero-actions">
                     <a class="primary-button" href="maps.php">View Route Map</a>
                     <a class="secondary-button" href="faq.php">Need Help?</a>
@@ -175,12 +153,12 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
     <section class="booking-page booking-workspace<?php echo $isLoggedIn ? ' is-logged-in' : ''; ?>" id="route-booking">
         <div class="booking-workspace-inner">
             <h1 class="auth-title">Your Trips</h1>
-            <p class="auth-subtitle">Review your current bookings and book a custom route with your chosen origin and destination.</p>
+            <p class="auth-subtitle">Review your active tickets and choose a custom route with your chosen origin and destination.</p>
             <div class="bookingContainer">
 
         <?php if (!$isLoggedIn): ?>
             <div class="bookingNotice">
-                <p>Please <a class="gradient-link" href="login.html">log in</a> to create and view bookings.</p>
+                <p>Please <a class="gradient-link" href="login.html">log in</a> to create and view tickets.</p>
             </div>
         <?php else: ?>
             <?php
@@ -225,7 +203,8 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
             <?php if (isset($_GET['success'])): ?>
                 <dialog class="site-dialog" id="checkout-success-dialog" aria-labelledby="checkout-success-title">
                     <h2 id="checkout-success-title">Thank you!</h2>
-                    <p>Your checkout is complete. Bon Voyage!</p>
+                    <p>Your checkout is complete.</p>
+                    <p>Bon Voyage!</p>
                     <button type="button" id="checkout-success-close">Continue</button>
                 </dialog>
                 <script>
@@ -240,7 +219,7 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
             <?php endif; ?>
 
             <div class="route-search">
-                <h2>Book your own route</h2>
+                <h2>Choose Your Own Route</h2>
                 <form class="route-search-form" method="GET" action="checkout.php">
                     <label for="custom_origin">Origin
                         <select id="custom_origin" name="origin" required>
@@ -260,9 +239,9 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
                     </label>
                     <div class="route-notes">
                         <p class="route-note">Ticket expiry date will be created automatically after purchase.</p>
-                        <p class="route-note">Choose a route from our list of predefined stations. Tickets are valid for 24 hours from booking.</p>
+                        <p class="route-note">Choose a route from our list of predefined stations. Tickets are valid for 24 hours from purchase.</p>
                     </div>
-                    <button type="submit">Book custom route</button>
+                    <button type="submit">Purchase Ticket</button>
                 </form>
             </div>
             <div class="bookingLog">
@@ -298,7 +277,7 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
                     <?php endwhile; ?>
                 <?php else: ?>
                     <div class="bookingLogItem empty">
-                        <p>No active tickets yet. Book a custom route now — tickets expire 24 hours after purchase.</p>
+                        <p>No active tickets yet. Choose a custom route now — tickets expire 24 hours after purchase.</p>
                     </div>
                 <?php endif; ?>
             </div>

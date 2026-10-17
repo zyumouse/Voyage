@@ -64,11 +64,10 @@ $stopPositions = [
     <div class="maps-page-content">
         <main class="hero-section maps-hero">
             <div class="hero-copy">
-                <span class="hero-eyebrow">Route Planning</span>
                 <h1 class="hero-title">Explore the Voyage network with confidence.</h1>
-                <p>Discover every stop on the line, check the route map, and choose a station for your next journey.</p>
+                <p>Check out our interactive map to discover every stop on the line and choose the best route for your next journey.</p>
                 <div class="hero-actions">
-                    <a class="primary-button" href="booking.php">Book a Ride</a>
+                    <a class="primary-button" href="booking.php">Buy a Ticket</a>
                     <a class="secondary-button" href="faq.php">Need Help?</a>
                 </div>
             </div>

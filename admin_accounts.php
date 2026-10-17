@@ -52,7 +52,7 @@ $escape = static function ($value): string {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
     <script src="theme.js" defer></script>
-    <title>Admin - Customers</title>
+    <title>Admin - Users</title>
     <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="admin.css">
@@ -62,9 +62,7 @@ $escape = static function ($value): string {
     <main class="ticket-admin-page account-admin-page">
         <header class="ticket-admin-header">
             <div>
-                <p class="ticket-admin-eyebrow">Admin / Access</p>
-                <h1>Site customers</h1>
-                <p class="ticket-admin-intro">Review customer contact details and access roles.</p>
+                <h1>Users</h1>
             </div>
         </header>
 
@@ -76,7 +74,7 @@ $escape = static function ($value): string {
 
         <section class="ticket-summary" aria-label="Customer summary">
             <div class="ticket-summary-item">
-            <span>All customers</span>
+            <span>All</span>
                 <strong><?php echo $accountCount; ?></strong>
             </div>
             <div class="ticket-summary-item">
@@ -92,12 +90,12 @@ $escape = static function ($value): string {
         <section class="ticket-records-panel" aria-label="Site customers">
             <div class="ticket-records-toolbar">
                 <div>
-                    <p id="account-results-count" aria-live="polite">Showing <?php echo $accountCount; ?> of <?php echo $accountCount; ?> customers</p>
+                    <p id="account-results-count" aria-live="polite">Showing <?php echo $accountCount; ?> of <?php echo $accountCount; ?> users</p>
                 </div>
                 <?php if ($databaseError === '' && $accounts): ?>
                     <div class="ticket-records-filters">
                         <label class="ticket-sr-only" for="account-search">Search customers</label>
-                        <input id="account-search" type="search" placeholder="Search @CustomerID, +PhoneNumber or Email">
+                        <input id="account-search" type="search" placeholder="Search @UserID, +PhoneNumber or Email">
                         <label class="ticket-sr-only" for="account-role-filter">Filter by access role</label>
                         <select id="account-role-filter">
                             <option value="all">All</option>
@@ -120,7 +118,7 @@ $escape = static function ($value): string {
                     <table class="ticket-records-table account-records-table">
                         <thead>
                             <tr>
-                                <th scope="col">Customer</th>
+                                <th scope="col">User</th>
                                 <th scope="col">Contact</th>
                                 <th scope="col">Created</th>
                                 <th scope="col">Role</th>
@@ -186,7 +184,7 @@ $escape = static function ($value): string {
                                 </tr>
                             <?php endforeach; ?>
                             <tr id="account-filter-empty" hidden>
-                                <td colspan="5" class="ticket-filter-empty-cell">No customers match these filters.</td>
+                                <td colspan="5" class="ticket-filter-empty-cell">No user match the filter.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -226,7 +224,7 @@ $escape = static function ($value): string {
                 });
 
                 if (emptyRow) emptyRow.hidden = visibleCount !== 0;
-                resultCount.textContent = 'Showing ' + visibleCount + ' of ' + rows.length + ' customers';
+                resultCount.textContent = 'Showing ' + visibleCount + ' of ' + rows.length + ' users';
             }
 
             searchInput.addEventListener('input', filterAccounts);

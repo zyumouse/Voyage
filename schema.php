@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('Asia/Kuala_Lumpur');
+
 function voyage_migrate_legacy_tables(mysqli $conn): void
 {
     $renames = [

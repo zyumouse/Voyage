@@ -65,15 +65,13 @@ $scriptDirectory = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] 
     <main class="ticket-admin-page">
         <header class="ticket-admin-header">
             <div>
-                <p class="ticket-admin-eyebrow">Admin / Operations</p>
                 <h1>Ticket Records</h1>
-                <p class="ticket-admin-intro">Review bookings, journeys, and ticket validity.</p>
             </div>
         </header>
 
         <section class="ticket-summary" aria-label="Ticket summary">
             <div class="ticket-summary-item">
-                <span>All tickets</span>
+                <span>All</span>
                 <strong><?php echo $totalTicketCount; ?></strong>
             </div>
             <div class="ticket-summary-item">
@@ -109,8 +107,7 @@ $scriptDirectory = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] 
                 <div class="ticket-empty-state" role="alert"><?php echo $escape($databaseError); ?></div>
             <?php elseif (!$tickets): ?>
                 <div class="ticket-empty-state">
-                    <strong>No tickets recorded yet</strong>
-                    <span>Completed bookings will appear here.</span>
+                    <strong>No ticket recorded yet.</strong>
                 </div>
             <?php else: ?>
                 <div class="ticket-table-scroll">
