@@ -21,11 +21,11 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <section class="credits-card" aria-labelledby="credits-title">
             <span class="hero-eyebrow">Credits &amp; Misc.</span>
             <h1 id="credits-title">Voyage</h1>
-            <p class="credits-intro">References and acknowledgements for the Voyage transit booking system.</p>
+            <p class="credits-intro">References and sources used for the Voyage transit system.</p>
 
             <div class="credits-section">
                 <h2>Presentation</h2>
-                <a href="https://www.canva.com/design/DAHKBImUd2k/Ey9e3TJin4vHQLLksM0kpA/edit" target="_blank" rel="noopener noreferrer">View</a>
+                <a href="https://www.canva.com/design/DAHYLGS99sA/AxamtZQuyVqDNkv2toq4mQ/edit" target="_blank" rel="noopener noreferrer">View</a>
             </div>
 
             <div class="credits-section">
@@ -33,7 +33,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
                 <ul class="credits-list">
                     <li>QR Code Generator: <a href="https://github.com/davidshimjs/qrcodejs" target="_blank" rel="noopener noreferrer">qrcodejs by davidshimjs</a></li>
                     <li>LRT Stations Map: <a href="https://gamuda.com/our-expertise/engineering-construction/penang-mutiara-line-mtl/" target="_blank" rel="noopener noreferrer">Gamuda Berhad</a></li>
-                    <li>Voyage Logo &amp; Icon: <a href="https://github.com/pleaseplayetoh" target="_blank" rel="noopener noreferrer">pleaseplayetoh</a></li>
+                    <li>Voyage Logo &amp; Art: <a href="https://github.com/pleaseplayetoh" target="_blank" rel="noopener noreferrer">pleaseplayetoh</a></li>
                     <li>Rise icons: <a href="https://www.flaticon.com/free-icons/rise" target="_blank" rel="noopener noreferrer">Magnific - Flaticon</a></li>
                     <li>Payment icons: <a href="https://www.flaticon.com/free-icons/payment" target="_blank" rel="noopener noreferrer">Pixel perfect - Flaticon</a></li>
                     <li>Airport icons: <a href="https://www.flaticon.com/free-icons/airport" target="_blank" rel="noopener noreferrer">Magnific - Flaticon</a></li>

@@ -21,12 +21,11 @@ $isAdmin = !empty($_SESSION['is_admin']);
     <div class="homepage-content">
     <main class="hero-section">
         <div class="hero-copy">
-            <span class="hero-eyebrow">Light Rail Transit</span>
-            <h1 class="hero-title">Voyage makes every LRT journey simple, fast, and dependable.</h1>
-            <p>Find stations, book tickets, and plan your commute with a modern transit experience built for riders who want clarity and control.</p>
+            <h1 class="hero-title">Voyage : Online LRT Ticketing Platform</h1>
+            <p>Find stations, buy tickets and plan your commute with a modern transit experience built for travelers who want clarity and control.</p>
             <div class="hero-actions">
                 <?php if ($isLoggedIn): ?>
-                    <a class="primary-button" href="booking.php">Book a Ride</a>
+                    <a class="primary-button" href="booking.php">Buy a Ticket</a>
                 <?php else: ?>
                     <a class="primary-button" href="signupredir.html">Create Account</a>
                 <?php endif; ?>
@@ -34,15 +33,15 @@ $isAdmin = !empty($_SESSION['is_admin']);
                     <a class="secondary-button" href="maps.php">View Route Map</a>
                     <a class="secondary-button" href="faq.php">Need Help?</a>
                 <?php else: ?>
-                    <a class="secondary-button" href="booking.php">Book a Ride</a>
+                    <a class="secondary-button" href="booking.php">Buy a Ticket</a>
                     <a class="secondary-button" href="maps.php">View Route Map</a>
                 <?php endif; ?>
             </div>
             <div class="stats-grid">
                 <div class="stat-card"><strong>21</strong><span>Stations</span></div>
-                <div class="stat-card"><strong>7</strong><span>Lines</span></div>
-                <div class="stat-card"><strong>99%</strong><span>On-time service</span></div>
-                <div class="stat-card"><strong>Fast</strong><span>Mobile ticketing</span></div>
+                <div class="stat-card"><strong>1</strong><span>Line</span></div>
+                <div class="stat-card"><strong>99%</strong><span>On-time</span></div>
+                <div class="stat-card"><strong>Fast</strong><span>Ticketing</span></div>
             </div>
         </div>
         <div class="hero-visual">
@@ -52,21 +51,21 @@ $isAdmin = !empty($_SESSION['is_admin']);
 
     <section class="section-title">
         <h2>All the tools you need for a smart transit journey</h2>
-        <p>Voyage blends station maps, ticket booking, and schedule tracking into a single experience designed for commuters, visitors, and travellers.</p>
+        <p>Voyage blends station maps, ticket purchasing and schedule tracking into a single experience designed for commuters, visitors and travellers.</p>
     </section>
 
     <section class="feature-grid">
         <div class="feature-card">
             <h3><img class="feature-icon" src="./pics/Icon/track.png" alt="">Route coverage</h3>
-            <p>Explore the network map with connected stops, airport transfer points, and clear route paths for every journey.</p>
+            <p>Explore the network map with connected stops, airport transfer points and clear route paths for every journey.</p>
         </div>
         <div class="feature-card">
             <h3><img class="feature-icon" src="./pics/Icon/booking.png" alt="">Smart booking</h3>
-            <p>Book a ride in seconds, compare schedules, and confirm your trip with a few easy steps.</p>
+            <p>Buy a ticket in seconds and confirm your trip with just a few easy steps.</p>
         </div>
         <div class="feature-card">
             <h3><img class="feature-icon" src="./pics/Icon/support.png" alt="">Reliable support</h3>
-            <p>Stay informed with the latest service updates and trusted support for your daily commute.</p>
+            <p>Our dedicated support team is here to help with any questions or issues you may have.</p>
         </div>
     </section>
 
@@ -74,7 +73,7 @@ $isAdmin = !empty($_SESSION['is_admin']);
         <div class="network-info">
             <div class="network-copy">
                 <h3>Connected service across the city</h3>
-                <p>Voyage keeps the network transparent with route details, station amenities, and transfer connections for every leg of your trip.</p>
+                <p>Voyage keeps the network transparent with route details, station amenities and transfer connections for every one of your trips.</p>
             </div>
             <div class="network-card">
                 <h4><img class="feature-icon" src="./pics/Icon/airport.png" alt="">Airport access</h4>
@@ -99,27 +98,27 @@ $isAdmin = !empty($_SESSION['is_admin']);
             <h2 class="gradientbottomtext">Start your first trip today</h2>
             <p>Enjoy the freedom of a transit plan built for modern passengers — all from the Voyage homepage.</p>
         </div>
-        <a class="primary-button" href="booking.php">Book a Ride</a>
+        <a class="primary-button" href="booking.php">Buy a Ticket</a>
     </section>
 
     <section class="work-grid">
         <div class="work-step">
             <h3><span class="work-step-number">1</span>Pick your station</h3>
-            <p>Check the route map and choose the closest stop with fast access to the city, airport, or transit hub.</p>
+            <p>Check the route map and choose the closest stop with fast access to the city, airport or transit hub.</p>
         </div>
         <div class="work-step">
-            <h3><span class="work-step-number">2</span>Book your ride</h3>
-            <p>Select your departure and destination, choose the best fare, and confirm your trip in a few taps.</p>
+            <h3><span class="work-step-number">2</span>Buy your ticket</h3>
+            <p>Select your departure and destination, choose the best fare and confirm your trip in a few steps.</p>
         </div>
         <div class="work-step">
             <h3><span class="work-step-number">3</span>Travel with confidence</h3>
-            <p>Receive journey details, boarding notifications, and status updates so you always travel with clarity.</p>
+            <p>Receive journey details, boarding notifications and status updates so you always travel with clarity.</p>
         </div>
     </section>
 
     <section class="section-title">
         <h2>Need help?</h2>
-        <p>Visit our dedicated <a class="gradient-link" href="faq.php">FAQ page</a> for answers about ticket expiry, checkout, and route planning.</p>
+        <p>Visit our dedicated <a class="gradient-link" href="faq.php">FAQ page</a> for answers about ticket expiry, checkout and route planning.</p>
     </section>
 
     </div>

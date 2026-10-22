@@ -6,7 +6,7 @@
   <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
   <script src="theme.js" defer></script>
   <script src="form-validation.js" defer></script>
-  <title>Login</title>
+  <title>Voyage - Log In</title>
   <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -34,7 +34,7 @@
       <div class="login-intro">
         <span class="hero-eyebrow">Welcome back</span>
         <h1>Continue your journey with Voyage.</h1>
-        <p>Log in to manage your active tickets, plan custom routes, and keep your trips in one place.</p>
+        <p>Log in to manage your active tickets, plan custom routes and keep your trips in one place.</p>
         <div class="admin-notice">
           <strong>Admin Account</strong>
           Email: admin@mouse.com<br>
@@ -47,12 +47,12 @@
         <form id="loginForm" class="auth-form site-form" action="login.php" method="post">
           <div class="authField">
             <label for="email">Email</label>
-            <input id="email" type="email" name="email" maxlength="255" data-no-spaces required>
+            <input id="email" type="email" name="email" autocomplete="username" maxlength="255" data-no-spaces required>
           </div>
 
           <div class="authField">
             <label for="password">Password</label>
-            <input id="password" type="password" name="password" maxlength="255" pattern="\S+" data-no-spaces required>
+            <input id="password" type="password" name="password" autocomplete="current-password" maxlength="255" pattern="\S+" data-no-spaces required>
           </div>
 
           <button type="submit">Login</button>

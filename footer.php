@@ -5,13 +5,13 @@
                 <img src="./pics/Icon/voyage1.png" alt="Voyage logo">
                 <span>Voyage</span>
             </a>
-            <p>Simple, dependable LRT booking for every journey.</p>
+            <p>Simple, dependable LRT travel for every journey.</p>
         </div>
         <div class="footer-links">
             <div class="footer-column">
                 <h5>Explore</h5>
                 <a href="index.php">Home</a>
-                <a href="booking.php">Booking</a>
+                <a href="booking.php">Tickets</a>
                 <a href="maps.php">Route Map</a>
             </div>
             <div class="footer-column">

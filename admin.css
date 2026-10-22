@@ -235,14 +235,6 @@ body.dark-mode .ticket-admin-page {
     border-bottom: 1px solid var(--ticket-line);
 }
 
-.ticket-admin-eyebrow {
-    margin-bottom: 8px;
-    color: #8b5cf6;
-    font-size: 0.78rem;
-    font-weight: 800;
-    text-transform: uppercase;
-}
-
 .ticket-admin-header h1 {
     margin: 0;
     color: var(--ticket-ink);
@@ -711,7 +703,7 @@ body.dark-mode .ticket-delete-link:focus-visible {
 .ticket-empty-state {
     display: grid;
     gap: 6px;
-    padding: 42px 20px;
+    padding: 32px 20px;
     color: var(--ticket-muted);
     text-align: center;
 }

@@ -21,15 +21,15 @@ $isAdmin = !empty($_SESSION['is_admin']);
 
         <nav class="siteHeader-nav" aria-label="Main navigation">
             <a href="index.php">Home</a>
-            <a href="booking.php">Booking</a>
-            <a href="maps.php">Map</a>
+            <a href="booking.php">Tickets</a>
+            <a href="maps.php">Maps</a>
             <a href="faq.php">FAQ</a>
             <a href="support.php">Support</a>
         </nav>
 
         <div class="siteHeader-actions">
             <?php if (!$isLoggedIn): ?>
-                <a class="headerLoginLink" href="login.html">Log in</a>
+                <a class="headerLoginLink" href="login.html">Log In</a>
             <?php endif; ?>
             <?php if (!$isLoggedIn): ?>
                 <a class="headerBookButton" href="signupredir.html">Sign Up</a>
@@ -41,11 +41,11 @@ $isAdmin = !empty($_SESSION['is_admin']);
                         <?php echo htmlspecialchars($profileButtonName, ENT_QUOTES, 'UTF-8'); ?>
                     </button>
                     <div class="profile-dropdown">
-                        <a href="profile.php">Profile</a>
+                        <a href="profile.php">Pro<span class="profile-dropdown-f">f</span>ile</a>
                         <a href="settings.php">Settings</a>
                         <?php if ($isAdmin): ?>
-                            <a href="admin_accounts.php">Customers</a>
-                            <a href="admin_customers.php">Ticket Management</a>
+                            <a href="admin_accounts.php">Users</a>
+                            <a href="admin_customers.php">Ticket Records</a>
                         <?php endif; ?>
                         <a href="logout.php">Log Out</a>
                     </div>

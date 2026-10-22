@@ -22,6 +22,9 @@ $username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username'
             justify-content: center;
             padding: 70px 20px 32px;
         }
+        .auth-card .theme-card {
+            margin-top: 12px;
+        }
     </style>
     <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
     <script src="theme.js" defer></script>
@@ -31,7 +34,6 @@ $username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username'
     <div class="auth-page">
         <div class="auth-card">
             <h1 class="auth-title">Settings</h1>
-            <p class="auth-subtitle">Choose your preferred display mode for Voyage.</p>
             <div class="theme-card">
                 <p>Current theme: <strong id="themeStatus">Loading...</strong></p>
                 <button id="themeToggle" type="button" class="theme-button">Switch theme</button>
