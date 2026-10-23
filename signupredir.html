@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
+    <script src="theme.js" defer></script>
+    <script src="form-validation.js" defer></script>
+    <title>Voyage - Sign Up</title>
+    <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="shared-header"></div>
+    <main class="signup-page-content">
+        <section class="signup-layout">
+            <div class="signup-intro">
+                <span class="hero-eyebrow">Start your journey</span>
+                <h1>Create your Voyage account.</h1>
+                <p>Register once to book LRT tickets, manage your trips and move through the city with confidence.</p>
+            </div>
+            <div class="signup-card site-form-card">
+            <h2>Create an account</h2>
+            <form id="signupForm" class="auth-form site-form" action="register.php" method="post">
+                <div class="authField">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" name="name" autocomplete="name" maxlength="100" pattern="[\p{L}\p{M}][\p{L}\p{M} .'\-]{0,99}" title="Use letters, spaces, apostrophes, periods, or hyphens." required>
+                </div>
+                <div class="authField">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email" autocomplete="email" maxlength="255" data-no-spaces required>
+                </div>
+                <div class="authField">
+                    <label for="phone">Phone Number</label>
+                    <input id="phone" type="tel" name="phone" autocomplete="tel" pattern="\+[0-9]{7,15}" maxlength="16" placeholder="+60123456789" title="Start with + followed by 7 to 15 digits. Do not use spaces or punctuation." data-voyage-phone required>
+                </div>
+                <div class="authField">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="password" autocomplete="new-password" maxlength="255" pattern="\S+" data-no-spaces required>
+                </div>
+                <button type="submit">Sign Up</button>
+            </form>
+            <p class="auth-footer">Already have an account? <a href="login.html">Log in here</a>.</p>
+            </div>
+        </section>
+    </main>
+
+    <dialog id="popupOverlay" class="site-dialog" aria-labelledby="popupTitle">
+        <h2 id="popupTitle"></h2>
+        <p id="popupMessage"></p>
+        <button id="popupAction" type="button">Continue</button>
+        <button id="popupClose" type="button">Close</button>
+    </dialog>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('signupForm');
+            const overlay = document.getElementById('popupOverlay');
+            const popupTitle = document.getElementById('popupTitle');
+            const popupMessage = document.getElementById('popupMessage');
+            const popupAction = document.getElementById('popupAction');
+            const popupClose = document.getElementById('popupClose');
+
+            function showPopup(title, message, actionText, actionUrl) {
+                popupTitle.textContent = title;
+                popupMessage.textContent = message;
+                popupClose.style.display = actionText ? 'none' : 'inline-block';
+                if (actionText) {
+                    popupAction.textContent = actionText;
+                    popupAction.style.display = 'inline-block';
+                    popupAction.onclick = function () {
+                        if (actionUrl) {
+                            window.location.href = actionUrl;
+                        } else {
+                            closePopup();
+                        }
+                    };
+                } else {
+                    popupAction.style.display = 'none';
+                }
+                if (!overlay.open) {
+                    overlay.showModal();
+                }
+            }
+
+            function closePopup() {
+                if (overlay.open) {
+                    overlay.close();
+                }
+            }
+
+            popupClose.addEventListener('click', closePopup);
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                const formData = new FormData(form);
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(async response => {
+                    const responseText = await response.text();
+                    let data;
+                    try {
+                        data = JSON.parse(responseText);
+                    } catch (error) {
+                        throw new Error(`The registration server returned an unreadable response (HTTP ${response.status}).`);
+                    }
+                    return { response, data };
+                })
+                .then(({ response, data }) => {
+                    if (data.success) {
+                        showPopup('Success!', data.message || 'Account created successfully.', 'Go to Login', 'login.html');
+                        form.reset();
+                    } else {
+                        showPopup('Error', data.message || `Registration failed (HTTP ${response.status}).`);
+                    }
+                })
+                .catch(error => {
+                    const message = error instanceof TypeError
+                        ? 'Could not connect to the registration server. Check your connection and try again.'
+                        : error.message;
+                    showPopup('Error', message || 'Registration failed for an unknown reason.');
+                });
+            });
+        });
+    </script>
+    <div id="shared-footer"></div>
+    <script src="header-loader.js" defer></script>
+    <script src="footer-loader.js" defer></script>
+</body>
+</html>

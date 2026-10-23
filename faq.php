@@ -1,0 +1,138 @@
+<?php
+session_start();
+$username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : null;
+$isLoggedIn = isset($_SESSION['user_id']);
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
+    <script src="theme.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Voyage - FAQ</title>
+    <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico">
+</head>
+<body>
+    <?php include __DIR__ . '/header.php'; ?>
+
+    <div class="faq-page-content">
+    <main class="hero-section">
+        <div class="hero-copy">
+            <h1 class="hero-title">Everything you need to know to get the most out of Voyage.</h1>
+            <p>Find answers for common questions about our services here.</p>
+            <div class="hero-actions">
+                <a class="primary-button" href="booking.php">Buy a Ticket</a>
+                <a class="secondary-button" href="support.php">Send a Message</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <img src="./pics/bannerstuff.png" alt="Voyage FAQ hero image">
+        </div>
+    </main>
+
+    <section id="faq-section" class="faq-section">
+        <div class="section-title">
+            <h2>Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-grid">
+            <div class="faq-column">
+            <div class="faq-card">
+                <button type="button" class="faq-summary" aria-expanded="false">How do I buy a ticket?<span class="faq-toggle-icon">+</span></button>
+                <div class="faq-body" hidden>
+                    <p>Select your departure and destination from the predefined stations, then confirm your trip at checkout.</p>
+                </div>
+            </div>
+            <div class="faq-card">
+                <button type="button" class="faq-summary" aria-expanded="false">When does my ticket expire?<span class="faq-toggle-icon">+</span></button>
+                <div class="faq-body" hidden>
+                    <p>Tickets automatically expire 24 hours after purchase. Expired tickets cannot be used and will not be compensated.</p>
+                </div>
+            </div>
+            <div class="faq-card">
+                <button type="button" class="faq-summary" aria-expanded="false">Where can I see my tickets?<span class="faq-toggle-icon">+</span></button>
+                <div class="faq-body" hidden>
+                    <p>Log in and visit the tickets page to review active tickets, the route details and expiry information.</p>
+                </div>
+            </div>
+            <div class="faq-card">
+                <button type="button" class="faq-summary" aria-expanded="false">Can I ask for refunds?<span class="faq-toggle-icon">+</span></button>
+                <div class="faq-body" hidden>
+                    <p>No. Non-negotiable.</p>
+                </div>
+            </div>
+            <div class="faq-card">
+                <button type="button" class="faq-summary" aria-expanded="false">Who is the rat in that one image?<span class="faq-toggle-icon">+</span></button>
+                <div class="faq-body" hidden>
+                    <p>His name is LeRarTee.</p>
+                </div>
+            </div>
+            </div>
+            <div class="faq-column">
+            <div class="faq-card">
+                <button type="button" class="faq-summary" aria-expanded="false">How many tickets can I book at once?<span class="faq-toggle-icon">+</span></button>
+                <div class="faq-body" hidden>
+                    <p>Unlimited.</p>
+                </div>
+            </div>
+            <div class="faq-card">
+                <button type="button" class="faq-summary" aria-expanded="false">Why is the website not working?<span class="faq-toggle-icon">+</span></button>
+                <div class="faq-body" hidden>
+                    <p>Try refreshing.</p>
+                </div>
+            </div>
+            <div class="faq-card">
+                <button type="button" class="faq-summary" aria-expanded="false">Will there be any further updates to this website?<span class="faq-toggle-icon">+</span></button>
+                <div class="faq-body" hidden>
+                    <p>More will be coming soon...</p>
+                </div>
+            </div>
+            <div class="faq-card">
+                <button type="button" class="faq-summary" aria-expanded="false">Is my payment information secure?<span class="faq-toggle-icon">+</span></button>
+                <div class="faq-body" hidden>
+                    <p>Yes. Voyage uses secure checkout practices and only the required card details are collected to complete your payment.</p>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-panel">
+        <div>
+            <h2 class="gradientbottomtext">Still need help?</h2>
+            <p>Reach out through our support channel after reviewing the FAQs.</p>
+        </div>
+        <a class="contact-button" href="support.php">
+            Contact Us <span aria-hidden="true">&#8594;</span>
+        </a>
+    </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const faqCards = document.querySelectorAll('.faq-card');
+            faqCards.forEach(card => {
+                const button = card.querySelector('.faq-summary');
+                const body = card.querySelector('.faq-body');
+                button.addEventListener('click', function () {
+                    const expanded = button.getAttribute('aria-expanded') === 'true';
+                    faqCards.forEach(other => {
+                        const otherButton = other.querySelector('.faq-summary');
+                        const otherBody = other.querySelector('.faq-body');
+                        otherButton.setAttribute('aria-expanded', 'false');
+                        otherBody.hidden = true;
+                        other.classList.remove('open');
+                    });
+                    if (!expanded) {
+                        button.setAttribute('aria-expanded', 'true');
+                        body.hidden = false;
+                        card.classList.add('open');
+                    }
+                });
+            });
+        });
+    </script>
+    <?php include __DIR__ . '/footer.php'; ?>
+</body>
+</html>

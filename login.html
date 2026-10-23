@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function(){
+      try{
+        var t=localStorage.getItem("voyage-theme")||"dark"; 
+        document.documentElement.classList.add(t+"-mode"); //adds dark mode
+        if(document.body)document.body.classList.add(t+"-mode");
+        else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")}); //entire if else statement ensures body elements exist first
+      }catch(e){}
+    })();
+  </script>
+  <script src="theme.js" defer></script>  //code import
+  <script src="form-validation.js" defer></script> //code import 2 electric boogaloo
+  <title>Voyage - Log In</title>
+  <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico"> //icon at the top of the page
+  <link rel="stylesheet" href="style.css"> //stylesheet import
+  <style>
+    .admin-notice {
+      margin: 20px 0 24px;
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(48, 57, 255, 0.08);
+      border: 1px solid rgba(48, 57, 255, 0.16);
+      color: #1b1f52;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .admin-notice strong {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div id="shared-header"></div>
+  <main class="login-page-content">
+    <section class="login-layout">
+      <div class="login-intro">
+        <span class="hero-eyebrow">Welcome back</span>
+        <h1>Continue your journey with Voyage.</h1>
+        <p>Log in to manage your active tickets, plan custom routes and keep your trips in one place.</p>
+        <div class="admin-notice">
+          <strong>Admin Account</strong>
+          Email: admin@mouse.com<br>
+          Password: admin
+        </div>
+      </div>
+      <div class="login-card site-form-card">
+        <h2>Log in to your account</h2>
+        <p class="login-card-subtitle">Enter your email and password to continue.</p>
+        <form id="loginForm" class="auth-form site-form" action="login.php" method="post">
+          <div class="authField">
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" autocomplete="username" maxlength="255" data-no-spaces required>
+          </div>
+
+          <div class="authField">
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" autocomplete="current-password" maxlength="255" pattern="\S+" data-no-spaces required>
+          </div>
+
+          <button type="submit">Login</button>
+        </form>
+        <p class="auth-footer">Don&rsquo;t have an account? <a href="signupredir.html">Sign up</a>.</p> //clicking this sends you to hell where you need to send all your personal info to us
+      </div>
+    </section>
+  </main>
+  <dialog class="site-dialog" id="login-error-dialog" aria-labelledby="login-error-title">
+    <h2 id="login-error-title">Log in failed</h2>
+    <p id="login-error-message">Invalid email or password.</p>
+    <button type="button" id="login-error-close">Close</button>
+  </dialog>
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const loginErrorDialog = document.getElementById('login-error-dialog');
+    const loginErrorMessage = document.getElementById('login-error-message');
+
+    loginForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!loginForm.checkValidity()) {
+        loginForm.reportValidity();
+        return;
+      }
+
+      try {
+        const response = await fetch(loginForm.action, {
+          method: 'POST',
+          body: new FormData(loginForm),
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        });
+        const result = await response.json();
+        if (result.success) {
+          window.location.assign(result.redirect || 'index.php');
+          return;
+        }
+        loginErrorMessage.textContent = result.message || 'Invalid email or password.';
+      } catch (error) {
+        loginErrorMessage.textContent = 'Unable to log in right now. Please try again.';
+      }
+      loginErrorDialog.showModal();
+    });
+
+    document.getElementById('login-error-close').addEventListener('click', () => loginErrorDialog.close());
+  </script>
+  <div id="shared-footer"></div>
+  <script src="header-loader.js" defer></script>
+  <script src="footer-loader.js" defer></script>
+</body>
+</html>
