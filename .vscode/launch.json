@@ -7,6 +7,12 @@
         {
             "type": "chrome",
             "request": "launch",
+            "name": "Open index.php",
+            "file": "c:\\xampp\\htdocs\\Voyage-testfinal\\index.php"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
             "name": "Open login.html",
             "file": "c:\\xampp\\htdocs\\Voyage-testfinal\\login.html"
         }

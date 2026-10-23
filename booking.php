@@ -13,11 +13,19 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
+    <script>(function(){
+        try
+        {var t=localStorage.getItem("voyage-theme")||"dark";
+        document.documentElement.classList.add(t+"-mode");
+        if(document.body)document.body.classList.add(t+"-mode");
+        else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")}); //once again refer to login.html    
+        }catch(e){}
+        })();
+    </script>
     <script src="theme.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <title>Voyage - Tickets</title>
-    <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico">
+    <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico"> <!--refer everything from <head> until this line to login.html actually-->
     <style>
         .auth-page.booking-page {
             min-height: calc(100vh - 84px);

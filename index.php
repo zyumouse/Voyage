@@ -9,14 +9,22 @@ $isAdmin = !empty($_SESSION['is_admin']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>(function(){try{var t=localStorage.getItem("voyage-theme")||"dark";document.documentElement.classList.add(t+"-mode");if(document.body)document.body.classList.add(t+"-mode");else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")});}catch(e){}})();</script>
-    <script src="theme.js" defer></script>
-    <link rel="stylesheet" href="style.css">
+    <script>(function(){
+        try{
+            var t=localStorage.getItem("voyage-theme")||"dark";
+            document.documentElement.classList.add(t+"-mode");
+            if(document.body)document.body.classList.add(t+"-mode");
+            else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")}); //please refer to login.html for whatever the hell this entire script does thanks
+        }catch(e){}
+    })();
+    </script>
+    <script src="theme.js" defer></script> <!--theme code import-->
+    <link rel="stylesheet" href="style.css"> <!--stylesheet import-->
     <title>Voyage - Home</title>
-    <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico">
+    <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico"> <!--icon on the top blah blah blah-->
 </head>
 <body>
-    <?php include __DIR__ . '/header.php'; ?>
+    <?php include __DIR__ . '/header.php'; ?> <!--imports the header code, code redundacy begone-->
 
     <div class="homepage-content">
     <main class="hero-section">
@@ -118,11 +126,11 @@ $isAdmin = !empty($_SESSION['is_admin']);
 
     <section class="section-title">
         <h2>Need help?</h2>
-        <p>Visit our dedicated <a class="gradient-link" href="faq.php">FAQ page</a> for answers about ticket expiry, checkout and route planning.</p>
+        <p>Visit our dedicated <a class="gradient-link" href="faq.php">FAQ page</a> for answers about ticket expiry, checkout and route planning.</p> <!--Do I need to explain this? Please tell me you know what this does-->
     </section>
 
     </div>
 
-    <?php include __DIR__ . '/footer.php'; ?>
+    <?php include __DIR__ . '/footer.php'; ?> <!-- give me foot :drooling_face: -->
 </body>
 </html>
