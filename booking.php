@@ -146,7 +146,7 @@ $maxDate = (new DateTime('+7 days'))->format('Y-m-d');
                 </div>
             </div>
             <div class="hero-visual">
-                <img src="./pics/bannerstuff.png" alt="Voyage booking experience">
+                <img src="./pics/bannerstuff2.png" alt="Voyage booking experience">
             </div>
         </main>
 
