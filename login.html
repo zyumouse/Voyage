@@ -14,7 +14,7 @@
     })();
   </script>
   <script src="theme.js" defer></script>  <!--code import-->
-  <script src="form-validation.js" defer></script> <!--code import 2 electric boogaloo-->
+  <script src="form-validation.js" defer></script>
   <title>Voyage - Log In</title>
   <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico"> <!--icon at the top of the page-->
   <link rel="stylesheet" href="style.css"> <!--stylesheet import-->
@@ -66,7 +66,7 @@
 
           <button type="submit">Login</button>
         </form>
-        <p class="auth-footer">Don&rsquo;t have an account? <a href="signupredir.html">Sign up</a>.</p> <!--clicking this sends you to hell where you need to send all your personal info to us-->
+        <p class="auth-footer">Don&rsquo;t have an account? <a href="signupredir.html">Sign up</a>.</p> <!--clicking this sends you to where you need to give all your personal info-->
       </div>
     </section>
   </main>
@@ -83,7 +83,7 @@
     loginForm.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (!loginForm.checkValidity()) {
-        loginForm.reportValidity(); //are you seriously that blind that we have to show you that you missed a box
+        loginForm.reportValidity(); //missed a box
         return; 
       }
 
@@ -98,9 +98,9 @@
           window.location.assign(result.redirect || 'index.php'); //You succeeded in logging in and now you are sent to index.php
           return;
         }
-        loginErrorMessage.textContent = result.message || 'Invalid email or password.'; //lil baby with dementia smh
+        loginErrorMessage.textContent = result.message || 'Invalid email or password.';
       } catch (error) {
-        loginErrorMessage.textContent = 'Unable to log in right now. Please try again.'; //displays this message if it's not your skill issue
+        loginErrorMessage.textContent = 'Unable to log in right now. Please try again.';
       }
       loginErrorDialog.showModal();
     });
@@ -108,7 +108,7 @@
     document.getElementById('login-error-close').addEventListener('click', () => loginErrorDialog.close()); //Button closes when you click it.
   </script>
   <div id="shared-footer"></div>
-  <script src="header-loader.js" defer></script> <!--code import 3 make me more tea-->
-  <script src="footer-loader.js" defer></script> <!--code import 4 you're a bore-->
+  <script src="header-loader.js" defer></script>
+  <script src="footer-loader.js" defer></script>
 </body>
 </html>

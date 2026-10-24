@@ -14,14 +14,14 @@ $isAdmin = !empty($_SESSION['is_admin']);
             var t=localStorage.getItem("voyage-theme")||"dark";
             document.documentElement.classList.add(t+"-mode");
             if(document.body)document.body.classList.add(t+"-mode");
-            else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")}); //please refer to login.html for whatever the hell this entire script does thanks
+            else document.addEventListener("DOMContentLoaded",function(){document.body.classList.add(t+"-mode")}); //please refer to login.html thanks
         }catch(e){}
     })();
     </script>
     <script src="theme.js" defer></script> <!--theme code import-->
     <link rel="stylesheet" href="style.css"> <!--stylesheet import-->
     <title>Voyage - Home</title>
-    <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico"> <!--icon on the top blah blah blah-->
+    <link rel="icon" type="image/x-icon" href="./pics/Icon/voyage1.ico"> <!--icon on the top-->
 </head>
 <body>
     <?php include __DIR__ . '/header.php'; ?> <!--imports the header code, code redundacy begone-->
@@ -126,11 +126,11 @@ $isAdmin = !empty($_SESSION['is_admin']);
 
     <section class="section-title">
         <h2>Need help?</h2>
-        <p>Visit our dedicated <a class="gradient-link" href="faq.php">FAQ page</a> for answers about ticket expiry, checkout and route planning.</p> <!--Do I need to explain this? Please tell me you know what this does-->
+        <p>Visit our dedicated <a class="gradient-link" href="faq.php">FAQ page</a> for answers about ticket expiry, checkout and route planning.</p>
     </section>
 
     </div>
 
-    <?php include __DIR__ . '/footer.php'; ?> <!-- give me foot :drooling_face: -->
+    <?php include __DIR__ . '/footer.php'; ?>
 </body>
 </html>
